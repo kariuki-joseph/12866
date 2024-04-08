@@ -1,3 +1,40 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+    table {
+        @apply w-full
+    }
+
+    thead {
+        @apply bg-[#EFEFEF] font-bold capitalize p-2 text-center border-[#EBECF0] border-b
+    }
+
+
+    th {
+        @apply px-4 py-3 border-0 m-0 font-extrabold text-left min-w-[100px] text-sm
+    }
+
+    td {
+        @apply px-4 py-3 m-0   text-left min-w-[100px] text-sm
+    }
+
+    tr {
+        @apply border-[#EBECF0] border-b
+    }
+
+    tbody tr {
+        @apply hover:bg-blue-100
+    }
+
+    tbody :last-child {
+        @apply border-none
+    }
+}
+
+@layer utilities {
+    .table-container {
+        @apply rounded-lg overflow-clip border-[#EBECF0] border
+    }
+}

@@ -1,4 +1,7 @@
 import paperPlaneTilt from "/icons/paper-plane-tilt.svg";
+import addWhite from "/icons/add_white.svg";
+import filterList from "/icons/filter_list.svg";
+import expandMore from "/icons/expand_more.svg";
 
 function SummarySection() {
   const data = [
@@ -9,15 +12,19 @@ function SummarySection() {
   ];
 
   return (
-    <section className="flex flex-row items-center w-full justify-evenly gap-3">
+    <section className="flex flex-row items-center w-full justify-evenly gap-4">
       {data.map((d, index) => (
-        <div key={index} className="flex flex-row items-center">
-          <div className="w-1/3 bg-gray-200 p-3 rounded-3xl">
-            <img src={d.src} alt={"paper-plane-tilt"} />
+        <div
+          key={index}
+          className="flex flex-row items-center bg-white border border-gray-200 rounded-lg px-4 py-4 gap-4 w-1/4"
+        >
+          <div className={"bg-purple-50 p-2 rounded-3xl m-3"}>
+            <img src={d.src} alt={"logo"} className={"w-8 h-8"} />
           </div>
-          <div className="w-2/3 flex flex-col">
-            <p className={"text-lg bold"}>{d.heading}</p>
-            <p className={"text-sm text-nowrap"}>{d.text}</p>
+
+          <div className="w-2/3 flex flex-col gap-1">
+            <p className={"text-2xl font-bold"}>{d.heading}</p>
+            <p className={"text-sm text-gray-500"}>{d.text}</p>
           </div>
         </div>
       ))}
@@ -70,39 +77,48 @@ function SchoolsTableSection() {
   ];
   return (
     <section>
-      <div className={"flex flex-row"}>
-        <button>Filter</button>
-        <button>Search</button>
+      <div className={"flex flex-row items-center py-3 gap-4"}>
+        <button className="flex flex-row text-sm items-center gap-3 p-3 border border-gray-200 rounded-[32px]">
+          <img src={filterList} alt={"filter"} />
+          <p>Filter by</p>
+          <img src={expandMore} alt={"expand more"} />
+        </button>
+        <button className="flex flex-row text-sm items-center gap-3 p-3 border border-gray-200 rounded-[32px] w-[300px]">
+          <img src={filterList} alt={"filter"} />
+          <p>Search</p>
+        </button>
       </div>
 
-      <table>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Institutional Level</th>
-            <th>Total Job Posts</th>
-            <th>Locations</th>
-            <th>Phone number</th>
-            <th>Joined On</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {schools.map((school, index) => {
-            return (
-              <tr key={index}>
-                <td>{school.name}</td>
-                <td>{school.institutionalLevel}</td>
-                <td>{school.totalJobPosts}</td>
-                <td>{school.location}</td>
-                <td>{school.phoneNumber}</td>
-                <td>{school.joinedOn}</td>
-                <td>:</td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
+      <div className={"table-container"}>
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Institutional Level</th>
+              <th>Total Job Posts</th>
+              <th>Locations</th>
+              <th>Phone number</th>
+              <th>Joined On</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {schools.map((school, index) => {
+              return (
+                <tr className={"hover:cursor-pointer"}>
+                  <td>{school.name}</td>
+                  <td>{school.institutionalLevel}</td>
+                  <td>{school.totalJobPosts}</td>
+                  <td>{school.location}</td>
+                  <td>{school.phoneNumber}</td>
+                  <td>{school.joinedOn}</td>
+                  <td>:</td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
 
       <div className={"flex flex-row justify-end items-center"}>
         <button>{"<"}</button>
@@ -118,18 +134,22 @@ function SchoolsTableSection() {
 function SchoolSection() {
   return (
     <section>
-      <div className={"flex flex-row justify-between p-3 my-3"}>
+      <div className={"flex flex-row justify-between py-3 my-3"}>
         <div>
-          <h1>Schools on Platform</h1>
-          <p>
+          <h1 className={"font-bold text-lg"}>Schools on Platform</h1>
+          <p className={"text-sm text-gray-500"}>
             Explore and manage the profiles of schools which have signed up onto
             the platform
           </p>
         </div>
 
-        <button className={"flex flex-row items-center"}>
-          <img src={paperPlaneTilt} />
-          <p>Register School</p>
+        <button
+          className={
+            "flex flex-row items-center bg-secondary text-white px-7 py-4 rounded-[32px] gap-2"
+          }
+        >
+          <img src={addWhite} alt={"add"} />
+          <p className={"font-bold"}>Register School</p>
         </button>
       </div>
 

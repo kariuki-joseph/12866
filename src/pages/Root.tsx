@@ -16,7 +16,7 @@ export default function Root() {
         <div className={"flex flex-row items-center gap-4"}>
           <div
             className={
-              "w-[300px] flex flex-row items-center justify-center gap-4"
+              "w-[240px] flex flex-row items-center justify-center gap-4"
             }
           >
             <div className={"flex flex-row items-center"}>
@@ -56,9 +56,9 @@ export default function Root() {
         </div>
       </nav>
 
-      <div className="flex flex-row">
-        <aside className="w-[300px] border-r border-gray-200">
-          <menu className="flex flex-col gap-4 text-gray-500 px-3 pt-3 *:w-full text-sm">
+      <div className="flex flex-row h-[calc(100vh-70px)]">
+        <aside className=" border-r border-gray-200">
+          <menu className="w-[240px] flex flex-col gap-1 text-gray-500 px-3 pt-3 *:w-full text-sm">
             <NavLink to="/">
               {({ isActive }) => (
                 <div
@@ -173,7 +173,8 @@ export default function Root() {
             </NavLink>
           </menu>
         </aside>
-        <main className="w-full">
+
+        <main className="bg-[#FDFDFD] container p-4">
           <Outlet />
         </main>
       </div>
