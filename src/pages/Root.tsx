@@ -1,5 +1,7 @@
-import { Outlet } from "react-router-dom";
+import { NavLink, Outlet } from "react-router-dom";
 import paperPlaneTilt from "/icons/paper-plane-tilt.svg";
+import paperPlaneTiltPlain from "/icons/paper-plane-tilt-plain.svg";
+import paperPlaneTiltSecondary from "/icons/paper-plane-tilt-secondary.svg";
 import expandMore from "/icons/expand_more.svg";
 import notifications from "/icons/notifications.svg";
 
@@ -29,7 +31,7 @@ export default function Root() {
               "flex flex-col items-center justify-evenly text-left text-sm"
             }
           >
-            <p className={"text-slate-500 w-full"}>Hello</p>
+            <p className={"text-gray-500 w-full"}>Hello</p>
             <p>Welcome back</p>
           </div>
         </div>
@@ -53,13 +55,122 @@ export default function Root() {
           </div>
         </div>
       </nav>
+
       <div className="flex flex-row">
-        <aside className="w-[300px]">
-          <menu>
-            <li>Schools</li>
-            <li>Teachers</li>
-            <li>Manage Posts</li>
-            <li>Finances</li>
+        <aside className="w-[300px] border-r border-gray-200">
+          <menu className="flex flex-col gap-4 text-gray-500 px-3 pt-3 *:w-full text-sm">
+            <NavLink to="/">
+              {({ isActive }) => (
+                <div
+                  className={`flex flex-row items-center gap-3 px-4 py-3 rounded-lg ${isActive ? "bg-gray-100" : ""}`}
+                >
+                  {isActive ? (
+                    <div>
+                      <img
+                        src={paperPlaneTiltSecondary}
+                        alt={"paperPlaneTilt"}
+                        className={"w-6 h-6"}
+                      />
+                    </div>
+                  ) : (
+                    <div>
+                      <img
+                        src={paperPlaneTiltPlain}
+                        alt={"paperPlaneTilt"}
+                        className={"w-6 h-6"}
+                      />
+                    </div>
+                  )}
+                  <p className={`${isActive ? "text-secondary" : ""}`}>
+                    Schools
+                  </p>
+                </div>
+              )}
+            </NavLink>
+            <NavLink to="/teachers">
+              {({ isActive }) => (
+                <div
+                  className={`flex flex-row items-center gap-3 px-4 py-3 rounded-lg ${isActive ? "bg-gray-100" : ""}`}
+                >
+                  {isActive ? (
+                    <div>
+                      <img
+                        src={paperPlaneTiltSecondary}
+                        alt={"paperPlaneTilt"}
+                        className={"w-6 h-6"}
+                      />
+                    </div>
+                  ) : (
+                    <div>
+                      <img
+                        src={paperPlaneTiltPlain}
+                        alt={"paperPlaneTilt"}
+                        className={"w-6 h-6"}
+                      />
+                    </div>
+                  )}
+                  <p className={`${isActive ? "text-secondary" : ""}`}>
+                    Teachers
+                  </p>
+                </div>
+              )}
+            </NavLink>
+            <NavLink to="/manage-posts">
+              {({ isActive }) => (
+                <div
+                  className={`flex flex-row items-center gap-3 px-4 py-3 rounded-lg ${isActive ? "bg-gray-100" : ""}`}
+                >
+                  {isActive ? (
+                    <div>
+                      <img
+                        src={paperPlaneTiltSecondary}
+                        alt={"paperPlaneTilt"}
+                        className={"w-6 h-6"}
+                      />
+                    </div>
+                  ) : (
+                    <div>
+                      <img
+                        src={paperPlaneTiltPlain}
+                        alt={"paperPlaneTilt"}
+                        className={"w-6 h-6"}
+                      />
+                    </div>
+                  )}
+                  <p className={`${isActive ? "text-secondary" : ""}`}>
+                    Manage Posts
+                  </p>
+                </div>
+              )}
+            </NavLink>
+            <NavLink to="/finances">
+              {({ isActive }) => (
+                <div
+                  className={`flex flex-row items-center gap-3 px-4 py-3 rounded-lg ${isActive ? "bg-gray-100" : ""}`}
+                >
+                  {isActive ? (
+                    <div>
+                      <img
+                        src={paperPlaneTiltSecondary}
+                        alt={"paperPlaneTilt"}
+                        className={"w-6 h-6"}
+                      />
+                    </div>
+                  ) : (
+                    <div>
+                      <img
+                        src={paperPlaneTiltPlain}
+                        alt={"paperPlaneTilt"}
+                        className={"w-6 h-6"}
+                      />
+                    </div>
+                  )}
+                  <p className={`${isActive ? "text-secondary" : ""}`}>
+                    Finances
+                  </p>
+                </div>
+              )}
+            </NavLink>
           </menu>
         </aside>
         <main className="w-full">

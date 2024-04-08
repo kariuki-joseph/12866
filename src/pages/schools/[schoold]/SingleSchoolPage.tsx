@@ -158,7 +158,7 @@ function JobDetails() {
   );
 }
 
-export default function OneSchoolPage() {
+export default function SingleSchoolPage() {
   return (
     <>
       <SchoolTitleSection />
