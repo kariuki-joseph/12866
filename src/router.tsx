@@ -5,6 +5,7 @@ import SingleSchoolPage from "./pages/schools/[schoold]/SingleSchoolPage.tsx";
 import TeachersPage from "./pages/teachers/TeachersPage.tsx";
 import ManagePostsPage from "./pages/manage-posts/ManagePostsPage.tsx";
 import FinancesPage from "./pages/finances/FinancesPage.tsx";
+import EditSchoolDescription from "./pages/schools/[schoold]/school-description/edit/EditSchoolDescription.tsx";
 
 export const router = createBrowserRouter([
   {
@@ -18,6 +19,10 @@ export const router = createBrowserRouter([
       {
         path: "schools/:schoolId",
         element: <SingleSchoolPage />,
+      },
+      {
+        path: "schools/:schoolId/school-description/edit",
+        element: <EditSchoolDescription />,
       },
       {
         path: "teachers",

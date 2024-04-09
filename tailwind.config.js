@@ -8,6 +8,7 @@ export default {
         "primary-bg": "#882781",
         secondary: "#000EF8",
         "secondary-bg": "#FAFAFA",
+        error: "#B80000",
       },
     },
   },

@@ -174,7 +174,7 @@ export default function Root() {
           </menu>
         </aside>
 
-        <main className="bg-[#FDFDFD] container p-4">
+        <main className="bg-[#FDFDFD] p-4 w-[calc(100vw-240px)]">
           <Outlet />
         </main>
       </div>

@@ -2,6 +2,7 @@ import paperPlaneTilt from "/icons/paper-plane-tilt.svg";
 import addWhite from "/icons/add_white.svg";
 import filterList from "/icons/filter_list.svg";
 import expandMore from "/icons/expand_more.svg";
+import { useNavigate } from "react-router-dom";
 
 function SummarySection() {
   const data = [
@@ -33,6 +34,8 @@ function SummarySection() {
 }
 
 function SchoolsTableSection() {
+  const navigate = useNavigate();
+
   const schools = [
     {
       name: "Merishaw International",
@@ -105,7 +108,10 @@ function SchoolsTableSection() {
           <tbody>
             {schools.map((school, index) => {
               return (
-                <tr className={"hover:cursor-pointer"}>
+                <tr
+                  className={"hover:cursor-pointer"}
+                  onClick={() => navigate("/schools/1")}
+                >
                   <td>{school.name}</td>
                   <td>{school.institutionalLevel}</td>
                   <td>{school.totalJobPosts}</td>
@@ -143,11 +149,7 @@ function SchoolSection() {
           </p>
         </div>
 
-        <button
-          className={
-            "flex flex-row items-center bg-secondary text-white px-7 py-4 rounded-[32px] gap-2"
-          }
-        >
+        <button className={"btn"}>
           <img src={addWhite} alt={"add"} />
           <p className={"font-bold"}>Register School</p>
         </button>
