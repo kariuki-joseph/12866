@@ -5,10 +5,11 @@ import male from "/icons/male.svg";
 import businessCenter from "/icons/business_center.svg";
 import paperPlaneTilt from "/icons/paper-plane-tilt.svg";
 import * as Tabs from "@radix-ui/react-tabs";
+import * as Popover from "@radix-ui/react-popover";
 import PostedJobsTab from "./PostedJobsTab.tsx";
 import AboutSchoolTab from "./AboutSchoolTab.tsx";
 import GalleryTab from "./GalleryTab.tsx";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { School } from "../../../interfaces/api.ts";
 import { useQuery } from "@tanstack/react-query";
 import { AxiosResponse } from "axios";
@@ -48,51 +49,51 @@ function SchoolTitleSection(props: SchoolTitleSectionProps) {
         )}
       </div>
 
-      {/*<Popover.Root>*/}
-      {/*  <Popover.Trigger asChild>*/}
-      {/*    <button className={"btn-outlined"}>Edit School Profile</button>*/}
-      {/*  </Popover.Trigger>*/}
-      {/*  <Popover.Portal>*/}
-      {/*    <Popover.Content*/}
-      {/*      sideOffset={6}*/}
-      {/*      align={"end"}*/}
-      {/*      className={*/}
-      {/*        "rounded-lg text-sm flex flex-col py-1 *:py-2 *:px-3 text-gray-500 right-10 w-[260px] bg-white shadow-[0_10px_38px_-10px_hsla(206,22%,7%,.35),0_10px_20px_-15px_hsla(206,22%,7%,.2)] focus:shadow-[0_10px_38px_-10px_hsla(206,22%,7%,.35),0_10px_20px_-15px_hsla(206,22%,7%,.2),0_0_0_2px_theme(colors.violet7)] will-change-[transform,opacity] data-[state=open]:data-[side=top]:animate-slideDownAndFade data-[state=open]:data-[side=right]:animate-slideLeftAndFade data-[state=open]:data-[side=bottom]:animate-slideUpAndFade data-[state=open]:data-[side=left]:animate-slideRightAndFade"*/}
-      {/*      }*/}
-      {/*    >*/}
-      {/*      <Link*/}
-      {/*        to={"school-description/edit"}*/}
-      {/*        className={"hover:bg-gray-100 hover:text-black"}*/}
-      {/*      >*/}
-      {/*        School Description*/}
-      {/*      </Link>*/}
-      {/*      <Link*/}
-      {/*        to={"school/1/school-description/edit"}*/}
-      {/*        className={"hover:bg-gray-100 hover:text-black"}*/}
-      {/*      >*/}
-      {/*        Contact Details*/}
-      {/*      </Link>*/}
-      {/*      <Link*/}
-      {/*        to={"school/1/school-description/edit"}*/}
-      {/*        className={"hover:bg-gray-100 hover:text-black"}*/}
-      {/*      >*/}
-      {/*        Location Details*/}
-      {/*      </Link>*/}
-      {/*      <Link*/}
-      {/*        to={"school/1/school-description/edit"}*/}
-      {/*        className={"hover:bg-gray-100 hover:text-black"}*/}
-      {/*      >*/}
-      {/*        School Gallery*/}
-      {/*      </Link>*/}
-      {/*      <Link*/}
-      {/*        to={"school/1/school-description/edit"}*/}
-      {/*        className={"hover:bg-gray-100 hover:text-black"}*/}
-      {/*      >*/}
-      {/*        Change password*/}
-      {/*      </Link>*/}
-      {/*    </Popover.Content>*/}
-      {/*  </Popover.Portal>*/}
-      {/*</Popover.Root>*/}
+      <Popover.Root>
+        <Popover.Trigger asChild>
+          <button className={"btn-outlined"}>Edit School Profile</button>
+        </Popover.Trigger>
+        <Popover.Portal>
+          <Popover.Content
+            sideOffset={6}
+            align={"end"}
+            className={
+              "rounded-lg text-sm flex flex-col py-1 *:py-2 *:px-3 text-gray-500 right-10 w-[260px] bg-white shadow-[0_10px_38px_-10px_hsla(206,22%,7%,.35),0_10px_20px_-15px_hsla(206,22%,7%,.2)] focus:shadow-[0_10px_38px_-10px_hsla(206,22%,7%,.35),0_10px_20px_-15px_hsla(206,22%,7%,.2),0_0_0_2px_theme(colors.violet7)] will-change-[transform,opacity] data-[state=open]:data-[side=top]:animate-slideDownAndFade data-[state=open]:data-[side=right]:animate-slideLeftAndFade data-[state=open]:data-[side=bottom]:animate-slideUpAndFade data-[state=open]:data-[side=left]:animate-slideRightAndFade"
+            }
+          >
+            <Link
+              to={"edit/school-description"}
+              className={"hover:bg-gray-100 hover:text-black"}
+            >
+              School Description
+            </Link>
+            <Link
+              to={"school/1/school-description/edit"}
+              className={"hover:bg-gray-100 hover:text-black"}
+            >
+              Contact Details
+            </Link>
+            <Link
+              to={"school/1/school-description/edit"}
+              className={"hover:bg-gray-100 hover:text-black"}
+            >
+              Location Details
+            </Link>
+            <Link
+              to={"school/1/school-description/edit"}
+              className={"hover:bg-gray-100 hover:text-black"}
+            >
+              School Gallery
+            </Link>
+            <Link
+              to={"school/1/school-description/edit"}
+              className={"hover:bg-gray-100 hover:text-black"}
+            >
+              Change password
+            </Link>
+          </Popover.Content>
+        </Popover.Portal>
+      </Popover.Root>
     </section>
   );
 }

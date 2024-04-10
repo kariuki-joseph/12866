@@ -10,27 +10,29 @@ export default function EditSchoolDescription() {
   return (
     <section
       className={
-        "mx-auto bg-white rounded border border-gray-200 p-6 max-w-[1000px]"
+        "mx-auto bg-white rounded border border-gray-200 px-6 pb-3 max-w-[1000px]"
       }
     >
-      <div className={"flex flex-row items-center justify-between mb-3"}>
+      <div className={"flex flex-row items-center justify-between my-5"}>
         <div className={"flex flex-row items-center gap-4"}>
-          <button className={""} onClick={() => navigate("../schools/1")}>
+          <button
+            className={""}
+            onClick={() => navigate("../../", { relative: "path" })}
+          >
             <img src={arrowBack} alt={"back"} className={"w-6 h-6"} />
           </button>
-          <h2 className={"font-bold text-lg"}>Edit Description</h2>
+          <h2 className={"font-bold text-lg"}>Edit School Profile</h2>
         </div>
 
-        <button className={""}>
+        <button
+          className={""}
+          onClick={() => navigate("../../", { relative: "path" })}
+        >
           <img src={close} alt={"back"} className={"w-6 h-6"} />
         </button>
       </div>
 
       <form>
-        <h3>School Profile</h3>
-
-        <hr className={"my-3"} />
-
         <label className="flex flex-row items-center justify-between  bg-gray-50 border border-gray-200 rounded-lg px-2 mb-3">
           <div className="flex flex-row items-center gap-2">
             <div className={"bg-purple-50 p-2 rounded-3xl m-3"}>
