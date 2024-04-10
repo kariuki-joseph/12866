@@ -7,6 +7,10 @@ export interface PaginatedResponse<T> {
   };
 }
 
+export interface AxiosResponse<T> {
+  data: T;
+}
+
 interface County {
   id: number;
   name: string;
@@ -37,7 +41,7 @@ export interface School {
   web_site: string;
   about: string;
   formated_address: string;
-  is_suspended: string;
+  is_suspended: boolean;
   county: County;
   sub_county: SubCounty;
   school_owner_payment_methods: SchoolOwnerPaymentMethods[];
