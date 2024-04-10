@@ -8,6 +8,7 @@ import ManagePostsPage from "./pages/manage-posts/ManagePostsPage.tsx";
 import FinancesPage from "./pages/finances/FinancesPage.tsx";
 import ContactDetailsPage from "./pages/schools/[schoold]/edit/contact-details/ContactDetailsPage.tsx";
 import ChangePasswordPage from "./pages/schools/[schoold]/edit/password/ChangePasswordPage.tsx";
+import RegisterSchoolPage from "./pages/schools/register/RegisterSchoolPage.tsx";
 
 export default function App() {
   return (
@@ -30,6 +31,8 @@ export default function App() {
             path="schools/:schoolId/edit/password"
             element={<ChangePasswordPage />}
           />
+
+          <Route path="schools/register" element={<RegisterSchoolPage />} />
 
           <Route path="teachers" element={<TeachersPage />} />
           <Route path="manage-posts" element={<ManagePostsPage />} />

@@ -1,7 +1,7 @@
-import addWhite from "/icons/add_white.svg";
 import filterList from "/icons/filter_list.svg";
 import expandMore from "/icons/expand_more.svg";
-import { useNavigate } from "react-router-dom";
+import addWhite from "/icons/add_white.svg";
+import { Link, useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import weteachApi from "../../configs/weteach-api.ts";
 import LoadingBlocks from "../../components/loading/LoadingBlocks.tsx";
@@ -111,16 +111,23 @@ function SchoolsTableSection() {
 
   return (
     <section>
-      <div className={"flex flex-row items-center py-3 gap-4"}>
-        <button className="flex flex-row text-sm items-center gap-3 p-3 border border-gray-200 rounded-[32px]">
-          <img src={filterList} alt={"filter"} />
-          <p>Filter by</p>
-          <img src={expandMore} alt={"expand more"} />
-        </button>
-        <button className="flex flex-row text-sm items-center gap-3 p-3 border border-gray-200 rounded-[32px] w-[300px]">
-          <img src={filterList} alt={"filter"} />
-          <p>Search</p>
-        </button>
+      <div className={"flex flex-row items-center  justify-between py-3 gap-4"}>
+        <div className={"flex flex-row gap-3"}>
+          <button className="flex flex-row text-sm items-center gap-3 p-3 border border-gray-200 rounded-[32px]">
+            <img src={filterList} alt={"filter"} />
+            <p>Filter by</p>
+            <img src={expandMore} alt={"expand more"} />
+          </button>
+          <button className="flex flex-row text-sm items-center gap-3 p-3 border border-gray-200 rounded-[32px] w-[300px]">
+            <img src={filterList} alt={"filter"} />
+            <p>Search</p>
+          </button>
+        </div>
+
+        <Link className={"btn"} to={"schools/register"}>
+          <img src={addWhite} alt={"add"} />
+          <p className={"font-bold"}>Register School</p>
+        </Link>
       </div>
       {isLoading ? (
         <LoadingTable />
@@ -141,19 +148,12 @@ function SchoolsTableSection() {
 function SchoolSection() {
   return (
     <section>
-      <div className={"flex flex-row justify-between py-3 my-3"}>
-        <div>
-          <h1 className={"font-bold text-lg"}>Schools on Platform</h1>
-          <p className={"text-sm text-gray-500"}>
-            Explore and manage the profiles of schools which have signed up onto
-            the platform
-          </p>
-        </div>
-
-        <button className={"btn"}>
-          <img src={addWhite} alt={"add"} />
-          <p className={"font-bold"}>Register School</p>
-        </button>
+      <div className={""}>
+        <h1 className={"font-bold text-lg"}>Schools on Platform</h1>
+        <p className={"text-sm text-gray-500"}>
+          Explore and manage the profiles of schools which have signed up onto
+          the platform
+        </p>
       </div>
 
       <SchoolsTableSection />
