@@ -1,34 +1,49 @@
-import paperPlaneTilt from "/icons/paper-plane-tilt.svg";
 import addWhite from "/icons/add_white.svg";
 import filterList from "/icons/filter_list.svg";
 import expandMore from "/icons/expand_more.svg";
 import { useNavigate } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import weteachApi from "../../configs/weteach-api.ts";
+import LoadingBlocks from "../../components/loading/LoadingBlocks.tsx";
+import paperPlaneTilt from "/icons/paper-plane-tilt.svg";
+import StatCard from "../../components/StatCard.tsx";
 
-function SummarySection() {
-  const data = [
-    { src: paperPlaneTilt, heading: 32806, text: "Schools on the platform" },
-    { src: paperPlaneTilt, heading: 32806, text: "Schools on the platform" },
-    { src: paperPlaneTilt, heading: 32806, text: "Schools on the platform" },
-    { src: paperPlaneTilt, heading: 32806, text: "Schools on the platform" },
-  ];
+function SchoolsStats() {
+  const { data, isLoading } = useQuery({
+    queryKey: [],
+    queryFn: () =>
+      weteachApi.get(
+        "https://weteach.glitexsolutions.co.ke/api/v1/dashboard/schools/statistics/",
+      ),
+  });
+
+  if (isLoading) return <LoadingBlocks numberOfBlocks={4} />;
 
   return (
-    <section className="flex flex-row items-center w-full justify-evenly gap-4">
-      {data.map((d, index) => (
-        <div
-          key={index}
-          className="flex flex-row items-center bg-white border border-gray-200 rounded-lg px-4 py-4 gap-4 w-1/4"
-        >
-          <div className={"bg-purple-50 p-2 rounded-3xl m-3"}>
-            <img src={d.src} alt={"logo"} className={"w-8 h-8"} />
-          </div>
+    <section className="flex flex-row w-full justify-evenly gap-4">
+      <StatCard
+        imageSrc={paperPlaneTilt}
+        title={data?.data.total_schools}
+        text={"Schools on the platform"}
+      />
 
-          <div className="w-2/3 flex flex-col gap-1">
-            <p className={"text-2xl font-bold"}>{d.heading}</p>
-            <p className={"text-sm text-gray-500"}>{d.text}</p>
-          </div>
-        </div>
-      ))}
+      <StatCard
+        imageSrc={paperPlaneTilt}
+        title={data?.data.posting_schools}
+        text={"Posting Schools"}
+      />
+
+      <StatCard
+        imageSrc={paperPlaneTilt}
+        title={data?.data.avg_school_posts}
+        text={"Average Posts per School"}
+      />
+
+      <StatCard
+        imageSrc={paperPlaneTilt}
+        title={data?.data.post_total_spending}
+        text={"Spend on posts"}
+      />
     </section>
   );
 }
@@ -163,7 +178,7 @@ function SchoolSection() {
 export default function SchoolPage() {
   return (
     <>
-      <SummarySection />
+      <SchoolsStats />
       <SchoolSection />
     </>
   );
