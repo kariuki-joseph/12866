@@ -1,127 +1,159 @@
-import paperPlaneTiltPlain from "/icons/paper-plane-tilt-plain.svg";
+import content_copy from "/icons/content_copy.svg";
+import mail from "/icons/mail.svg";
+import call from "/icons/call.svg";
+import location_on from "/icons/location_on.svg";
+import language from "/icons/language.svg";
+import { School } from "../../../interfaces/api.ts";
 
-export default function AboutSchoolTab() {
+interface AboutSchoolTabProps {
+  school: School;
+}
+
+export default function AboutSchoolTab(props: AboutSchoolTabProps) {
+  const { school } = props;
+
+  function handleCopy(text: string) {
+    navigator.clipboard.writeText(text).then(
+      () => {
+        alert("Copying to clipboard was successful!");
+      },
+      (err) => {
+        console.error("Could not copy text: ", err);
+      },
+    );
+  }
+
   return (
     <section>
-      <div className={"flex flex-row items-center justify-between"}>
-        <p className={"text-lg font-bold"}>About School</p>
-      </div>
-
-      <hr className={"my-3"} />
-
       <div className={"px-6 py-5 border border-gray-200 rounded-lg mb-3"}>
         <p className={"font-bold mb-2 text-sm "}>School Bio</p>
-        <p className={"text-sm text-gray-500 text-justify"}>
-          Greensteds is a co-educational boarding and day school (IAPS and CIS)
-          following the National Curriculum of England & Wales from Early Years
-          to IGCSE, and A level. Greensteds School is situated 140 km north of
-          Nairobi, in the heart of Kenya’s Rift Valley and within ten minutes
-          drive of Lake Nakuru National Park. The School is set in a rural
-          secluded, 50-acre site and is one of the leading International
-          boarding schools in Kenya serving internationally minded parents all
-          over the world
-        </p>
+        <p className={"text-sm text-gray-500 text-justify"}>{school.about}</p>
       </div>
 
       <div className={"flex flex-row gap-4"}>
         <div className={"px-6 py-5 border border-gray-200 rounded-lg w-1/2"}>
           <p className={"font-bold mb-3 text-sm"}>Contact Us</p>
 
-          <div className={"text-gray-500 mb-3 text-sm"}>
+          <div className={"text-gray-500 mb-6 text-sm"}>
             <p>Email</p>
-            <hr className={"my-2"} />
 
-            <div className={"flex flex-row items-center justify-between py-3"}>
+            <hr className={"my-1"} />
+
+            <div
+              className={
+                "flex flex-row items-center justify-between py-3 text-xs"
+              }
+            >
               <div className={"flex flex-row items-center gap-2"}>
-                <img src={paperPlaneTiltPlain} className={"w-5 h-5"} />
-                <p>Accomodation</p>
+                <img src={mail} className={"w-5 h-5"} />
+                <p className={"text-xs"}>{school.primary_email}</p>
               </div>
 
-              <p className={"text-left text-black"}>copy</p>
-            </div>
-
-            <div className={"flex flex-row items-center justify-between py-3"}>
-              <div className={"flex flex-row items-center gap-2"}>
-                <img src={paperPlaneTiltPlain} className={"w-5 h-5"} />
-                <p>Accomodation</p>
-              </div>
-
-              <p className={"text-left text-black"}>copy</p>
+              <button
+                className={"flex flex-row items-center gap-2"}
+                onClick={() => handleCopy(school.primary_email)}
+              >
+                <img
+                  src={content_copy}
+                  className={"w-5 h-5"}
+                  alt={content_copy}
+                />
+                <span>copy</span>
+              </button>
             </div>
           </div>
 
-          <div className={"text-gray-500 mb-3 text-sm"}>
+          <div className={"text-gray-500 mb-6 text-sm"}>
             <p>Phone Number</p>
-            <hr className={"my-2"} />
+            <hr className={"my-1"} />
 
-            <div className={"flex flex-row items-center justify-between py-3"}>
+            <div
+              className={
+                "flex flex-row items-center justify-between py-3 text-xs"
+              }
+            >
               <div className={"flex flex-row items-center gap-2"}>
-                <img src={paperPlaneTiltPlain} className={"w-5 h-5"} />
-                <p>Accomodation</p>
+                <img src={call} className={"w-5 h-5"} />
+                <p className={"text-xs"}>{school.phone_number}</p>
               </div>
 
-              <p className={"text-left text-black"}>copy</p>
-            </div>
-
-            <div className={"flex flex-row items-center justify-between py-3"}>
-              <div className={"flex flex-row items-center gap-2"}>
-                <img src={paperPlaneTiltPlain} className={"w-5 h-5"} />
-                <p>Accomodation</p>
-              </div>
-
-              <p className={"text-left text-black"}>copy</p>
+              <button
+                className={"flex flex-row items-center gap-2"}
+                onClick={() => handleCopy(school.phone_number)}
+              >
+                <img
+                  src={content_copy}
+                  className={"w-5 h-5"}
+                  alt={content_copy}
+                />
+                <span>copy</span>
+              </button>
             </div>
           </div>
 
-          <div className={"text-gray-500 mb-3 text-sm"}>
+          <div className={"text-gray-500 text-sm"}>
             <p>Website</p>
-            <hr className={"my-2"} />
+            <hr className={"my-1"} />
 
-            <div className={"flex flex-row items-center justify-between py-3"}>
+            <div
+              className={
+                "flex flex-row items-center justify-between py-3 text-xs"
+              }
+            >
               <div className={"flex flex-row items-center gap-2"}>
-                <img src={paperPlaneTiltPlain} className={"w-5 h-5"} />
-                <p>Accomodation</p>
+                <img src={language} className={"w-5 h-5"} />
+                <a
+                  href={"https://" + school.web_site}
+                  target={"_blank"}
+                  className={"text-xs underline"}
+                >
+                  {school.web_site}
+                </a>
               </div>
 
-              <p className={"text-left text-black"}>copy</p>
+              <button
+                className={"flex flex-row items-center gap-2"}
+                onClick={() => handleCopy(school.web_site)}
+              >
+                <img
+                  src={content_copy}
+                  className={"w-5 h-5"}
+                  alt={content_copy}
+                />
+                <span>copy</span>
+              </button>
             </div>
           </div>
         </div>
 
         <div className={"px-6 py-5 border border-gray-200 rounded-lg w-1/2"}>
-          <p className={"font-bold mb-3 text-sm"}>Location</p>
+          <p className={"font-bold mb-3 text-sm"}>Location Information</p>
 
-          <div className={"text-gray-500 mb-3 text-sm"}>
+          <div className={"text-gray-500 mb-6 text-sm"}>
             <p>Region</p>
-            <hr className={"my-2"} />
+            <hr className={"my-1"} />
 
-            <div className={"flex flex-row items-center justify-between py-3"}>
-              <div className={"flex flex-row items-center gap-2"}>
-                <img src={paperPlaneTiltPlain} className={"w-5 h-5"} />
-                <p>Accomodation</p>
-              </div>
+            <div className={"flex flex-row items-center gap-2 py-3"}>
+              <img src={location_on} className={"w-5 h-5"} />
+              <p className={"text-xs"}>
+                <b>County: </b>
+                {school.county.name}
+              </p>
             </div>
 
-            <div className={"flex flex-row items-center justify-between py-3"}>
-              <div className={"flex flex-row items-center gap-2"}>
-                <img src={paperPlaneTiltPlain} className={"w-5 h-5"} />
-                <p>Accomodation</p>
-              </div>
+            <div className={"flex flex-row items-center gap-2 py-3"}>
+              <img src={location_on} className={"w-5 h-5"} />
+              <p className={"text-xs"}>
+                <b>Sub-County: </b>
+                {school.sub_county.name}
+              </p>
             </div>
-          </div>
 
-          <div className={"text-gray-500 mb-3 text-sm"}>
-            <p>Location Pin</p>
-            <hr className={"my-2"} />
-
-            <div className={"flex flex-row items-center justify-between py-3"}>
-              <div className={"flex flex-row items-center gap-2"}>
-                <img src={paperPlaneTiltPlain} className={"w-5 h-5"} />
-                <p>Accomodation</p>
-              </div>
-
-              <p className={"text-left text-black text-gray-500"}>
-                View in maps
+            <div className={"flex flex-row items-center gap-2 py-3"}>
+              <img src={location_on} className={"w-5 h-5"} />
+              <p className={"text-xs"}>
+                <b>Location: </b>
+                {school.formated_address}
               </p>
             </div>
           </div>

@@ -15,6 +15,8 @@ import { AxiosResponse } from "axios";
 import weteachApi from "../../../configs/weteach-api.ts";
 import LoadingSpinner from "../../../components/loading/LoadingSpinner.tsx";
 import { DateTime } from "luxon";
+import LoadingBlocks from "../../../components/loading/LoadingBlocks.tsx";
+import StatCard from "../../../components/StatCard.tsx";
 
 interface SchoolTitleSectionProps {
   school: School;
@@ -114,7 +116,7 @@ function SchoolInfo(props: SchoolInfoProps) {
 
       <div
         className={
-          "flex flex-row items-center gap-2 text-sm text-nowrap mb-6 text-secondary"
+          "flex flex-row items-center gap-2 text-xs mb-6 text-secondary"
         }
       >
         <a
@@ -139,10 +141,10 @@ function SchoolInfo(props: SchoolInfoProps) {
       </div>
 
       <div className={"text-gray-500 mb-6"}>
-        <p>Basic Information</p>
-        <hr className={"my-2"} />
+        <p className={"text-sm"}>Basic Information</p>
+        <hr className={"my-1"} />
 
-        <div className={"text-sm"}>
+        <div className={"text-xs"}>
           <div className={"flex flex-row items-center justify-between py-3"}>
             <div className={"flex flex-row items-center gap-2"}>
               <img src={hotel} className={"w-5 h-5"} alt={"hotel"} />
@@ -177,8 +179,8 @@ function SchoolInfo(props: SchoolInfoProps) {
       </div>
 
       <div className={"text-gray-500 mb-3"}>
-        <p>Payment Information</p>
-        <hr className={"my-2"} />
+        <p className={"text-sm"}>Payment Information</p>
+        <hr className={"my-1"} />
 
         {/*<div className={"text-sm"}>*/}
         {/*  <div className={"flex flex-row items-center justify-between py-3"}>*/}
@@ -210,60 +212,92 @@ function SchoolInfo(props: SchoolInfoProps) {
 }
 
 function SummarySection() {
-  const data = [
-    { src: paperPlaneTilt, heading: 32806, text: "Schools on the platform" },
-    { src: paperPlaneTilt, heading: 32806, text: "Schools on the platform" },
-    { src: paperPlaneTilt, heading: 32806, text: "Schools on the platform" },
-  ];
+  const { schoolId } = useParams();
+
+  const url = `dashboard/school/statistics/${schoolId}/`;
+
+  const { data, isLoading } = useQuery({
+    queryKey: [url],
+    queryFn: () => weteachApi.get(url),
+  });
+
+  if (isLoading) <LoadingBlocks numberOfBlocks={3} />;
 
   return (
-    <section className="flex flex-row items-center w-full justify-evenly gap-4">
-      {data.map((d, index) => (
-        <div
-          key={index}
-          className="flex flex-row items-center bg-white border border-gray-200 rounded-lg px-4 py-4 gap-4 w-1/3"
-        >
-          <div className={"bg-purple-50 p-2 rounded-3xl m-3"}>
-            <img src={d.src} alt={"logo"} className={"w-8 h-8"} />
-          </div>
+    <section className="flex flex-row w-full justify-evenly gap-4">
+      {data !== undefined ? (
+        <>
+          <StatCard
+            imageSrc={paperPlaneTilt}
+            title={data.data.total_posted_jobs}
+            text={"Posted jobs"}
+          />
+          <StatCard
+            imageSrc={paperPlaneTilt}
+            title={data.data.total_post_impressions}
+            text={"Total Post Impressions"}
+          />
 
-          <div className="w-2/3 flex flex-col gap-1">
-            <p className={"text-2xl font-bold"}>{d.heading}</p>
-            <p className={"text-sm text-gray-500"}>{d.text}</p>
-          </div>
-        </div>
-      ))}
+          <StatCard
+            imageSrc={paperPlaneTilt}
+            title={data.data.post_total_spending}
+            text={"Spends on posts"}
+          />
+        </>
+      ) : null}
     </section>
   );
 }
 
-function JobDetails() {
+interface JobDetailsProps {
+  school: School;
+}
+
+function JobDetails(props: JobDetailsProps) {
+  const { school } = props;
+
   return (
     <section className={"w-9/12 "}>
       <SummarySection />
 
-      <Tabs.Root defaultValue={"job-posts"} className={"mt-3"}>
+      <Tabs.Root defaultValue={"posted-jobs"} className={"mt-3"}>
         <Tabs.List
           className={
-            "bg-gray-100 w-fit p-2 rounded-lg *:px-4 *:py-2 *:rounded-lg"
+            "flex flex-row items-center bg-gray-100 w-fit p-1 rounded-lg *:px-4 *:py-2 *:rounded-lg mb-3 text-sm gap-2"
           }
         >
           <Tabs.Trigger
-            value={"job-posts"}
-            className={"bg-white text-secondary"}
+            value={"posted-jobs"}
+            className={
+              "data-[state=active]:bg-white data-[state=active]:text-secondary"
+            }
           >
-            Job posts
+            Posted Jobs
           </Tabs.Trigger>
 
-          <Tabs.Trigger value={"about-school"}>About School</Tabs.Trigger>
-          <Tabs.Trigger value={"gallery"}>Gallery</Tabs.Trigger>
+          <Tabs.Trigger
+            value={"about-school"}
+            className={
+              "data-[state=active]:bg-white data-[state=active]:text-secondary"
+            }
+          >
+            About School
+          </Tabs.Trigger>
+          <Tabs.Trigger
+            value={"gallery"}
+            className={
+              "data-[state=active]:bg-white data-[state=active]:text-secondary"
+            }
+          >
+            Gallery
+          </Tabs.Trigger>
         </Tabs.List>
 
-        <Tabs.Content value={"job-posts"}>
+        <Tabs.Content value={"posted-jobs"}>
           <PostedJobsTab />
         </Tabs.Content>
         <Tabs.Content value={"about-school"}>
-          <AboutSchoolTab />
+          <AboutSchoolTab school={school} />
         </Tabs.Content>
         <Tabs.Content value={"gallery"}>
           <GalleryTab />
