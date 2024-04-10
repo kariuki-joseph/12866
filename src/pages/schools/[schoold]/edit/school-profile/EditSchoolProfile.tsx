@@ -4,7 +4,7 @@ import close from "/icons/close.svg";
 import * as RadioGroup from "@radix-ui/react-radio-group";
 import { useNavigate } from "react-router-dom";
 
-export default function EditSchoolDescription() {
+export default function EditSchoolProfile() {
   const navigate = useNavigate();
 
   return (

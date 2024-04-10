@@ -51,7 +51,7 @@ function SchoolTitleSection(props: SchoolTitleSectionProps) {
 
       <Popover.Root>
         <Popover.Trigger asChild>
-          <button className={"btn-outlined"}>Edit School Profile</button>
+          <button className={"btn-outlined"}>Edit School Details</button>
         </Popover.Trigger>
         <Popover.Portal>
           <Popover.Content
@@ -62,31 +62,31 @@ function SchoolTitleSection(props: SchoolTitleSectionProps) {
             }
           >
             <Link
-              to={"edit/school-description"}
+              to={"edit/school-profile"}
               className={"hover:bg-gray-100 hover:text-black"}
             >
-              School Description
+              School Profile
             </Link>
             <Link
-              to={"school/1/school-description/edit"}
+              to={"edit/contact-details"}
               className={"hover:bg-gray-100 hover:text-black"}
             >
               Contact Details
             </Link>
             <Link
-              to={"school/1/school-description/edit"}
+              to={"edit/location-description"}
               className={"hover:bg-gray-100 hover:text-black"}
             >
               Location Details
             </Link>
             <Link
-              to={"school/1/school-description/edit"}
+              to={"edit/gallery"}
               className={"hover:bg-gray-100 hover:text-black"}
             >
               School Gallery
             </Link>
             <Link
-              to={"school/1/school-description/edit"}
+              to={"edit/password"}
               className={"hover:bg-gray-100 hover:text-black"}
             >
               Change password
