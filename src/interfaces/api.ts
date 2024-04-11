@@ -47,3 +47,24 @@ export interface School {
   school_owner_payment_methods: SchoolOwnerPaymentMethods[];
   creation_time: string;
 }
+
+interface Qualification {
+  id: number;
+  name: string;
+}
+
+export interface Teacher {
+  id: string;
+  full_name: string;
+  image: string;
+  experience: number;
+  institution_level: string;
+  latitude: string;
+  longitude: string;
+  formated_address: string;
+  creation_time: string;
+  last_updated_time: string;
+  county: County;
+  sub_county: SubCounty;
+  qualifications: Qualification[];
+}

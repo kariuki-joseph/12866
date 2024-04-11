@@ -2,6 +2,7 @@ import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigate } from "react-router-dom";
+import React from "react";
 
 const schema = z
   .object({
@@ -17,7 +18,12 @@ const schema = z
   );
 type ISchema = z.infer<typeof schema>;
 
-export default function EnterPasswordTab() {
+interface EnterPasswordTabProps {
+  setTab: React.Dispatch<React.SetStateAction<string>>;
+}
+
+export default function EnterPasswordTab(props: EnterPasswordTabProps) {
+  const { setTab } = props;
   const previousPage = "/";
   const navigate = useNavigate();
 
@@ -31,11 +37,12 @@ export default function EnterPasswordTab() {
 
   const onSubmit = (data: ISchema, e: any) => {
     e.preventDefault();
+    setTab("create-school-tab");
   };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <label htmlFor={"new_password"}>New Password</label>
+      <label htmlFor={"new_password"}>Password</label>
       <input
         {...register("new_password")}
         placeholder={"Enter new password"}

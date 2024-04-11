@@ -18,6 +18,7 @@ import LoadingSpinner from "../../../components/loading/LoadingSpinner.tsx";
 import { DateTime } from "luxon";
 import LoadingBlocks from "../../../components/loading/LoadingBlocks.tsx";
 import StatCard from "../../../components/StatCard.tsx";
+import baseUrl from "../../../configs/baseUrl.ts";
 
 interface SchoolTitleSectionProps {
   school: School;
@@ -112,7 +113,7 @@ function SchoolInfo(props: SchoolInfoProps) {
       }
     >
       <div className={"bg-gray-50 p-2 rounded-[42px] w-fit mx-auto mb-3"}>
-        <img src={paperPlaneTilt} className={"w-12 h-12"} />
+        <img src={baseUrl + school.image} className={"w-12 h-12"} />
       </div>
 
       <div

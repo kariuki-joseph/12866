@@ -1,7 +1,8 @@
 import axios from "axios";
+import baseUrl from "./baseUrl.ts";
 
 const weteachApi = axios.create({
-  baseURL: "https://weteach.glitexsolutions.co.ke",
+  baseURL: baseUrl,
   headers: {
     "Content-Type": "application/json",
     Accept: "application/json",

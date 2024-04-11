@@ -8,7 +8,7 @@ import LoadingBlocks from "../../components/loading/LoadingBlocks.tsx";
 import paperPlaneTilt from "/icons/paper-plane-tilt.svg";
 import StatCard from "../../components/StatCard.tsx";
 import LoadingTable from "../../components/loading/LoadingTable.tsx";
-import { PaginatedResponse, School } from "../../interfaces/api.ts";
+import { PaginatedResponse, Teacher } from "../../interfaces/api.ts";
 import { DateTime } from "luxon";
 
 function TeacherStats() {
@@ -50,13 +50,13 @@ function TeacherStats() {
   );
 }
 
-interface SchoolsTableProps {
-  schools: School[];
+interface TeachersTableProps {
+  teachers: Teacher[];
 }
 
-function SchoolsTable(props: SchoolsTableProps) {
+function TeachersTable(props: TeachersTableProps) {
   const navigate = useNavigate();
-  const { schools } = props;
+  const { teachers } = props;
 
   return (
     <>
@@ -66,28 +66,26 @@ function SchoolsTable(props: SchoolsTableProps) {
             <tr>
               <th>Name</th>
               <th>Institutional Level</th>
-              <th>Total Job Posts</th>
-              <th>Locations</th>
-              <th>Phone number</th>
+              <th>Experience</th>
+              <th>Location</th>
               <th>Joined On</th>
               <th>Actions</th>
             </tr>
           </thead>
           <tbody>
-            {schools.map((school) => {
+            {teachers.map((teacher) => {
               return (
                 <tr
                   className={"hover:cursor-pointer"}
-                  onClick={() => navigate(`/schools/${school.id}`)}
-                  key={school.id}
+                  onClick={() => navigate(`/teachers/${teacher.id}`)}
+                  key={teacher.id}
                 >
-                  <th>{school.name}</th>
-                  <td>{school.institution_level}</td>
-                  <td>{school.job_post_count}</td>
-                  <td>{school.formated_address}</td>
-                  <td>{school.phone_number}</td>
+                  <th>{teacher.full_name}</th>
+                  <td>{teacher.institution_level}</td>
+                  <td>{teacher.experience}</td>
+                  <td>{teacher.formated_address}</td>
                   <td>
-                    {DateTime.fromISO(school.creation_time).toLocaleString({
+                    {DateTime.fromISO(teacher.creation_time).toLocaleString({
                       locale: "en-gb",
                     })}
                   </td>
@@ -106,8 +104,8 @@ function SchoolsTable(props: SchoolsTableProps) {
 function SchoolsTableSection() {
   const navigate = useNavigate();
 
-  const url = "api/v1/dashboard/schools/list/";
-  const { data, isLoading } = useQuery<PaginatedResponse<School>>({
+  const url = "api/v1/users/teachers/all/";
+  const { data, isLoading } = useQuery<PaginatedResponse<Teacher>>({
     queryKey: [url],
     queryFn: () => weteachApi.get(url),
   });
@@ -132,11 +130,11 @@ function SchoolsTableSection() {
           <p className={"font-bold"}>Register Teacher</p>
         </Link>
       </div>
-      {isLoading ? (
-        <LoadingTable />
-      ) : (
-        <SchoolsTable schools={data.data.results} />
-      )}
+      {isLoading ? <LoadingTable /> : null}
+      {JSON.stringify(data.data)}
+      {/*{data !== undefined ? (*/}
+      {/*  <TeachersTable teachers={data.data.results} />*/}
+      {/*) : null}*/}
       {/*<div className={"flex flex-row justify-end items-center"}>*/}
       {/*  <button>{"<"}</button>*/}
       {/*  <button>1</button>*/}
