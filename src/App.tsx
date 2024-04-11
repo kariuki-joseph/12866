@@ -2,7 +2,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Root from "./pages/Root.tsx";
 import SchoolPage from "./pages/schools/SchoolPage.tsx";
 import SingleSchoolPage from "./pages/schools/[schoold]/SingleSchoolPage.tsx";
-import EditSchoolProfile from "./pages/schools/[schoold]/edit/school-profile/EditSchoolProfile.tsx";
+import EditBasicInfoPage from "./pages/schools/[schoold]/edit/basic-info/EditBasicInfoPage.tsx";
 import TeachersPage from "./pages/teachers/TeachersPage.tsx";
 import ManagePostsPage from "./pages/manage-posts/ManagePostsPage.tsx";
 import FinancesPage from "./pages/finances/FinancesPage.tsx";
@@ -20,8 +20,8 @@ export default function App() {
           <Route path="schools/:schoolId" element={<SingleSchoolPage />} />
 
           <Route
-            path="schools/:schoolId/edit/school-profile"
-            element={<EditSchoolProfile />}
+            path="schools/:schoolId/edit/basic-info"
+            element={<EditBasicInfoPage />}
           />
           <Route
             path="schools/:schoolId/edit/contact-details"

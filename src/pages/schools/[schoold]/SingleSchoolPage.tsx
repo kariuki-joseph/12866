@@ -3,6 +3,7 @@ import call from "/icons/call.svg";
 import hotel from "/icons/hotel.svg";
 import male from "/icons/male.svg";
 import businessCenter from "/icons/business_center.svg";
+import editSecondary from "/icons/edit_secondary.svg";
 import paperPlaneTilt from "/icons/paper-plane-tilt.svg";
 import * as Tabs from "@radix-ui/react-tabs";
 import * as Popover from "@radix-ui/react-popover";
@@ -52,7 +53,10 @@ function SchoolTitleSection(props: SchoolTitleSectionProps) {
 
       <Popover.Root>
         <Popover.Trigger asChild>
-          <button className={"btn-outlined"}>Edit School Details</button>
+          <button className={"btn-outlined"}>
+            <img src={editSecondary} alt={"edit"} />
+            <span>Edit</span>
+          </button>
         </Popover.Trigger>
         <Popover.Portal>
           <Popover.Content
@@ -63,16 +67,16 @@ function SchoolTitleSection(props: SchoolTitleSectionProps) {
             }
           >
             <Link
-              to={"edit/school-profile"}
+              to={"edit/basic-info"}
               className={"hover:bg-gray-100 hover:text-black"}
             >
-              School Profile
+              Basic Info
             </Link>
             <Link
               to={"edit/contact-details"}
               className={"hover:bg-gray-100 hover:text-black"}
             >
-              Contact Details
+              School Details
             </Link>
             <Link
               to={"edit/location-description"}
