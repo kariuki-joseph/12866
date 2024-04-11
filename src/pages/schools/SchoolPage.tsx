@@ -12,9 +12,11 @@ import { PaginatedResponse, School } from "../../interfaces/api.ts";
 import { DateTime } from "luxon";
 
 function SchoolsStats() {
+  const url = "api/v1/dashboard/schools/statistics/";
+
   const { data, isLoading } = useQuery({
-    queryKey: ["dashboard/schools/statistics/"],
-    queryFn: () => weteachApi.get("dashboard/schools/statistics/"),
+    queryKey: [url],
+    queryFn: () => weteachApi.get(url),
   });
 
   if (isLoading) return <LoadingBlocks numberOfBlocks={4} />;
@@ -104,9 +106,10 @@ function SchoolsTable(props: SchoolsTableProps) {
 function SchoolsTableSection() {
   const navigate = useNavigate();
 
+  const url = "api/v1/dashboard/schools/list/";
   const { data, isLoading } = useQuery<PaginatedResponse<School>>({
-    queryKey: ["dashboard/schools/list/"],
-    queryFn: () => weteachApi.get("dashboard/schools/list/"),
+    queryKey: [url],
+    queryFn: () => weteachApi.get(url),
   });
 
   return (

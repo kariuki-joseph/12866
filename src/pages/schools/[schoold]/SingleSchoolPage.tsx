@@ -215,7 +215,7 @@ function SchoolInfo(props: SchoolInfoProps) {
 function SummarySection() {
   const { schoolId } = useParams();
 
-  const url = `dashboard/school/statistics/${schoolId}/`;
+  const url = `api/v1/dashboard/school/statistics/${schoolId}/`;
 
   const { data, isLoading } = useQuery({
     queryKey: [url],
@@ -311,7 +311,7 @@ function JobDetails(props: JobDetailsProps) {
 export default function SingleSchoolPage() {
   const { schoolId } = useParams();
 
-  const url = `dashboard/school/get/${schoolId}/`;
+  const url = `api/v1/dashboard/school/get/${schoolId}/`;
 
   const { data, isLoading } = useQuery<AxiosResponse<School>>({
     queryKey: [url],
