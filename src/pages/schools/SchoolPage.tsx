@@ -20,7 +20,7 @@ function SchoolsStats() {
   if (isLoading) return <LoadingBlocks numberOfBlocks={4} />;
 
   return (
-    <section className="flex flex-row w-full justify-evenly gap-4">
+    <section className="flex flex-row w-full justify-evenly gap-4 mb-3">
       <StatCard
         imageSrc={paperPlaneTilt}
         title={data?.data.total_schools}
@@ -111,14 +111,15 @@ function SchoolsTableSection() {
 
   return (
     <section>
-      <div className={"flex flex-row items-center  justify-between py-3 gap-4"}>
+      <div className={"flex flex-row items-center justify-between py-3 gap-4"}>
+        {/*make filters work*/}
         <div className={"flex flex-row gap-3"}>
-          <button className="flex flex-row text-sm items-center gap-3 p-3 border border-gray-200 rounded-[32px]">
+          <button className="flex flex-row text-sm items-center gap-3 px-4 py-2  border border-gray-200 rounded-[32px]">
             <img src={filterList} alt={"filter"} />
             <p>Filter by</p>
             <img src={expandMore} alt={"expand more"} />
           </button>
-          <button className="flex flex-row text-sm items-center gap-3 p-3 border border-gray-200 rounded-[32px] w-[300px]">
+          <button className="flex flex-row text-sm items-center gap-3 px-4 py-2 border border-gray-200 rounded-[32px] w-[300px]">
             <img src={filterList} alt={"filter"} />
             <p>Search</p>
           </button>

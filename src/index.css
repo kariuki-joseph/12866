@@ -13,11 +13,20 @@
 
 
     thead tr th {
-        @apply px-4 py-3 border-0 m-0 font-extrabold text-left min-w-[100px] text-sm
+        @apply px-4 py-2 border-0 m-0 font-bold text-left min-w-[100px] text-sm
     }
 
     td {
-        @apply px-4 py-3 m-0   text-left min-w-[100px] text-sm
+        @apply px-4 py-2 m-0  text-left min-w-[100px] text-sm bg-white
+    }
+
+
+    table tbody tr th {
+        @apply sticky left-0 z-10 bg-white font-medium px-4 py-2 m-0  text-left min-w-[100px] text-sm
+    }
+
+    table thead tr th:first-child {
+        @apply sticky left-0 z-10 bg-[#EFEFEF]
     }
 
     tr {
@@ -40,13 +49,7 @@
         @apply text-gray-500 block text-sm capitalize py-2
     }
 
-    table thead tr th:first-child {
-        @apply sticky left-0 z-10 bg-[#EFEFEF]
-    }
 
-    table tbody tr th {
-        @apply sticky left-0 z-10 bg-white font-medium px-4 py-3 m-0  text-left min-w-[100px] text-sm
-    }
 }
 
 
@@ -62,6 +65,6 @@
 
 @layer utilities {
     .table-container {
-        @apply rounded-lg overflow-x-scroll border-[#EBECF0] border text-nowrap
+        @apply rounded overflow-x-scroll border-[#EBECF0] border text-nowrap
     }
 }
