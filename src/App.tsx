@@ -10,7 +10,7 @@ import EditSchoolDetailsPage from "./pages/schools/[schoold]/edit/school-details
 import ChangePasswordPage from "./pages/schools/[schoold]/edit/password/ChangePasswordPage.tsx";
 import RegisterSchoolPage from "./pages/schools/register/RegisterSchoolPage.tsx";
 import EditLocationDetailsPage from "./pages/schools/[schoold]/edit/location-details/EditLocationDetailsPage.tsx";
-import EditGalleryPage from "./pages/schools/[schoold]/edit/gallery/EditGalleryPage.tsx";
+import CreateJobPage from "./pages/schools/[schoold]/jobs/create/CreateJobPage.tsx";
 
 export default function App() {
   return (
@@ -38,8 +38,8 @@ export default function App() {
             element={<EditLocationDetailsPage />}
           />
           <Route
-            path="schools/:schoolId/edit/gallery"
-            element={<EditGalleryPage />}
+            path="schools/:schoolId/jobs/create"
+            element={<CreateJobPage />}
           />
 
           <Route path="schools/register" element={<RegisterSchoolPage />} />

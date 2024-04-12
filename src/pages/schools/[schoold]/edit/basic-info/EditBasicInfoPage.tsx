@@ -10,7 +10,7 @@ import { School } from "../../../../../interfaces/api.ts";
 import queryClient from "../../../../../configs/query-client.ts";
 
 const schema = z.object({
-  name: z.string().min(5).default("sfdgafdg"),
+  name: z.string().min(5),
   phone_number: z.string(),
   primary_email: z.string().email().min(5),
   website: z.string().url(),

@@ -4,7 +4,7 @@ import expandMore from "/icons/expand_more.svg";
 import search from "/icons/search.svg";
 import { useQuery } from "@tanstack/react-query";
 import weteachApi from "../../../configs/weteach-api.ts";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { Job } from "../../../interfaces/api.ts";
 
 function PostedJobsTable({ jobs }: { jobs: Job[] }) {
@@ -66,10 +66,10 @@ export default function PostedJobsTab() {
             <p>Search</p>
           </button>
         </div>
-        <button className={"btn-outlined"}>
+        <Link className={"btn-outlined"} to={"jobs/create"}>
           <img src={addSecondary} className={"w-6 h-6"} />
           <span>Post new job</span>
-        </button>
+        </Link>
       </div>
 
       {data !== undefined ? <PostedJobsTable jobs={data.data.results} /> : null}
