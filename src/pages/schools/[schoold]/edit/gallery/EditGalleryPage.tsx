@@ -4,11 +4,60 @@ import { useQuery } from "@tanstack/react-query";
 import { AxiosResponse } from "axios";
 import closeSecondary from "/icons/close_secondary.svg";
 
-import { School } from "../../../../../interfaces/api.ts";
+import { Image, School } from "../../../../../interfaces/api.ts";
 import weteachApi from "../../../../../configs/weteach-api.ts";
-import baseUrl from "../../../../../configs/baseUrl.ts";
 import addSecondary from "/icons/add_secondary.svg";
 import { ChangeEventHandler } from "react";
+import queryClient from "../../../../../configs/query-client.ts";
+
+function Photos() {
+  const { schoolId } = useParams();
+
+  const url = `api/v1/dashboard/school/media/${schoolId}/`;
+
+  const { data } = useQuery<AxiosResponse<Image[]>>({
+    queryKey: [url],
+    queryFn: () => weteachApi.get(url),
+  });
+
+  const handleImageDelete = async (id: number) => {
+    await weteachApi.delete(`/api/v1/users/school/photos/delete/${id}/`);
+
+    await queryClient.invalidateQueries({
+      queryKey: [`api/v1/dashboard/school/media/${schoolId}/`],
+    });
+  };
+
+  return (
+    <>
+      {data !== undefined ? (
+        <>
+          {data.data.map((image) => (
+            <div
+              className={
+                "rounded overflow-clip w-fit relative w-[200px] h-[200px]"
+              }
+              key={image.id}
+            >
+              <img
+                src={image.image}
+                className={"w-[200px] h-[200px] object-cover"}
+              />
+              <button
+                className={
+                  "absolute bottom-4 right-4 bg-white border border-gray-200 rounded-3xl p-1 hover:cursor-pointer"
+                }
+                onClick={() => handleImageDelete(image.id)}
+              >
+                <img src={closeSecondary} alt={"close"} className={"w-5 h-5"} />
+              </button>
+            </div>
+          ))}
+        </>
+      ) : null}
+    </>
+  );
+}
 
 interface EditGalleryFormProps {
   school: School;
@@ -20,32 +69,37 @@ function EditGalleryForm(props: EditGalleryFormProps) {
   const navigate = useNavigate();
   const previousPage = "../../";
 
-  const handleUpload: ChangeEventHandler<HTMLInputElement> = (e) => {
+  const handleUpload: ChangeEventHandler<HTMLInputElement> = async (e) => {
     const [file] = e.target.files;
-    console.log(file);
+
+    const formData = new FormData();
+
+    formData.append("images", file);
+    formData.append("school", school.id);
+
+    try {
+      await weteachApi.post(`/api/v1/users/school/photos/upload/`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      queryClient.invalidateQueries({
+        queryKey: [`api/v1/dashboard/school/media/${school.id}/`],
+      });
+    } catch (e) {
+      console.log(e.response.data);
+    }
   };
 
   return (
     <>
       <div className={"grid grid-cols-4 gap-4"}>
-        <div className={"rounded overflow-clip w-fit relative"}>
-          <img
-            src={baseUrl + school.image}
-            alt={school.name}
-            className={"w-[200px] h-[200px] object-cover"}
-          />
-          <div
-            className={
-              "absolute bottom-4 right-4 bg-white border border-gray-200 rounded-3xl p-1"
-            }
-          >
-            <img src={closeSecondary} alt={"close"} className={"w-5 h-5"} />
-          </div>
-        </div>
+        <Photos />
 
         <label
           className={
-            "bg-gray-100 flex flex-row items-center justify-center rounded relative hover:cursor-pointer"
+            "bg-gray-100 flex flex-row items-center justify-center rounded relative hover:cursor-pointer w-[200px] h-[200px]"
           }
           htmlFor={"image"}
         >
@@ -68,7 +122,7 @@ function EditGalleryForm(props: EditGalleryFormProps) {
         >
           Cancel
         </button>
-        <button className={"btn"}>Submit</button>
+        <button className={"btn"}>Done</button>
       </div>
     </>
   );

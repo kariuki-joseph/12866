@@ -68,3 +68,39 @@ export interface Teacher {
   sub_county: SubCounty;
   qualifications: Qualification[];
 }
+
+interface TeacherRequirement {
+  id: number;
+  name: string;
+}
+
+interface PaymentRate {
+  id: number;
+  days: number;
+  charges: number;
+  creation_time: string;
+}
+
+export interface Job {
+  id: number;
+  title: string;
+  duties_and_responsibilities: string;
+  minimum_requirements: string;
+  status: string;
+  additional_requirements: string;
+  how_to_apply: string;
+  deadline: string;
+  about: string;
+  creation_time: string;
+  expiry_time: string;
+  school: School;
+  teacher_requirements: TeacherRequirement[];
+  payment_rate: PaymentRate;
+}
+
+export interface Image {
+  id: number;
+  image: string;
+  is_sensored: boolean;
+  creation_time: string;
+}

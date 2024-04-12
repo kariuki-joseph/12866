@@ -2,8 +2,53 @@ import filterList from "/icons/filter_list.svg";
 import addSecondary from "/icons/add_secondary.svg";
 import expandMore from "/icons/expand_more.svg";
 import search from "/icons/search.svg";
+import { useQuery } from "@tanstack/react-query";
+import weteachApi from "../../../configs/weteach-api.ts";
+import { useParams } from "react-router-dom";
+import { Job } from "../../../interfaces/api.ts";
+
+function PostedJobsTable({ jobs }: { jobs: Job[] }) {
+  return (
+    <div className={"table-container mt-3"}>
+      <table>
+        <thead>
+          <tr>
+            <th>Job Title</th>
+            <th>Status</th>
+            <th>Post Publicity</th>
+            <th>Posted On</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {jobs.map((job) => (
+            <tr key={job.id}>
+              <th>{job.title}</th>
+              <td>{job.status}</td>
+              <td>
+                {job.payment_rate.days} days(s) for Ksh(
+                {job.payment_rate.charges})
+              </td>
+              <td>{job.creation_time}</td>
+              <td>:</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
 
 export default function PostedJobsTab() {
+  const { schoolId } = useParams();
+
+  const url = `/api/v1/dashboard/school/jobs/${schoolId}/`;
+
+  const { data } = useQuery({
+    queryKey: [url],
+    queryFn: () => weteachApi.get(url),
+  });
+
   return (
     <section>
       <div className={"flex flex-row items-center justify-between"}>
@@ -24,6 +69,8 @@ export default function PostedJobsTab() {
           <span>Post new job</span>
         </button>
       </div>
+
+      {data !== undefined ? <PostedJobsTable jobs={data.data.results} /> : null}
     </section>
   );
 }
