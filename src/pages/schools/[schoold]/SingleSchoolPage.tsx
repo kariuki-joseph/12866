@@ -157,7 +157,9 @@ function SchoolInfo(props: SchoolInfoProps) {
               <p>Accommodation</p>
             </div>
 
-            <p className={"text-left text-black"}>{school.accommodation}</p>
+            <p className={"text-left text-black"}>
+              {school.accommodation ?? "-"}
+            </p>
           </div>
 
           <div className={"flex flex-row items-center justify-between py-3"}>
@@ -166,7 +168,7 @@ function SchoolInfo(props: SchoolInfoProps) {
               <p>Gender</p>
             </div>
 
-            <p className={"text-left text-black"}>{school.gender}</p>
+            <p className={"text-left text-black"}>{school.gender ?? "-"}</p>
           </div>
 
           <div className={"flex flex-row items-center justify-between py-3"}>
@@ -187,26 +189,16 @@ function SchoolInfo(props: SchoolInfoProps) {
       <div className={"text-gray-500 mb-3"}>
         <p className={"text-sm"}>Payment Information</p>
         <hr className={"my-1"} />
+        {school.school_owner_payment_methods.map((d) => (
+          <div
+            className={"flex flex-row items-center justify-between py-3"}
+            key={d.id}
+          >
+            <p>{d.title}</p>
 
-        {/*<div className={"text-sm"}>*/}
-        {/*  <div className={"flex flex-row items-center justify-between py-3"}>*/}
-        {/*    <div className={"flex flex-row items-center gap-2"}>*/}
-        {/*      <img src={accountBalalance} className={"w-5 h-5"} alt={"bankc"} />*/}
-        {/*      <p>Accomodation</p>*/}
-        {/*    </div>*/}
-
-        {/*    <p className={"text-left text-black"}>Day and Boarding</p>*/}
-        {/*  </div>*/}
-
-        {/*  <div className={"flex flex-row items-center justify-between py-3"}>*/}
-        {/*    <div className={"flex flex-row items-center gap-2"}>*/}
-        {/*      <img src={paperPlaneTiltPlain} className={"w-5 h-5"} />*/}
-        {/*      <p>Accomodation</p>*/}
-        {/*    </div>*/}
-
-        {/*    <p className={"text-left text-black"}>Day and Boarding</p>*/}
-        {/*  </div>*/}
-        {/*</div>*/}
+            <p className={"text-left text-black"}>{school.gender ?? "-"}</p>
+          </div>
+        ))}
       </div>
 
       <div className={"mt-12 py-2"}>

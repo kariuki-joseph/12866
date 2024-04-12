@@ -24,6 +24,7 @@ export interface SubCounty {
 
 interface SchoolOwnerPaymentMethods {
   id: number;
+  title: string;
   phone_number: string;
 }
 
