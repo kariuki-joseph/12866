@@ -9,12 +9,13 @@ import LoadingBlocks from "../../components/loading/LoadingBlocks.tsx";
 import paperPlaneTilt from "/icons/paper-plane-tilt.svg";
 import StatCard from "../../components/StatCard.tsx";
 import * as Popover from "@radix-ui/react-popover";
-import LoadingTable from "../../components/loading/LoadingTable.tsx";
 import { PaginatedResponse, School } from "../../interfaces/api.ts";
 import { DateTime } from "luxon";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useEffect, useState } from "react";
+import PaginationSection from "../../components/PaginationSection.tsx";
 
 function SchoolsStats() {
   const url = "api/v1/dashboard/schools/statistics/";
@@ -110,6 +111,7 @@ function SchoolsTable(props: SchoolsTableProps) {
 
 const schema = z.object({
   gender: z.string().optional(),
+  name: z.string().optional(),
   accommodation: z.string().optional(),
   county__name: z.string().optional(),
   sub_county__name: z.string().optional(),
@@ -119,21 +121,29 @@ const schema = z.object({
 type ISchema = z.infer<typeof schema>;
 
 function SchoolsTableSection() {
-  const navigate = useNavigate();
+  const [page, setPage] = useState(1);
 
-  const { register, watch } = useForm<ISchema>({
+  const { register, watch, reset } = useForm<ISchema>({
     resolver: zodResolver(schema),
   });
 
   const gender = watch("gender");
   const accommodation = watch("accommodation");
   const institution_level = watch("institution_level");
+  const name = watch("name");
+
+  useEffect(() => {
+    const subscription = watch(() => setPage(1));
+    return () => subscription.unsubscribe();
+  }, [watch]);
 
   const query = queryString.stringify(
     {
       gender,
       accommodation,
       institution_level,
+      name,
+      page,
     },
     {
       skipEmptyString: true,
@@ -142,10 +152,19 @@ function SchoolsTableSection() {
 
   const url = `api/v1/dashboard/schools/list/${query === "" ? "" : "?" + query}`;
 
-  const { data, isLoading } = useQuery<PaginatedResponse<School>>({
+  const { data } = useQuery<PaginatedResponse<School>>({
     queryKey: [query],
     queryFn: () => weteachApi.get(url),
+    placeholderData: (previousData) => previousData,
   });
+
+  function clearFilter() {
+    reset({
+      gender: "",
+      accommodation: "",
+      institution_level: "",
+    });
+  }
 
   return (
     <section>
@@ -161,57 +180,75 @@ function SchoolsTableSection() {
             </Popover.Trigger>
             <Popover.Portal>
               <Popover.Content
-                className={
-                  "bg-white p-3 z-20 border border-gray-200 flex flex-row gap-3 text-xs"
-                }
+                className={"bg-white p-3 z-20 border border-gray-200 text-xs"}
                 side={"bottom"}
                 sideOffset={5}
                 align={"start"}
               >
-                <div className={"flex flex-col gap-3"}>
-                  <label className={"text-right text-xs"}>
-                    Level of Institution
-                  </label>
-                  <label className={"text-right text-xs"}>Gender</label>
-                  <label className={"text-right text-xs"}>Accommodation</label>
+                <div
+                  className={
+                    "flex flex-row gap-3 border-b border-gray-200 pb-3 mt-3"
+                  }
+                >
+                  <div className={"flex flex-col gap-3"}>
+                    <label className={"text-right text-xs"}>
+                      Level of Institution
+                    </label>
+                    <label className={"text-right text-xs"}>Gender</label>
+                    <label className={"text-right text-xs"}>
+                      Accommodation
+                    </label>
+                  </div>
+
+                  <div className={"flex flex-col gap-3"}>
+                    <select
+                      {...register("institution_level")}
+                      className={"p-2 text-xs"}
+                    >
+                      <option value={""}>Select level of institution</option>
+                      <option value={"ECDE"}>ECDE</option>
+                      <option value={"Primary School"}>Primary School</option>
+                      <option value={"High School"}>High School</option>
+                    </select>
+
+                    <select {...register("gender")} className={"p-2 text-xs"}>
+                      <option value={""}>Select gender</option>
+                      <option value={"Mixed"}>Mixed</option>
+                      <option value={"Boys"}>Boys School</option>
+                      <option value={"Girls"}>Girls School</option>
+                    </select>
+
+                    <select
+                      {...register("accommodation")}
+                      className={"p-2 text-xs"}
+                    >
+                      <option value={""}>Select accommodation</option>
+                      <option value={"Mixed"}>Mixed</option>
+                      <option value={"Day School"}>Day School</option>
+                      <option value={"Boarding School"}>Boarding School</option>
+                    </select>
+                  </div>
                 </div>
 
-                <div className={"flex flex-col gap-3"}>
-                  <select
-                    {...register("institution_level")}
-                    className={"p-2 text-xs"}
-                  >
-                    <option value={""}>Select level of institution</option>
-                    <option value={"ECDE"}>ECDE</option>
-                    <option value={"Primary School"}>Primary School</option>
-                    <option value={"High School"}>High School</option>
-                  </select>
-
-                  <select {...register("gender")} className={"p-2 text-xs"}>
-                    <option value={""}>Select gender</option>
-                    <option value={"Mixed"}>Mixed</option>
-                    <option value={"Boys"}>Boys School</option>
-                    <option value={"Girls"}>Girls School</option>
-                  </select>
-
-                  <select
-                    {...register("accommodation")}
-                    className={"p-2 text-xs"}
-                  >
-                    <option value={""}>Select accommodation</option>
-                    <option value={"Mixed"}>Mixed</option>
-                    <option value={"Day School"}>Day School</option>
-                    <option value={"Boarding School"}>Boarding School</option>
-                  </select>
-                </div>
+                <button
+                  className={"w-full text-secondary text-sm pt-3"}
+                  onClick={() => clearFilter()}
+                >
+                  Clear filter
+                </button>
               </Popover.Content>
             </Popover.Portal>
           </Popover.Root>
 
-          <button className="flex flex-row text-sm items-center gap-3 px-4 py-2 border border-gray-200 rounded-[32px] w-[300px]">
+          <label className="flex flex-row text-sm items-center gap-3 px-4 py-0 border border-gray-200 rounded-[32px] w-[300px]">
             <img src={search} alt={"filter"} />
-            <p>Search</p>
-          </button>
+            <input
+              {...register("name")}
+              type={"search"}
+              placeholder={"Search"}
+              className={"py-0  text-regular h-full border-0 focus:outline-0"}
+            />
+          </label>
         </div>
 
         <Link className={"btn"} to={"schools/register"}>
@@ -219,11 +256,16 @@ function SchoolsTableSection() {
           <p className={"font-bold"}>Register School</p>
         </Link>
       </div>
-      {isLoading ? (
-        <LoadingTable />
-      ) : (
-        <SchoolsTable schools={data.data.results} />
-      )}
+      {data ? (
+        <>
+          <SchoolsTable schools={data.data.results} />
+          <PaginationSection
+            page={page}
+            total={data.data.count}
+            setPage={setPage}
+          />
+        </>
+      ) : null}
       {/*<div className={"flex flex-row justify-end items-center"}>*/}
       {/*  <button>{"<"}</button>*/}
       {/*  <button>1</button>*/}
