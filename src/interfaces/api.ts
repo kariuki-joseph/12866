@@ -87,6 +87,7 @@ export interface Job {
   duties_and_responsibilities: string;
   minimum_requirements: string;
   status: string;
+  views: number;
   additional_requirements: string;
   how_to_apply: string;
   deadline: string;

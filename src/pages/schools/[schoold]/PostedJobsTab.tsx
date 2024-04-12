@@ -15,6 +15,7 @@ function PostedJobsTable({ jobs }: { jobs: Job[] }) {
           <tr>
             <th>Job Title</th>
             <th>Status</th>
+            <th>Post Impression</th>
             <th>Post Publicity</th>
             <th>Posted On</th>
             <th>Actions</th>
@@ -25,6 +26,7 @@ function PostedJobsTable({ jobs }: { jobs: Job[] }) {
             <tr key={job.id}>
               <th>{job.title}</th>
               <td>{job.status}</td>
+              <td>{job.views}</td>
               <td>
                 {job.payment_rate.days} days(s) for Ksh(
                 {job.payment_rate.charges})
