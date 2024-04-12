@@ -73,13 +73,13 @@ function SchoolTitleSection(props: SchoolTitleSectionProps) {
               Basic Info
             </Link>
             <Link
-              to={"edit/contact-details"}
+              to={"edit/school-details"}
               className={"hover:bg-gray-100 hover:text-black"}
             >
               School Details
             </Link>
             <Link
-              to={"edit/location-description"}
+              to={"edit/location-details"}
               className={"hover:bg-gray-100 hover:text-black"}
             >
               Location Details
@@ -88,7 +88,7 @@ function SchoolTitleSection(props: SchoolTitleSectionProps) {
               to={"edit/gallery"}
               className={"hover:bg-gray-100 hover:text-black"}
             >
-              School Gallery
+              Gallery
             </Link>
             <Link
               to={"edit/password"}

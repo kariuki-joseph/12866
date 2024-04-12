@@ -6,9 +6,10 @@ import EditBasicInfoPage from "./pages/schools/[schoold]/edit/basic-info/EditBas
 import TeachersPage from "./pages/teachers/TeachersPage.tsx";
 import ManagePostsPage from "./pages/manage-posts/ManagePostsPage.tsx";
 import FinancesPage from "./pages/finances/FinancesPage.tsx";
-import ContactDetailsPage from "./pages/schools/[schoold]/edit/contact-details/ContactDetailsPage.tsx";
+import EditSchoolDetailsPage from "./pages/schools/[schoold]/edit/school-details/EditSchoolDetailsPage.tsx";
 import ChangePasswordPage from "./pages/schools/[schoold]/edit/password/ChangePasswordPage.tsx";
 import RegisterSchoolPage from "./pages/schools/register/RegisterSchoolPage.tsx";
+import EditLocationDetails from "./pages/schools/[schoold]/edit/location-details/EditLocationDetails.tsx";
 
 export default function App() {
   return (
@@ -24,12 +25,16 @@ export default function App() {
             element={<EditBasicInfoPage />}
           />
           <Route
-            path="schools/:schoolId/edit/contact-details"
-            element={<ContactDetailsPage />}
+            path="schools/:schoolId/edit/school-details"
+            element={<EditSchoolDetailsPage />}
           />
           <Route
             path="schools/:schoolId/edit/password"
             element={<ChangePasswordPage />}
+          />
+          <Route
+            path="schools/:schoolId/edit/location-details"
+            element={<EditLocationDetails />}
           />
 
           <Route path="schools/register" element={<RegisterSchoolPage />} />

@@ -11,12 +11,12 @@ export interface AxiosResponse<T> {
   data: T;
 }
 
-interface County {
+export interface County {
   id: number;
   name: string;
 }
 
-interface SubCounty {
+export interface SubCounty {
   id: number;
   name: string;
   county: County;

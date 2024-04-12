@@ -41,9 +41,10 @@
         @apply border-none
     }
 
-    input, textarea {
+    input, textarea, select {
         @apply px-4 py-3 border border-gray-200 w-full rounded-lg bg-white text-sm
     }
+
 
     label {
         @apply text-gray-500 block text-sm capitalize py-2
