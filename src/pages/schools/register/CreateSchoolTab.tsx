@@ -9,6 +9,7 @@ const schema = z.object({
   name: z.string().min(5),
   phone_number: z.string(),
   primary_email: z.string().email().min(5),
+  website: z.string().url(),
   image: z.unknown(),
 });
 
@@ -31,6 +32,7 @@ export default function CreateSchoolTab() {
     phone_number,
     primary_email,
     image,
+    website,
   }: ISchema) => {
     const userId = sessionStorage.getItem("userId");
     const formData = new FormData();
@@ -40,6 +42,7 @@ export default function CreateSchoolTab() {
     formData.append("name", name);
     formData.append("primary_email", primary_email);
     formData.append("phone_number", phone_number);
+    formData.append("web_site", website);
     formData.append("owner", userId);
 
     try {
@@ -97,6 +100,14 @@ export default function CreateSchoolTab() {
       <p className={"text-xs text-error mt-1"}>
         {errors.phone_number?.message}
       </p>
+
+      <label htmlFor={"website"}>Website</label>
+      <input
+        {...register("website")}
+        placeholder={"Enter website"}
+        type={"text"}
+      />
+      <p className={"text-xs text-error mt-1"}>{errors.website?.message}</p>
 
       <div className={"flex flex-row justify-end gap-3 mt-3"}>
         <button

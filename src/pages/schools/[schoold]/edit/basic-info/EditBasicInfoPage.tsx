@@ -13,6 +13,7 @@ const schema = z.object({
   name: z.string().min(5).default("sfdgafdg"),
   phone_number: z.string(),
   primary_email: z.string().email().min(5),
+  website: z.string().url(),
   image: z.unknown(),
 });
 
@@ -37,6 +38,7 @@ function EditBasicInfoForm(props: EditBasicInfoFormProps) {
       name: school.name,
       phone_number: school.phone_number,
       primary_email: school.primary_email,
+      website: school.web_site,
     },
     resolver: zodResolver(schema),
   });
@@ -46,6 +48,7 @@ function EditBasicInfoForm(props: EditBasicInfoFormProps) {
     phone_number,
     primary_email,
     image,
+    website,
   }: ISchema) => {
     const formData = new FormData();
 
@@ -54,6 +57,7 @@ function EditBasicInfoForm(props: EditBasicInfoFormProps) {
     formData.append("name", name);
     formData.append("primary_email", primary_email);
     formData.append("phone_number", phone_number);
+    formData.append("web_site", website);
 
     try {
       await weteachApi.patch(
@@ -117,6 +121,14 @@ function EditBasicInfoForm(props: EditBasicInfoFormProps) {
       <p className={"text-xs text-error mt-1"}>
         {errors.phone_number?.message}
       </p>
+
+      <label htmlFor={"website"}>Website</label>
+      <input
+        {...register("website")}
+        placeholder={"Enter website"}
+        type={"text"}
+      />
+      <p className={"text-xs text-error mt-1"}>{errors.website?.message}</p>
 
       <div className={"flex flex-row items-center justify-end py-2 gap-3"}>
         <button

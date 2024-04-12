@@ -11,14 +11,15 @@ import { z } from "zod";
 import { useForm, UseFormRegister } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { forwardRef } from "react";
+import queryClient from "../../../../../configs/query-client.ts";
 
 const schema = z.object({
-  countyName: z
+  countyId: z
     .string({
       invalid_type_error: "County is required",
     })
     .nullable(),
-  subCountyName: z
+  subCountyId: z
     .string({
       invalid_type_error: "Sub County is required",
     })
@@ -54,7 +55,7 @@ const SelectCounty = forwardRef<
       {data !== undefined ? (
         <select name={name} ref={ref} onChange={onChange} onBlur={onBlur}>
           {data.data.map((county) => (
-            <option value={county.name} key={county.id}>
+            <option value={county.id} key={county.id}>
               {county.name}
             </option>
           ))}
@@ -66,9 +67,9 @@ const SelectCounty = forwardRef<
 
 const SelectSubCounty = forwardRef<
   HTMLSelectElement,
-  { label: string; countyName: string } & ReturnType<UseFormRegister<ISchema>>
->(({ onChange, onBlur, name, label, countyName }, ref) => {
-  const url = `api/v1/users/sub-scounties/list/?county__name=${countyName}`;
+  { label: string; countyId: string } & ReturnType<UseFormRegister<ISchema>>
+>(({ onChange, onBlur, name, label, countyId }, ref) => {
+  const url = `api/v1/users/sub-scounties/list/?county__id=${countyId}`;
 
   const { data } = useQuery<AxiosResponse<County[]>>({
     queryKey: [url],
@@ -98,9 +99,9 @@ function EditLocationDetailsForm(props: EditLocationDetailsFormProps) {
   const navigate = useNavigate();
   const previousPage = "../../";
 
-  const countyName = school.county !== null ? school.county.name : null;
-  const subCountyName =
-    school.sub_county !== null ? school.sub_county.name : null;
+  const countyId = school.county !== null ? school.county.id.toString() : null;
+  const subCountyId =
+    school.sub_county !== null ? school.sub_county.id.toString() : null;
 
   const {
     register,
@@ -110,8 +111,8 @@ function EditLocationDetailsForm(props: EditLocationDetailsFormProps) {
     formState: { errors },
   } = useForm<ISchema>({
     defaultValues: {
-      countyName: countyName,
-      subCountyName: subCountyName,
+      countyId: countyId,
+      subCountyId: subCountyId,
       ward: school.ward,
       formated_address: school.formated_address,
     },
@@ -119,31 +120,32 @@ function EditLocationDetailsForm(props: EditLocationDetailsFormProps) {
   });
 
   const onSubmit = async (data: ISchema) => {
-    console.log(data);
-    // try {
-    //   await weteachApi.patch(
-    //     `api/v1/dashboard/school/modify/${school.id}/`,
-    //     data,
-    //   );
-    //
-    //   queryClient.invalidateQueries({
-    //     queryKey: [`api/v1/dashboard/school/get/${school.id}/`],
-    //   });
-    //
-    //   navigate(previousPage, { relative: "path" });
-    // } catch (e) {
-    //   console.log(e.response.data);
-    // }
+    try {
+      await weteachApi.patch(`api/v1/dashboard/school/modify/${school.id}/`, {
+        county: data.countyId,
+        sub_county: data.subCountyId,
+        ward: data.ward,
+        formated_address: data.formated_address,
+      });
+
+      await queryClient.invalidateQueries({
+        queryKey: [`api/v1/dashboard/school/get/${school.id}/`],
+      });
+
+      navigate(previousPage, { relative: "path" });
+    } catch (e) {
+      console.log(e.response.data);
+    }
   };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <SelectCounty label="county" {...register("countyName")} />
+      <SelectCounty label="county" {...register("countyId")} />
 
       <SelectSubCounty
         label="sub county"
-        {...register("subCountyName")}
-        countyName={watch("countyName")}
+        {...register("subCountyId")}
+        countyId={watch("countyId")}
       />
 
       <label htmlFor={"ward"}>Ward</label>
