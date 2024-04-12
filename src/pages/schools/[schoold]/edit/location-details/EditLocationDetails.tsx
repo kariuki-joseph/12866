@@ -142,9 +142,23 @@ function EditLocationDetailsForm(props: EditLocationDetailsFormProps) {
 
       <SelectSubCounty
         label="sub county"
-        {...register("countyName")}
+        {...register("subCountyName")}
         countyName={watch("countyName")}
       />
+
+      <label htmlFor={"ward"}>Ward</label>
+      <input {...register("ward")} placeholder={"Enter ward"} type={"text"} />
+      <p className={"text-xs text-error mt-1"}>{errors.ward?.message}</p>
+
+      <label htmlFor={"formated_address"}>Address</label>
+      <input
+        {...register("formated_address")}
+        placeholder={"Enter address"}
+        type={"text"}
+      />
+      <p className={"text-xs text-error mt-1"}>
+        {errors.formated_address?.message}
+      </p>
 
       <div className={"flex flex-row justify-end gap-3 mt-3"}>
         <button
