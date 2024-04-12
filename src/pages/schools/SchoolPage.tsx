@@ -169,7 +169,6 @@ function SchoolsTableSection() {
   return (
     <section>
       <div className={"flex flex-row items-center justify-between py-3 gap-4"}>
-        {/*make filters work*/}
         <div className={"flex flex-row gap-3"}>
           <Popover.Root>
             <Popover.Trigger asChild>
