@@ -9,7 +9,7 @@ import * as Tabs from "@radix-ui/react-tabs";
 import * as Popover from "@radix-ui/react-popover";
 import PostedJobsTab from "./PostedJobsTab.tsx";
 import AboutSchoolTab from "./AboutSchoolTab.tsx";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { School } from "../../../interfaces/api.ts";
 import { useQuery } from "@tanstack/react-query";
 import { AxiosResponse } from "axios";
@@ -20,6 +20,7 @@ import LoadingBlocks from "../../../components/loading/LoadingBlocks.tsx";
 import StatCard from "../../../components/StatCard.tsx";
 import baseUrl from "../../../configs/baseUrl.ts";
 import { Photos } from "../../../components/Photos.tsx";
+import queryClient from "../../../configs/query-client.ts";
 
 interface SchoolTitleSectionProps {
   school: School;
@@ -35,7 +36,7 @@ function SchoolTitleSection(props: SchoolTitleSectionProps) {
         {school.is_suspended ? (
           <p
             className={
-              "text-sm rounded-3xl px-3 py-1 bg-green-100 text-green-950 w-fit"
+              "text-sm rounded-3xl px-3 py-1 bg-error text-white text-green-950 w-fit"
             }
           >
             Inactive
@@ -108,7 +109,22 @@ interface SchoolInfoProps {
 }
 
 function SchoolInfo(props: SchoolInfoProps) {
+  const navigate = useNavigate();
   const { school } = props;
+
+  async function handleSuspendSchool(id: number) {
+    try {
+      await weteachApi.patch(`api/v1/dashboard/school/modify/${school.id}/`, {
+        is_suspended: !school.is_suspended,
+      });
+
+      await queryClient.invalidateQueries({
+        queryKey: [`api/v1/dashboard/school/get/${school.id}/`],
+      });
+    } catch (e) {
+      console.log(e.response.data);
+    }
+  }
 
   return (
     <section
@@ -203,7 +219,12 @@ function SchoolInfo(props: SchoolInfoProps) {
 
       <div className={"mt-12 py-2"}>
         <hr />
-        <button className={"text-error py-2 w-full"}>Suspend</button>
+        <button
+          className={"text-error py-2 w-full"}
+          onClick={() => handleSuspendSchool(school.id)}
+        >
+          {school.is_suspended ? "Unsuspend" : "Suspend"}
+        </button>
       </div>
     </section>
   );
