@@ -9,7 +9,6 @@ import * as Tabs from "@radix-ui/react-tabs";
 import * as Popover from "@radix-ui/react-popover";
 import PostedJobsTab from "./PostedJobsTab.tsx";
 import AboutSchoolTab from "./AboutSchoolTab.tsx";
-import GalleryTab from "./GalleryTab.tsx";
 import { Link, useParams } from "react-router-dom";
 import { School } from "../../../interfaces/api.ts";
 import { useQuery } from "@tanstack/react-query";
@@ -20,6 +19,7 @@ import { DateTime } from "luxon";
 import LoadingBlocks from "../../../components/loading/LoadingBlocks.tsx";
 import StatCard from "../../../components/StatCard.tsx";
 import baseUrl from "../../../configs/baseUrl.ts";
+import { Photos } from "../../../components/Photos.tsx";
 
 interface SchoolTitleSectionProps {
   school: School;
@@ -298,7 +298,7 @@ function JobDetails(props: JobDetailsProps) {
           <AboutSchoolTab school={school} />
         </Tabs.Content>
         <Tabs.Content value={"gallery"}>
-          <GalleryTab />
+          <Photos />
         </Tabs.Content>
       </Tabs.Root>
     </section>

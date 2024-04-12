@@ -27,7 +27,9 @@ export default function AboutSchoolTab(props: AboutSchoolTabProps) {
     <section>
       <div className={"px-6 py-5 border border-gray-200 rounded-lg mb-3"}>
         <p className={"font-bold mb-2 text-sm "}>School Bio</p>
-        <p className={"text-sm text-gray-500 text-justify"}>{school.about}</p>
+        <p className={"text-sm text-gray-500 text-justify"}>
+          {school.about ?? "-"}
+        </p>
       </div>
 
       <div className={"flex flex-row gap-4"}>
@@ -137,7 +139,7 @@ export default function AboutSchoolTab(props: AboutSchoolTabProps) {
               <img src={location_on} className={"w-5 h-5"} />
               <p className={"text-xs"}>
                 <b>County: </b>
-                {school.county.name}
+                {school.county !== null ? school.county.name : "-"}
               </p>
             </div>
 
@@ -145,7 +147,7 @@ export default function AboutSchoolTab(props: AboutSchoolTabProps) {
               <img src={location_on} className={"w-5 h-5"} />
               <p className={"text-xs"}>
                 <b>Sub-County: </b>
-                {school.sub_county.name}
+                {school.sub_county !== null ? school.sub_county.name : "-"}
               </p>
             </div>
 

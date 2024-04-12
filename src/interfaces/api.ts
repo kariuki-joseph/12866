@@ -43,8 +43,8 @@ export interface School {
   about: string;
   formated_address: string;
   is_suspended: boolean;
-  county: County;
-  sub_county: SubCounty;
+  county: County | null;
+  sub_county: SubCounty | null;
   school_owner_payment_methods: SchoolOwnerPaymentMethods[];
   creation_time: string;
 }
