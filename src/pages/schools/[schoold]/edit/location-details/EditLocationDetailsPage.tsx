@@ -174,7 +174,7 @@ function EditLocationDetailsForm(props: EditLocationDetailsFormProps) {
   );
 }
 
-export default function EditLocationDetails() {
+export default function EditLocationDetailsPage() {
   const { schoolId } = useParams();
 
   const url = `api/v1/dashboard/school/get/${schoolId}/`;

@@ -9,7 +9,8 @@ import FinancesPage from "./pages/finances/FinancesPage.tsx";
 import EditSchoolDetailsPage from "./pages/schools/[schoold]/edit/school-details/EditSchoolDetailsPage.tsx";
 import ChangePasswordPage from "./pages/schools/[schoold]/edit/password/ChangePasswordPage.tsx";
 import RegisterSchoolPage from "./pages/schools/register/RegisterSchoolPage.tsx";
-import EditLocationDetails from "./pages/schools/[schoold]/edit/location-details/EditLocationDetails.tsx";
+import EditLocationDetailsPage from "./pages/schools/[schoold]/edit/location-details/EditLocationDetailsPage.tsx";
+import EditGalleryPage from "./pages/schools/[schoold]/edit/gallery/EditGalleryPage.tsx";
 
 export default function App() {
   return (
@@ -34,7 +35,11 @@ export default function App() {
           />
           <Route
             path="schools/:schoolId/edit/location-details"
-            element={<EditLocationDetails />}
+            element={<EditLocationDetailsPage />}
+          />
+          <Route
+            path="schools/:schoolId/edit/gallery"
+            element={<EditGalleryPage />}
           />
 
           <Route path="schools/register" element={<RegisterSchoolPage />} />
