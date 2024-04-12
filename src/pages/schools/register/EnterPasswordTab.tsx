@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigate } from "react-router-dom";
 import React from "react";
+import weteachApi from "../../../configs/weteach-api.ts";
 
 const schema = z
   .object({
@@ -35,9 +36,24 @@ export default function EnterPasswordTab(props: EnterPasswordTabProps) {
     resolver: zodResolver(schema),
   });
 
-  const onSubmit = (data: ISchema, e: any) => {
-    e.preventDefault();
-    setTab("create-school-tab");
+  const onSubmit = async (data: ISchema) => {
+    try {
+      const otp = sessionStorage.getItem("otp");
+
+      sessionStorage.setItem("otp", "");
+
+      const res = await weteachApi.post(`api/v1/users/otp/set/password/`, {
+        otp_code: otp,
+        password: data.new_password,
+        password2: data.confirm_password,
+      });
+
+      sessionStorage.setItem("userId", res.data.user.id);
+
+      setTab("create-school-tab");
+    } catch (e) {
+      alert("error occured");
+    }
   };
 
   return (

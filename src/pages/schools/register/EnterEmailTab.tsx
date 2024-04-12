@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigate } from "react-router-dom";
 import React from "react";
+import weteachApi from "../../../configs/weteach-api.ts";
 
 const schema = z.object({
   email: z.string().email().min(5),
@@ -28,8 +29,12 @@ export default function EnterEmailTab(props: EnterEmailTabProps) {
     resolver: zodResolver(schema),
   });
 
-  const onSubmit = (data: ISchema, e: any) => {
-    e.preventDefault();
+  const onSubmit = async (data: ISchema) => {
+    await weteachApi.post(`api/v1/users/register/`, {
+      email: data.email,
+      is_school: 1,
+    });
+
     setTab("enter-otp-tab");
   };
   return (

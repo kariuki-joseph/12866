@@ -32,13 +32,15 @@ export default function CreateSchoolTab() {
     primary_email,
     image,
   }: ISchema) => {
+    const userId = sessionStorage.getItem("userId");
     const formData = new FormData();
+
     formData.append("image", image[0]);
 
     formData.append("name", name);
     formData.append("primary_email", primary_email);
     formData.append("phone_number", phone_number);
-    formData.append("owner", 172);
+    formData.append("owner", userId);
 
     try {
       await weteachApi.post("api/v1/users/school/", formData, {
@@ -48,7 +50,7 @@ export default function CreateSchoolTab() {
       });
       navigate(previousPage, { relative: "path" });
     } catch (e) {
-      console.log(e.response.data);
+      alert(e.response.data);
     }
   };
 

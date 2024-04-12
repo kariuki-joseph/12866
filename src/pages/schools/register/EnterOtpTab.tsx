@@ -3,9 +3,10 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigate } from "react-router-dom";
 import React from "react";
+import weteachApi from "../../../configs/weteach-api.ts";
 
 const schema = z.object({
-  pin: z.coerce.number(),
+  otp: z.coerce.number(),
 });
 
 type ISchema = z.infer<typeof schema>;
@@ -27,9 +28,18 @@ export default function EnterOtpTab(props: EnterOtpTabProps) {
     resolver: zodResolver(schema),
   });
 
-  const onSubmit = (data: ISchema, e: any) => {
-    e.preventDefault();
-    setTab("enter-password-tab");
+  const onSubmit = async (data: ISchema) => {
+    try {
+      await weteachApi.post(`api/v1/users/otp/confirm/`, {
+        otp_code: data.otp,
+      });
+
+      sessionStorage.setItem("otp", data.otp);
+
+      setTab("enter-password-tab");
+    } catch (e) {
+      alert("invalid otp");
+    }
   };
 
   return (
@@ -38,9 +48,9 @@ export default function EnterOtpTab(props: EnterOtpTabProps) {
         A short PIN was sent to your email. Check your inbox and enter the PIN
         to verify your email
       </p>
-      <label htmlFor={"pin"}>Pin</label>
-      <input {...register("pin")} placeholder={"Enter pin"} type={"number"} />
-      <p className={"text-xs text-error mt-1"}>{errors.pin?.message}</p>
+      <label htmlFor={"otp"}>Otp</label>
+      <input {...register("otp")} placeholder={"Enter otp"} type={"number"} />
+      <p className={"text-xs text-error mt-1"}>{errors.otp?.message}</p>
 
       <div className={"flex flex-row justify-end gap-3 mt-3"}>
         <button
