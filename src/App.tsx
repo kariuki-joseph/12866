@@ -13,6 +13,8 @@ import EditLocationDetailsPage from "./pages/schools/[schoold]/edit/location-det
 import CreateJobPage from "./pages/schools/[schoold]/jobs/create/CreateJobPage.tsx";
 import SingleTeacherPage from "./pages/teachers/[teacherId]/SingleTeacherPage.tsx";
 import RegisterTeacherPage from "./pages/teachers/register/RegisterTeacherPage.tsx";
+import EditTeacherBasicInfoForm from "./pages/teachers/[teacherId]/edit/EditTeacherBasicInfo.tsx";
+import EditTeacherLocationDetails from "./pages/teachers/[teacherId]/edit/EditTeacherLocationDetailsPage.tsx";
 
 export default function App() {
   return (
@@ -49,6 +51,15 @@ export default function App() {
           <Route path="teachers" element={<TeachersPage />} />
           <Route path="teachers/register" element={<RegisterTeacherPage />} />
           <Route path="teachers/:teacherId" element={<SingleTeacherPage />} />
+          <Route
+            path="teachers/:teacherId/edit/basic-info"
+            element={<EditTeacherBasicInfoForm />}
+          />
+          <Route
+            path="teachers/:teacherId/edit/location-details"
+            element={<EditTeacherLocationDetails />}
+          />
+
           <Route path="manage-posts" element={<ManagePostsPage />} />
           <Route path="finances" element={<FinancesPage />} />
         </Route>

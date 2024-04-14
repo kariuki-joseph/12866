@@ -3,7 +3,7 @@ import call from "/icons/call.svg";
 import schedule from "/icons/schedule.svg";
 import school from "/icons/school.svg";
 import paperPlaneTilt from "/icons/paper-plane-tilt.svg";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { Teacher } from "../../../interfaces/api.ts";
 import { useQuery } from "@tanstack/react-query";
 import { AxiosResponse } from "axios";
@@ -15,6 +15,8 @@ import business_center from "/icons/business_center.svg";
 import { DateTime } from "luxon";
 import * as Tabs from "@radix-ui/react-tabs";
 import AboutTeacher from "./AboutTeacher.tsx";
+import editSecondary from "/icons/edit_secondary.svg";
+import * as Popover from "@radix-ui/react-popover";
 
 interface TeacherNameSectionProps {
   teacher: Teacher;
@@ -46,54 +48,48 @@ function TeacherNameSection(props: TeacherNameSectionProps) {
         {/*)}*/}
       </div>
 
-      {/*<Popover.Root>*/}
-      {/*  <Popover.Trigger asChild>*/}
-      {/*    <button className={"btn-outlined"}>*/}
-      {/*      <img src={editSecondary} alt={"edit"} />*/}
-      {/*      <span>Edit</span>*/}
-      {/*    </button>*/}
-      {/*  </Popover.Trigger>*/}
-      {/*  <Popover.Portal>*/}
-      {/*    <Popover.Content*/}
-      {/*      sideOffset={6}*/}
-      {/*      align={"end"}*/}
-      {/*      className={*/}
-      {/*        "rounded-lg text-sm flex flex-col py-1 *:py-2 *:px-3 text-gray-500 right-10 w-[260px] bg-white shadow-[0_10px_38px_-10px_hsla(206,22%,7%,.35),0_10px_20px_-15px_hsla(206,22%,7%,.2)] focus:shadow-[0_10px_38px_-10px_hsla(206,22%,7%,.35),0_10px_20px_-15px_hsla(206,22%,7%,.2),0_0_0_2px_theme(colors.violet7)] will-change-[transform,opacity] data-[state=open]:data-[side=top]:animate-slideDownAndFade data-[state=open]:data-[side=right]:animate-slideLeftAndFade data-[state=open]:data-[side=bottom]:animate-slideUpAndFade data-[state=open]:data-[side=left]:animate-slideRightAndFade"*/}
-      {/*      }*/}
-      {/*    >*/}
-      {/*      <Link*/}
-      {/*        to={"edit/basic-info"}*/}
-      {/*        className={"hover:bg-gray-100 hover:text-black"}*/}
-      {/*      >*/}
-      {/*        Basic Info*/}
-      {/*      </Link>*/}
-      {/*      <Link*/}
-      {/*        to={"edit/school-details"}*/}
-      {/*        className={"hover:bg-gray-100 hover:text-black"}*/}
-      {/*      >*/}
-      {/*        School Details*/}
-      {/*      </Link>*/}
-      {/*      <Link*/}
-      {/*        to={"edit/location-details"}*/}
-      {/*        className={"hover:bg-gray-100 hover:text-black"}*/}
-      {/*      >*/}
-      {/*        Location Details*/}
-      {/*      </Link>*/}
-      {/*      <Link*/}
-      {/*        to={"edit/gallery"}*/}
-      {/*        className={"hover:bg-gray-100 hover:text-black"}*/}
-      {/*      >*/}
-      {/*        Gallery*/}
-      {/*      </Link>*/}
-      {/*      <Link*/}
-      {/*        to={"edit/password"}*/}
-      {/*        className={"hover:bg-gray-100 hover:text-black"}*/}
-      {/*      >*/}
-      {/*        Change password*/}
-      {/*      </Link>*/}
-      {/*    </Popover.Content>*/}
-      {/*  </Popover.Portal>*/}
-      {/*</Popover.Root>*/}
+      <Popover.Root>
+        <Popover.Trigger asChild>
+          <button className={"btn-outlined"}>
+            <img src={editSecondary} alt={"edit"} />
+            <span>Edit</span>
+          </button>
+        </Popover.Trigger>
+        <Popover.Portal>
+          <Popover.Content
+            sideOffset={6}
+            align={"end"}
+            className={
+              "rounded-lg text-sm flex flex-col py-1 *:py-2 *:px-3 text-gray-500 right-10 w-[260px] bg-white shadow-[0_10px_38px_-10px_hsla(206,22%,7%,.35),0_10px_20px_-15px_hsla(206,22%,7%,.2)] focus:shadow-[0_10px_38px_-10px_hsla(206,22%,7%,.35),0_10px_20px_-15px_hsla(206,22%,7%,.2),0_0_0_2px_theme(colors.violet7)] will-change-[transform,opacity] data-[state=open]:data-[side=top]:animate-slideDownAndFade data-[state=open]:data-[side=right]:animate-slideLeftAndFade data-[state=open]:data-[side=bottom]:animate-slideUpAndFade data-[state=open]:data-[side=left]:animate-slideRightAndFade"
+            }
+          >
+            <Link
+              to={"edit/basic-info"}
+              className={"hover:bg-gray-100 hover:text-black"}
+            >
+              Basic Info
+            </Link>
+            <Link
+              to={"edit/teacher-details"}
+              className={"hover:bg-gray-100 hover:text-black"}
+            >
+              Teacher Details
+            </Link>
+            <Link
+              to={"edit/location-details"}
+              className={"hover:bg-gray-100 hover:text-black"}
+            >
+              Location Details
+            </Link>
+            <Link
+              to={"edit/password"}
+              className={"hover:bg-gray-100 hover:text-black"}
+            >
+              Change password
+            </Link>
+          </Popover.Content>
+        </Popover.Portal>
+      </Popover.Root>
     </section>
   );
 }
