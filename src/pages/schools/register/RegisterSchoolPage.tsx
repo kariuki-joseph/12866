@@ -9,7 +9,7 @@ import CreateSchoolTab from "./CreateSchoolTab.tsx";
 
 export default function RegisterSchoolPage() {
   const [tab, setTab] = useState("enter-email-tab");
-  const previousPage = "/";
+  const previousPage = "/teachers";
   const navigate = useNavigate();
 
   return (

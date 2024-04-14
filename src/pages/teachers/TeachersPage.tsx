@@ -219,7 +219,7 @@ function SchoolsTableSection() {
           </label>
         </div>
 
-        <Link className={"btn"} to={"teachers/register"}>
+        <Link className={"btn"} to={"register"}>
           <img src={addWhite} alt={"add"} />
           <p className={"font-bold"}>Register Teacher</p>
         </Link>
