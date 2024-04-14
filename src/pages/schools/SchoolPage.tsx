@@ -1,6 +1,7 @@
 import filterList from "/icons/filter_list.svg";
 import search from "/icons/search.svg";
 import addWhite from "/icons/add_white.svg";
+import more_vert from "/icons/more_vert.svg";
 import queryString from "query-string";
 import { Link, useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
@@ -98,7 +99,72 @@ function SchoolsTable(props: SchoolsTableProps) {
                     })}
                   </td>
 
-                  <td>:</td>
+                  <td>
+                    <Popover.Root>
+                      <Popover.Trigger
+                        asChild
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        <button
+                          className={
+                            "flex flex-row items-center justify-center"
+                          }
+                        >
+                          <img
+                            src={more_vert}
+                            alt={"more"}
+                            className={"w-4 h-4"}
+                          />
+                        </button>
+                      </Popover.Trigger>
+                      <Popover.Portal>
+                        <Popover.Content
+                          className={
+                            "bg-white p-3 z-20 border border-gray-200 text-xs"
+                          }
+                          side={"bottom"}
+                          sideOffset={5}
+                          align={"end"}
+                        >
+                          <Popover.Close
+                            className={"flex flex-col gap-2 w-full"}
+                            onClick={(e) => e.stopPropagation()}
+                          >
+                            <Link
+                              to={`schools/${school.id}/edit/basic-info`}
+                              className={"hover:underline hover:text-black"}
+                            >
+                              Basic Info
+                            </Link>
+                            <Link
+                              to={`schools/${school.id}/edit/school-details`}
+                              className={"hover:underline hover:text-black"}
+                            >
+                              School Details
+                            </Link>
+                            <Link
+                              to={`schools/${school.id}/edit/location-details`}
+                              className={"hover:underline hover:text-black"}
+                            >
+                              Location Details
+                            </Link>
+                            <Link
+                              to={`schools/${school.id}/edit/gallery`}
+                              className={"hover:underline hover:text-black"}
+                            >
+                              Gallery
+                            </Link>
+                            <Link
+                              to={`schools/${school.id}/edit/password`}
+                              className={"hover:underline hover:text-black"}
+                            >
+                              Change password
+                            </Link>
+                          </Popover.Close>
+                        </Popover.Content>
+                      </Popover.Portal>
+                    </Popover.Root>
+                  </td>
                 </tr>
               );
             })}
@@ -265,13 +331,6 @@ function SchoolsTableSection() {
           />
         </>
       ) : null}
-      {/*<div className={"flex flex-row justify-end items-center"}>*/}
-      {/*  <button>{"<"}</button>*/}
-      {/*  <button>1</button>*/}
-      {/*  <button>2</button>*/}
-      {/*  <button>3</button>*/}
-      {/*  <button>{">"}</button>*/}
-      {/*</div>*/}
     </section>
   );
 }
