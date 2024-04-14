@@ -53,7 +53,14 @@ interface Qualification {
   id: number;
   name: string;
 }
-
+interface User {
+  id: number;
+  password: string;
+  last_login: null;
+  image: string;
+  email: string;
+  phone_number: string;
+}
 export interface Teacher {
   id: string;
   full_name: string;
@@ -68,6 +75,7 @@ export interface Teacher {
   county: County;
   sub_county: SubCounty;
   qualifications: Qualification[];
+  user: User;
 }
 
 interface TeacherRequirement {
