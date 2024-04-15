@@ -1,11 +1,18 @@
 import filterList from "/icons/filter_list.svg";
 import addSecondary from "/icons/add_secondary.svg";
-import expandMore from "/icons/expand_more.svg";
 import search from "/icons/search.svg";
 import { useQuery } from "@tanstack/react-query";
 import weteachApi from "../../../configs/weteach-api.ts";
 import { Link, useParams } from "react-router-dom";
 import { Job } from "../../../interfaces/api.ts";
+import { DateTime } from "luxon";
+import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import queryString from "query-string";
+import PaginationSection from "../../../components/PaginationSection.tsx";
+import * as Popover from "@radix-ui/react-popover";
 
 function PostedJobsTable({ jobs }: { jobs: Job[] }) {
   return (
@@ -32,7 +39,11 @@ function PostedJobsTable({ jobs }: { jobs: Job[] }) {
                   ? `${job.payment_rate.days} days(s) for Ksh ${job.payment_rate.charges})`
                   : "-"}
               </td>
-              <td>{job.creation_time}</td>
+              <td>
+                {DateTime.fromISO(job.creation_time).toLocaleString({
+                  locale: "en-gb",
+                })}
+              </td>
               <td>:</td>
             </tr>
           ))}
@@ -42,30 +53,112 @@ function PostedJobsTable({ jobs }: { jobs: Job[] }) {
   );
 }
 
+const schema = z.object({
+  payment_rate: z.string().optional(),
+  teacher_requirements: z.string().optional(),
+  title: z.string().optional(),
+  status: z.string().optional(),
+});
+
+type ISchema = z.infer<typeof schema>;
+
 export default function PostedJobsTab() {
   const { schoolId } = useParams();
+  const [page, setPage] = useState(1);
 
-  const url = `/api/v1/dashboard/school/jobs/${schoolId}/`;
+  const { register, watch, reset } = useForm<ISchema>({
+    resolver: zodResolver(schema),
+  });
+
+  useEffect(() => {
+    const subscription = watch(() => setPage(1));
+    return () => subscription.unsubscribe();
+  }, [watch]);
+
+  const status = watch("status");
+  const title = watch("title");
+
+  const query = queryString.stringify(
+    {
+      status,
+      page,
+      title,
+    },
+    {
+      skipEmptyString: true,
+    },
+  );
+
+  const url = `/api/v1/dashboard/school/jobs/${schoolId}/${query === "" ? "" : "?" + query}`;
 
   const { data } = useQuery({
     queryKey: [url],
     queryFn: () => weteachApi.get(url),
   });
 
+  function clearFilter() {
+    reset({
+      status: "",
+    });
+  }
+
   return (
     <section>
       <div className={"flex flex-row items-center justify-between"}>
         <div className={"flex flex-row gap-3"}>
-          <button className="flex flex-row text-sm items-center gap-3 p-3 border border-gray-200 rounded-[32px]">
-            <img src={filterList} alt={"filter"} />
-            <p>Filter by</p>
-            <img src={expandMore} alt={"expand more"} />
-          </button>
+          <Popover.Root>
+            <Popover.Trigger asChild>
+              <button className="flex flex-row text-sm items-center gap-3 px-4 py-2  border border-gray-200 rounded-[32px]">
+                <img src={filterList} alt={"filter"} />
+                <p>Filter</p>
+              </button>
+            </Popover.Trigger>
+            <Popover.Portal>
+              <Popover.Content
+                className={"bg-white p-3 z-20 border border-gray-200 text-xs"}
+                side={"bottom"}
+                sideOffset={5}
+                align={"start"}
+              >
+                <div
+                  className={
+                    "flex flex-col gap-3 border-b border-gray-200 pb-3 mt-3"
+                  }
+                >
+                  <div
+                    className={
+                      "flex flex-row items-center w-full justify-center gap-3"
+                    }
+                  >
+                    <label className={"text-right text-xs"}>Status</label>
 
-          <button className="flex flex-row text-sm items-center gap-3 p-3 border border-gray-200 rounded-[32px] w-[300px]">
-            <img src={search} alt={"search"} />
-            <p>Search</p>
-          </button>
+                    <select {...register("status")} className={"p-2 text-xs"}>
+                      <option value={""}>Select status</option>
+                      <option value={"active"}>Active</option>
+                      <option value={"inactive"}>Inactive</option>
+                    </select>
+                  </div>
+                </div>
+
+                <button
+                  className={"w-full text-secondary text-sm pt-3"}
+                  onClick={() => clearFilter()}
+                >
+                  Clear filter
+                </button>
+              </Popover.Content>
+            </Popover.Portal>
+          </Popover.Root>
+
+          <label className="flex flex-row text-sm items-center gap-3 px-4 py-0 border border-gray-200 rounded-[32px] w-[300px]">
+            <img src={search} alt={"filter"} />
+            <input
+              {...register("title")}
+              type={"search"}
+              placeholder={"Search"}
+              className={"py-0  text-regular h-full border-0 focus:outline-0"}
+            />
+          </label>
         </div>
         <Link className={"btn-outlined"} to={"jobs/create"}>
           <img src={addSecondary} className={"w-6 h-6"} />
@@ -73,7 +166,16 @@ export default function PostedJobsTab() {
         </Link>
       </div>
 
-      {data !== undefined ? <PostedJobsTable jobs={data.data.results} /> : null}
+      {data !== undefined ? (
+        <>
+          <PostedJobsTable jobs={data.data.results} />
+          <PaginationSection
+            page={page}
+            total={data.data.count}
+            setPage={setPage}
+          />
+        </>
+      ) : null}
     </section>
   );
 }

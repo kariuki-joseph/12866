@@ -321,6 +321,7 @@ function SchoolsTableSection() {
           <p className={"font-bold"}>Register School</p>
         </Link>
       </div>
+
       {data ? (
         <>
           <SchoolsTable schools={data.data.results} />
