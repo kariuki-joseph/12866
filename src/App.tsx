@@ -17,6 +17,7 @@ import RegisterTeacherPage from "./pages/teachers/register/RegisterTeacherPage.t
 import EditTeacherBasicInfoForm from "./pages/teachers/[teacherId]/edit/EditTeacherBasicInfo.tsx";
 import EditTeacherLocationDetails from "./pages/teachers/[teacherId]/edit/EditTeacherLocationDetailsPage.tsx";
 import EditTeacherDetailsPage from "./pages/teachers/[teacherId]/edit/EditTeacherDetailsPage.tsx";
+import EditGalleryPage from "./pages/schools/[schoold]/edit/gallery/EditGalleryPage.tsx";
 
 export default function App() {
   return (
@@ -42,6 +43,10 @@ export default function App() {
           <Route
             path="schools/:schoolId/edit/location-details"
             element={<EditLocationDetailsPage />}
+          />
+          <Route
+            path="schools/:schoolId/edit/gallery"
+            element={<EditGalleryPage />}
           />
           <Route
             path="schools/:schoolId/jobs/create"
