@@ -88,7 +88,7 @@ interface TeacherRequirement {
   name: string;
 }
 
-interface PaymentRate {
+export interface PaymentRate {
   id: number;
   days: number;
   charges: number;

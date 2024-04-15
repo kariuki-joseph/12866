@@ -33,9 +33,6 @@
         @apply border-[#EBECF0] border-b
     }
 
-    tbody tr {
-        @apply hover:bg-blue-100 *:hover:bg-blue-100
-    }
 
     tbody :last-child {
         @apply border-none
