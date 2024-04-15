@@ -8,6 +8,7 @@ import ManagePostsPage from "./pages/manage-posts/ManagePostsPage.tsx";
 import FinancesPage from "./pages/finances/FinancesPage.tsx";
 import EditSchoolDetailsPage from "./pages/schools/[schoold]/edit/school-details/EditSchoolDetailsPage.tsx";
 import ChangePasswordPage from "./pages/schools/[schoold]/edit/password/ChangePasswordPage.tsx";
+import EditTeacherPasswordPage from "./pages/schools/[schoold]/edit/password/ChangePasswordPage.tsx";
 import RegisterSchoolPage from "./pages/schools/register/RegisterSchoolPage.tsx";
 import EditLocationDetailsPage from "./pages/schools/[schoold]/edit/location-details/EditLocationDetailsPage.tsx";
 import CreateJobPage from "./pages/schools/[schoold]/jobs/create/CreateJobPage.tsx";
@@ -63,6 +64,10 @@ export default function App() {
           <Route
             path="teachers/:teacherId/edit/location-details"
             element={<EditTeacherLocationDetails />}
+          />
+          <Route
+            path="teachers/:teacherId/edit/password"
+            element={<EditTeacherPasswordPage />}
           />
 
           <Route path="manage-posts" element={<ManagePostsPage />} />

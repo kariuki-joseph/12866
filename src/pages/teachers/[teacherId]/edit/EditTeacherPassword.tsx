@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useQuery } from "@tanstack/react-query";
 import weteachApi from "../../../../../configs/weteach-api.ts";
-import { School } from "../../../../../interfaces/api.ts";
+import { Teacher } from "../../../../../interfaces/api.ts";
 
 const schema = z
   .object({
@@ -22,7 +22,7 @@ const schema = z
 
 type ISchema = z.infer<typeof schema>;
 
-function ChangePasswordForm({ school }: { school: School }) {
+function ChangePasswordForm({ teacher }: { teacher: Teacher }) {
   const previousPage = "../../";
 
   const navigate = useNavigate();
@@ -37,7 +37,7 @@ function ChangePasswordForm({ school }: { school: School }) {
 
   const onSubmit = async (data: ISchema) => {
     await weteachApi.post("api/v1/dashboard/user/change/password/", {
-      user_id: school.owner.id,
+      user_id: teacher.user.id,
       password: data.new_password,
     });
 
@@ -86,12 +86,12 @@ function ChangePasswordForm({ school }: { school: School }) {
   );
 }
 
-export default function ChangePasswordPage() {
-  const { schoolId } = useParams();
+export default function EditTeacherPasswordPage() {
+  const { teacherId } = useParams();
 
   const previousPage = "../../";
 
-  const url = `api/v1/dashboard/school/get/${schoolId}/`;
+  const url = `api/v1/dashboard/teacher/get/${teacherId}/`;
 
   const { data } = useQuery({
     queryKey: [url],
@@ -99,8 +99,8 @@ export default function ChangePasswordPage() {
   });
 
   return (
-    <FormSection title={"Edit School Password"} previousPage={previousPage}>
-      {data !== undefined ? <ChangePasswordForm school={data.data} /> : null}
+    <FormSection title={"Edit Teacher Password"} previousPage={previousPage}>
+      {data !== undefined ? <ChangePasswordForm teacher={data.data} /> : null}
     </FormSection>
   );
 }

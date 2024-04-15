@@ -28,6 +28,10 @@ interface SchoolOwnerPaymentMethods {
   phone_number: string;
 }
 
+interface Owner {
+  id: number;
+  name: string;
+}
 export interface School {
   id: number;
   job_post_count: number;
@@ -46,6 +50,7 @@ export interface School {
   county: County | null;
   sub_county: SubCounty | null;
   school_owner_payment_methods: SchoolOwnerPaymentMethods[];
+  owner: Owner;
   creation_time: string;
 }
 
