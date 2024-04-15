@@ -13,6 +13,7 @@ import { z } from "zod";
 import queryString from "query-string";
 import PaginationSection from "../../../components/PaginationSection.tsx";
 import * as Popover from "@radix-ui/react-popover";
+import more_vert from "/icons/more_vert.svg";
 
 function PostedJobsTable({ jobs }: { jobs: Job[] }) {
   return (
@@ -44,7 +45,46 @@ function PostedJobsTable({ jobs }: { jobs: Job[] }) {
                   locale: "en-gb",
                 })}
               </td>
-              <td>:</td>
+              <td>
+                <Popover.Root>
+                  <Popover.Trigger asChild onClick={(e) => e.stopPropagation()}>
+                    <button
+                      className={"flex flex-row items-center justify-center"}
+                    >
+                      <img src={more_vert} alt={"more"} className={"w-4 h-4"} />
+                    </button>
+                  </Popover.Trigger>
+                  <Popover.Portal>
+                    <Popover.Content
+                      className={
+                        "bg-white *:px-3 *:py-2 z-20 border border-gray-200 text-xs flex flex-col"
+                      }
+                      side={"bottom"}
+                      sideOffset={5}
+                      align={"end"}
+                    >
+                      <Link
+                        to={`schools/${job.id}/edit/basic-info`}
+                        className={"hover:bg-gray-200 hover:text-black"}
+                      >
+                        Basic Info
+                      </Link>
+                      <Link
+                        to={`jobs/${job.id}/edit/job-details`}
+                        className={"hover:bg-gray-200 hover:text-black"}
+                      >
+                        Job Details
+                      </Link>
+                      <Link
+                        to={`schools/${job.id}/edit/location-details`}
+                        className={"hover:bg-gray-200 hover:text-black"}
+                      >
+                        Location Details
+                      </Link>
+                    </Popover.Content>
+                  </Popover.Portal>
+                </Popover.Root>
+              </td>
             </tr>
           ))}
         </tbody>
