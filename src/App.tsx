@@ -15,6 +15,7 @@ import SingleTeacherPage from "./pages/teachers/[teacherId]/SingleTeacherPage.ts
 import RegisterTeacherPage from "./pages/teachers/register/RegisterTeacherPage.tsx";
 import EditTeacherBasicInfoForm from "./pages/teachers/[teacherId]/edit/EditTeacherBasicInfo.tsx";
 import EditTeacherLocationDetails from "./pages/teachers/[teacherId]/edit/EditTeacherLocationDetailsPage.tsx";
+import EditTeacherDetailsPage from "./pages/teachers/[teacherId]/edit/EditTeacherDetailsPage.tsx";
 
 export default function App() {
   return (
@@ -54,6 +55,10 @@ export default function App() {
           <Route
             path="teachers/:teacherId/edit/basic-info"
             element={<EditTeacherBasicInfoForm />}
+          />
+          <Route
+            path="teachers/:teacherId/edit/teacher-details"
+            element={<EditTeacherDetailsPage />}
           />
           <Route
             path="teachers/:teacherId/edit/location-details"
