@@ -17,6 +17,7 @@ import * as Tabs from "@radix-ui/react-tabs";
 import AboutTeacher from "./AboutTeacher.tsx";
 import editSecondary from "/icons/edit_secondary.svg";
 import * as Popover from "@radix-ui/react-popover";
+import LoadingBlocks from "../../../components/loading/LoadingBlocks.tsx";
 
 interface TeacherNameSectionProps {
   teacher: Teacher;
@@ -222,47 +223,39 @@ function TeacherInfo(props: TeacherInfoProps) {
 }
 
 function SummarySection() {
-  const { schoolId } = useParams();
+  const { teacherId } = useParams();
 
-  const url = `api/v1/dashboard/school/statistics/${schoolId}/`;
+  const url = `api/v1/dashboard/teacher/statistics/${teacherId}/`;
 
-  // const { data, isLoading } = useQuery({
-  //   queryKey: [url],
-  //   queryFn: () => weteachApi.get(url),
-  // });
-  //
-  // if (isLoading) <LoadingBlocks numberOfBlocks={3} />;
+  const { data, isLoading } = useQuery({
+    queryKey: [url],
+    queryFn: () => weteachApi.get(url),
+  });
+
+  if (isLoading) <LoadingBlocks numberOfBlocks={3} />;
 
   return (
     <section className="flex flex-row w-full justify-evenly gap-4">
-      <StatCard imageSrc={paperPlaneTilt} title={423} text={"Viewed jobs"} />
-      <StatCard imageSrc={paperPlaneTilt} title={231} text={"Saved Jobs"} />
+      {data !== undefined ? (
+        <>
+          <StatCard
+            imageSrc={paperPlaneTilt}
+            title={data.data.viewed_jobs}
+            text={"Viewed jobs"}
+          />
+          <StatCard
+            imageSrc={paperPlaneTilt}
+            title={data.data.saved_jobs}
+            text={"Saved Jobs"}
+          />
 
-      <StatCard
-        imageSrc={paperPlaneTilt}
-        title={12}
-        text={"Total spends on posts"}
-      />
-      {/*{data !== undefined ? (*/}
-      {/*  <>*/}
-      {/*    <StatCard*/}
-      {/*      imageSrc={paperPlaneTilt}*/}
-      {/*      title={data.data.total_posted_jobs}*/}
-      {/*      text={"Posted jobs"}*/}
-      {/*    />*/}
-      {/*    <StatCard*/}
-      {/*      imageSrc={paperPlaneTilt}*/}
-      {/*      title={data.data.total_post_impressions}*/}
-      {/*      text={"Total Post Impressions"}*/}
-      {/*    />*/}
-
-      {/*    <StatCard*/}
-      {/*      imageSrc={paperPlaneTilt}*/}
-      {/*      title={data.data.post_total_spending}*/}
-      {/*      text={"Spends on posts"}*/}
-      {/*    />*/}
-      {/*  </>*/}
-      {/*) : null}*/}
+          <StatCard
+            imageSrc={paperPlaneTilt}
+            title={data.data.post_total_spending}
+            text={"Spends on posts"}
+          />
+        </>
+      ) : null}
     </section>
   );
 }
