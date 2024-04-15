@@ -133,7 +133,6 @@ function EditBasicInfoForm(props: EditBasicInfoFormProps) {
       <div className={"flex flex-row items-center justify-end py-2 gap-3"}>
         <button
           className={"btn-outlined"}
-          to={previousPage}
           onClick={() => navigate(previousPage, { relative: "path" })}
         >
           Cancel
