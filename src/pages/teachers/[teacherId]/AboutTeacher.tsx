@@ -42,6 +42,14 @@ export default function AboutTeacher({ teacher }: { teacher: Teacher }) {
               {teacher.sub_county !== null ? teacher.sub_county.name : "-"}
             </p>
           </div>
+
+          <div className={"flex flex-row items-center gap-2 py-3"}>
+            <img src={location_on} className={"w-5 h-5"} />
+            <p className={"text-xs"}>
+              <b>Location: </b>
+              {teacher.formated_address ?? "-"}
+            </p>
+          </div>
         </div>
       </div>
     </section>
