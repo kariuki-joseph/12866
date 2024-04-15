@@ -8,7 +8,7 @@ export default function AboutTeacher({ teacher }: { teacher: Teacher }) {
         <p className={"font-bold mb-3 text-sm"}>Qualifications</p>
 
         <div className={"text-gray-500 mb-6 text-sm"}>
-          <p>Subjects</p>
+          <p>Subjects & Skills</p>
 
           <hr className={"my-1"} />
 
@@ -17,18 +17,6 @@ export default function AboutTeacher({ teacher }: { teacher: Teacher }) {
               <li key={qualifiication.id}> - {qualifiication.name}</li>
             ))}
           </ul>
-        </div>
-
-        <div className={"text-gray-500 mb-6 text-sm"}>
-          <p>Additional Skills</p>
-
-          <hr className={"my-1"} />
-
-          {/*<ul>*/}
-          {/*  {teacher.qualifications.map((qualifiication) => (*/}
-          {/*    <li key={qualifiication.id}> - {qualifiication.name}</li>*/}
-          {/*  ))}*/}
-          {/*</ul>*/}
         </div>
       </div>
 

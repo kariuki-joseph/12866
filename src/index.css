@@ -8,7 +8,7 @@
     }
 
     thead {
-        @apply bg-[#EFEFEF] font-bold capitalize p-2 text-center border-[#EBECF0] border-b
+        @apply font-bold capitalize p-2 text-center border-[#EBECF0] border-b
     }
 
 
@@ -26,7 +26,7 @@
     }
 
     table thead tr th:first-child {
-        @apply sticky left-0 z-10 bg-[#EFEFEF]
+        @apply sticky left-0 z-10
     }
 
     tr {

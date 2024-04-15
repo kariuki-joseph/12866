@@ -114,3 +114,8 @@ export interface Image {
   is_sensored: boolean;
   creation_time: string;
 }
+
+export interface Subject {
+  id: number;
+  name: string;
+}
