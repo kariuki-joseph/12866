@@ -83,7 +83,7 @@ export interface Teacher {
   user: User;
 }
 
-interface TeacherRequirement {
+export interface TeacherRequirement {
   id: number;
   name: string;
 }
