@@ -64,7 +64,7 @@ function PostedJobsTable({ jobs }: { jobs: Job[] }) {
                       align={"end"}
                     >
                       <Link
-                        to={`schools/${job.id}/edit/basic-info`}
+                        to={`jobs/${job.id}/edit/basic-info`}
                         className={"hover:bg-gray-200 hover:text-black"}
                       >
                         Basic Info
@@ -76,10 +76,10 @@ function PostedJobsTable({ jobs }: { jobs: Job[] }) {
                         Job Details
                       </Link>
                       <Link
-                        to={`schools/${job.id}/edit/location-details`}
+                        to={`jobs/${job.id}/edit/payment-rate`}
                         className={"hover:bg-gray-200 hover:text-black"}
                       >
-                        Location Details
+                        Make payment
                       </Link>
                     </Popover.Content>
                   </Popover.Portal>
