@@ -16,6 +16,7 @@ import { useEffect, useState } from "react";
 import queryString from "query-string";
 import * as Popover from "@radix-ui/react-popover";
 import search from "/icons/search.svg";
+import PaginationSection from "../../components/PaginationSection.tsx";
 
 function TeacherStats() {
   const url = "api/v1/dashboard/teachers/statistics/";
@@ -225,8 +226,16 @@ function SchoolsTableSection() {
         </Link>
       </div>
       {isLoading ? <LoadingTable /> : null}
+
       {data !== undefined ? (
-        <TeachersTable teachers={data.data.results} />
+        <>
+          <TeachersTable teachers={data.data.results} />
+          <PaginationSection
+            page={page}
+            total={data.data.count}
+            setPage={setPage}
+          />
+        </>
       ) : null}
     </section>
   );
