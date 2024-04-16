@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Root from "./pages/Root.tsx";
 import SchoolPage from "./pages/schools/SchoolPage.tsx";
 import SingleSchoolPage from "./pages/schools/[schoold]/SingleSchoolPage.tsx";
@@ -22,12 +22,36 @@ import EditPaymentRatePage from "./pages/schools/[schoold]/jobs/[jobId]/edit/Edi
 import EditJobBasicInfo from "./pages/schools/[schoold]/jobs/[jobId]/edit/EditJobBasicInfo.tsx";
 import EditJobDetails from "./pages/schools/[schoold]/jobs/[jobId]/edit/EditJobDetails.tsx";
 import SingleJobPage from "./pages/schools/[schoold]/jobs/[jobId]/SingleJobPage.tsx";
+import { useState } from "react";
+import { User } from "./interfaces/api.ts";
+import LoginPage from "./pages/login/LoginPage.tsx";
 
+function ProtectedRoutes({
+  user,
+  children,
+}: {
+  user: User | null;
+  children: any;
+}) {
+  if (!user) return <Navigate to={"login"} />;
+  return children;
+}
 export default function App() {
+  const [user, setUser] = useState<User | null>(null);
+
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Root />}>
+        <Route path={"/login"} element={<LoginPage setUser={setUser} />} />
+
+        <Route
+          path="/"
+          element={
+            <ProtectedRoutes user={user}>
+              <Root />
+            </ProtectedRoutes>
+          }
+        >
           <Route index element={<SchoolPage />} />
 
           <Route path="schools/:schoolId" element={<SingleSchoolPage />} />

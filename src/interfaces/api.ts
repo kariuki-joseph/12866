@@ -125,3 +125,10 @@ export interface Subject {
   id: number;
   name: string;
 }
+
+export interface User {
+  id: number;
+  name: string;
+  phone_number: string;
+  email: string;
+}
