@@ -122,47 +122,42 @@ function SchoolsTable(props: SchoolsTableProps) {
                       <Popover.Portal>
                         <Popover.Content
                           className={
-                            "bg-white p-3 z-20 border border-gray-200 text-xs"
+                            "bg-white *:px-3 *:py-2 z-20 border border-gray-200 text-xs flex flex-col w-[200px]"
                           }
                           side={"bottom"}
                           sideOffset={5}
                           align={"end"}
                         >
-                          <Popover.Close
-                            className={"flex flex-col gap-2 w-full"}
-                            onClick={(e) => e.stopPropagation()}
+                          <Link
+                            to={`schools/${school.id}/edit/basic-info`}
+                            className={"hover:bg-gray-100 hover:text-black"}
                           >
-                            <Link
-                              to={`schools/${school.id}/edit/basic-info`}
-                              className={"hover:underline hover:text-black"}
-                            >
-                              Basic Info
-                            </Link>
-                            <Link
-                              to={`schools/${school.id}/edit/school-details`}
-                              className={"hover:underline hover:text-black"}
-                            >
-                              School Details
-                            </Link>
-                            <Link
-                              to={`schools/${school.id}/edit/location-details`}
-                              className={"hover:underline hover:text-black"}
-                            >
-                              Location Details
-                            </Link>
-                            <Link
-                              to={`schools/${school.id}/edit/gallery`}
-                              className={"hover:underline hover:text-black"}
-                            >
-                              Gallery
-                            </Link>
-                            <Link
-                              to={`schools/${school.id}/edit/password`}
-                              className={"hover:underline hover:text-black"}
-                            >
-                              Change password
-                            </Link>
-                          </Popover.Close>
+                            Basic Info
+                          </Link>
+                          <Link
+                            to={`schools/${school.id}/edit/school-details`}
+                            className={"hover:bg-gray-100 hover:text-black"}
+                          >
+                            School Details
+                          </Link>
+                          <Link
+                            to={`schools/${school.id}/edit/location-details`}
+                            className={"hover:bg-gray-100 hover:text-black"}
+                          >
+                            Location Details
+                          </Link>
+                          <Link
+                            to={`schools/${school.id}/edit/gallery`}
+                            className={"hover:bg-gray-100 hover:text-black"}
+                          >
+                            Gallery
+                          </Link>
+                          <Link
+                            to={`schools/${school.id}/edit/password`}
+                            className={"hover:bg-gray-100 hover:text-black"}
+                          >
+                            Change password
+                          </Link>
                         </Popover.Content>
                       </Popover.Portal>
                     </Popover.Root>

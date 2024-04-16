@@ -66,21 +66,21 @@ function PostedJobsTable({ jobs }: { jobs: Job[] }) {
                     >
                       <Link
                         to={`jobs/${job.id}/edit/basic-info`}
-                        className={"hover:bg-gray-200 hover:text-black"}
+                        className={"hover:bg-gray-100 hover:text-black"}
                         onClick={(e) => e.stopPropagation()}
                       >
                         Basic Info
                       </Link>
                       <Link
                         to={`jobs/${job.id}/edit/job-details`}
-                        className={"hover:bg-gray-200 hover:text-black"}
+                        className={"hover:bg-gray-100 hover:text-black"}
                         onClick={(e) => e.stopPropagation()}
                       >
                         Job Details
                       </Link>
                       <Link
                         to={`jobs/${job.id}/edit/payment-rate`}
-                        className={"hover:bg-gray-200 hover:text-black"}
+                        className={"hover:bg-gray-100 hover:text-black"}
                         onClick={(e) => e.stopPropagation()}
                       >
                         Make payment
