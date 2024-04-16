@@ -131,30 +131,35 @@ function SchoolsTable(props: SchoolsTableProps) {
                           <Link
                             to={`schools/${school.id}/edit/basic-info`}
                             className={"hover:bg-gray-100 hover:text-black"}
+                            onClick={(e) => e.stopPropagation()}
                           >
                             Basic Info
                           </Link>
                           <Link
                             to={`schools/${school.id}/edit/school-details`}
                             className={"hover:bg-gray-100 hover:text-black"}
+                            onClick={(e) => e.stopPropagation()}
                           >
                             School Details
                           </Link>
                           <Link
                             to={`schools/${school.id}/edit/location-details`}
                             className={"hover:bg-gray-100 hover:text-black"}
+                            onClick={(e) => e.stopPropagation()}
                           >
                             Location Details
                           </Link>
                           <Link
                             to={`schools/${school.id}/edit/gallery`}
                             className={"hover:bg-gray-100 hover:text-black"}
+                            onClick={(e) => e.stopPropagation()}
                           >
                             Gallery
                           </Link>
                           <Link
                             to={`schools/${school.id}/edit/password`}
                             className={"hover:bg-gray-100 hover:text-black"}
+                            onClick={(e) => e.stopPropagation()}
                           >
                             Change password
                           </Link>
