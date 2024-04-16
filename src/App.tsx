@@ -20,6 +20,7 @@ import EditTeacherDetailsPage from "./pages/teachers/[teacherId]/edit/EditTeache
 import EditGalleryPage from "./pages/schools/[schoold]/edit/gallery/EditGalleryPage.tsx";
 import EditPaymentRatePage from "./pages/schools/[schoold]/jobs/[jobId]/edit/EditPaymentRatePage.tsx";
 import EditJobBasicInfo from "./pages/schools/[schoold]/jobs/[jobId]/edit/EditJobBasicInfo.tsx";
+import EditJobDetails from "./pages/schools/[schoold]/jobs/[jobId]/edit/EditJobDetails.tsx";
 
 export default function App() {
   return (
@@ -60,8 +61,8 @@ export default function App() {
             element={<EditJobBasicInfo />}
           />
           <Route
-            path="schools/:schoolId/jobs/:jobId/edit/payment-rate"
-            element={<EditPaymentRatePage />}
+            path="schools/:schoolId/jobs/:jobId/edit/job-details"
+            element={<EditJobDetails />}
           />
           <Route
             path="schools/:schoolId/jobs/:jobId/edit/payment-rate"
