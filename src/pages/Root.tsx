@@ -1,12 +1,14 @@
-import { NavLink, Outlet } from "react-router-dom";
+import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import paperPlaneTilt from "/icons/paper-plane-tilt.svg";
 import paperPlaneTiltPlain from "/icons/paper-plane-tilt-plain.svg";
 import paperPlaneTiltSecondary from "/icons/paper-plane-tilt-secondary.svg";
 import expandMore from "/icons/expand_more.svg";
-import notifications from "/icons/notifications.svg";
+import person from "/icons/person.svg";
 import { User } from "../interfaces/api.ts";
+import * as Popover from "@radix-ui/react-popover";
 
 export default function Root({ user }: { user: User | null }) {
+  const navigate = useNavigate();
   return (
     <>
       <nav
@@ -37,24 +39,43 @@ export default function Root({ user }: { user: User | null }) {
           </div>
         </div>
 
-        <div className={"flex flex-row items-center gap-4"}>
-          <div>
-            <img src={notifications} alt={"logo"} />
-          </div>
+        <Popover.Root>
+          <Popover.Trigger>
+            <div className={"flex flex-row items-center gap-4"}>
+              <div className={"bg-purple-50 p-2 rounded-3xl"}>
+                <img src={person} alt={"logo"} className={"w-6 h-6"} />
+              </div>
 
-          <div className={"bg-purple-50 p-2 rounded-3xl"}>
-            <img src={paperPlaneTilt} alt={"logo"} className={"w-6 h-6"} />
-          </div>
-
-          <div
-            className={"flex flex-row items-center justify-evenly gap-2 mr-4"}
-          >
-            <p className={"text-sm"}>{user !== null ? user.email : "-"}</p>
-            <div>
-              <img src={expandMore} alt={"expandMore"} />
+              <div
+                className={
+                  "flex flex-row items-center justify-evenly gap-2 mr-4"
+                }
+              >
+                <p className={"text-sm"}>{user !== null ? user.name : "-"}</p>
+                <div>
+                  <img src={expandMore} alt={"expandMore"} />
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
+          </Popover.Trigger>
+          <Popover.Content
+            sideOffset={6}
+            align={"end"}
+            className={
+              "rounded-lg text-sm flex flex-col py-1 *:py-2 *:px-3 text-gray-500 right-10 w-[260px] bg-white shadow-[0_10px_38px_-10px_hsla(206,22%,7%,.35),0_10px_20px_-15px_hsla(206,22%,7%,.2)] focus:shadow-[0_10px_38px_-10px_hsla(206,22%,7%,.35),0_10px_20px_-15px_hsla(206,22%,7%,.2),0_0_0_2px_theme(colors.violet7)] will-change-[transform,opacity] data-[state=open]:data-[side=top]:animate-slideDownAndFade data-[state=open]:data-[side=right]:animate-slideLeftAndFade data-[state=open]:data-[side=bottom]:animate-slideUpAndFade data-[state=open]:data-[side=left]:animate-slideRightAndFade"
+            }
+          >
+            <button
+              className={"hover:bg-gray-200 hover:text-black text-left"}
+              onClick={() => {
+                sessionStorage.setItem("accessToken", "");
+                navigate("login");
+              }}
+            >
+              Logout
+            </button>
+          </Popover.Content>
+        </Popover.Root>
       </nav>
 
       <div className="flex flex-row h-[calc(100vh-70px)]">
