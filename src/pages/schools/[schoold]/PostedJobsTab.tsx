@@ -176,6 +176,8 @@ export default function PostedJobsTab() {
                       <option value={""}>Select status</option>
                       <option value={"active"}>Active</option>
                       <option value={"inactive"}>Inactive</option>
+                      <option value={"expired"}>Expired</option>
+                      <option value={"draft"}>Draft</option>
                     </select>
                   </div>
                 </div>
