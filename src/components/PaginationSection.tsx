@@ -21,8 +21,6 @@ export default function PaginationSection({
 
     if (page > 3) pageList = [page - 2, page - 1, page, page + 1, page + 2];
 
-    pageList = pageList.filter((n) => n <= maxPages);
-
     setPageList(pageList);
   }, [page, maxPages]);
 
@@ -62,7 +60,8 @@ export default function PaginationSection({
         <button
           key={pageNumber}
           onClick={() => setPage(pageNumber)}
-          className={`w-6 h-6 text-gray-500 rounded ${page === pageNumber ? "bg-secondary text-white" : null}`}
+          className={`w-6 h-6 text-gray-500 rounded ${page === pageNumber ? `bg-secondary text-white ` : null} ${pageNumber > maxPages ? " bg-gray-200 text-gray-500 " : null}`}
+          disabled={pageNumber > maxPages}
         >
           {pageNumber}
         </button>
