@@ -73,7 +73,12 @@ function EditGalleryForm(props: EditGalleryFormProps) {
         >
           Cancel
         </button>
-        <button className={"btn"}>Done</button>
+        <button
+          className={"btn"}
+          onClick={() => navigate(previousPage, { relative: "path" })}
+        >
+          Done
+        </button>
       </div>
     </>
   );

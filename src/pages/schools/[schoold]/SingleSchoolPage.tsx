@@ -21,8 +21,8 @@ import { DateTime } from "luxon";
 import LoadingBlocks from "../../../components/loading/LoadingBlocks.tsx";
 import StatCard from "../../../components/StatCard.tsx";
 import baseUrl from "../../../configs/baseUrl.ts";
-import { Photos } from "../../../components/Photos.tsx";
 import queryClient from "../../../configs/query-client.ts";
+import { GalleryTab } from "./GalleryTab.tsx";
 
 interface SchoolTitleSectionProps {
   school: School;
@@ -321,7 +321,7 @@ function JobDetails(props: JobDetailsProps) {
           <AboutSchoolTab school={school} />
         </Tabs.Content>
         <Tabs.Content value={"gallery"}>
-          <Photos />
+          <GalleryTab />
         </Tabs.Content>
       </Tabs.Root>
     </section>
