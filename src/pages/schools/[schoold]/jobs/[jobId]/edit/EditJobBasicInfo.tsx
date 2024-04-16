@@ -74,7 +74,7 @@ function EditJobBasicInfoForm({ job }: { job: Job }) {
 export default function EditJobBasicInfo() {
   const { jobId } = useParams();
 
-  const previousPage = "../../";
+  const previousPage = "../../../../";
   const url = `api/v1/jobs/view/${jobId}/`;
 
   const { data } = useQuery({

@@ -24,7 +24,7 @@ function EditPaymentRateForm({ job }: { job: Job }) {
   const navigate = useNavigate();
   const [tab, setTab] = useState("choose-payment-rate");
 
-  const previousPage = "../";
+  const previousPage = "../../../../";
   const paymentRateUrl = `/api/v1/payments/rates/`;
 
   const {

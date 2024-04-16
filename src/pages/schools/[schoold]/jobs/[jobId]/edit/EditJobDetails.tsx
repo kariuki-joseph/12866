@@ -73,7 +73,7 @@ function EditJobDetailsForm({ job }: { job: Job }) {
       additional_requirements: data.additional_requirements,
     });
 
-    // navigate(previousPage, { relative: "path" });
+    navigate(previousPage, { relative: "path" });
 
     console.log(data);
   };
