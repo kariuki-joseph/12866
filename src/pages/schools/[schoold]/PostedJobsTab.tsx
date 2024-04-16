@@ -3,7 +3,7 @@ import addSecondary from "/icons/add_secondary.svg";
 import search from "/icons/search.svg";
 import { useQuery } from "@tanstack/react-query";
 import weteachApi from "../../../configs/weteach-api.ts";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { Job } from "../../../interfaces/api.ts";
 import { DateTime } from "luxon";
 import { useEffect, useState } from "react";
@@ -16,6 +16,7 @@ import * as Popover from "@radix-ui/react-popover";
 import more_vert from "/icons/more_vert.svg";
 
 function PostedJobsTable({ jobs }: { jobs: Job[] }) {
+  const navigate = useNavigate();
   return (
     <div className={"table-container mt-3"}>
       <table>
@@ -31,7 +32,7 @@ function PostedJobsTable({ jobs }: { jobs: Job[] }) {
         </thead>
         <tbody>
           {jobs.map((job) => (
-            <tr key={job.id}>
+            <tr key={job.id} onClick={() => navigate(`jobs/${job.id}`)}>
               <th>{job.title}</th>
               <td>{job.status}</td>
               <td>{job.views}</td>
@@ -66,18 +67,21 @@ function PostedJobsTable({ jobs }: { jobs: Job[] }) {
                       <Link
                         to={`jobs/${job.id}/edit/basic-info`}
                         className={"hover:bg-gray-200 hover:text-black"}
+                        onClick={(e) => e.stopPropagation()}
                       >
                         Basic Info
                       </Link>
                       <Link
                         to={`jobs/${job.id}/edit/job-details`}
                         className={"hover:bg-gray-200 hover:text-black"}
+                        onClick={(e) => e.stopPropagation()}
                       >
                         Job Details
                       </Link>
                       <Link
                         to={`jobs/${job.id}/edit/payment-rate`}
                         className={"hover:bg-gray-200 hover:text-black"}
+                        onClick={(e) => e.stopPropagation()}
                       >
                         Make payment
                       </Link>

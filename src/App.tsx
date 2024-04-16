@@ -21,6 +21,7 @@ import EditGalleryPage from "./pages/schools/[schoold]/edit/gallery/EditGalleryP
 import EditPaymentRatePage from "./pages/schools/[schoold]/jobs/[jobId]/edit/EditPaymentRatePage.tsx";
 import EditJobBasicInfo from "./pages/schools/[schoold]/jobs/[jobId]/edit/EditJobBasicInfo.tsx";
 import EditJobDetails from "./pages/schools/[schoold]/jobs/[jobId]/edit/EditJobDetails.tsx";
+import SingleJobPage from "./pages/schools/[schoold]/jobs/[jobId]/SingleJobPage.tsx";
 
 export default function App() {
   return (
@@ -55,6 +56,10 @@ export default function App() {
           <Route
             path="schools/:schoolId/jobs/create"
             element={<CreateJobPage />}
+          />
+          <Route
+            path="schools/:schoolId/jobs/:jobId"
+            element={<SingleJobPage />}
           />
           <Route
             path="schools/:schoolId/jobs/:jobId/edit/basic-info"
