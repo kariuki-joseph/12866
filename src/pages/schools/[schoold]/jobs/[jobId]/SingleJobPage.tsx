@@ -18,6 +18,7 @@ import StatCard from "../../../../../components/StatCard.tsx";
 import paperPlaneTilt from "/icons/paper-plane-tilt.svg";
 import * as Tabs from "@radix-ui/react-tabs";
 import AboutJob from "./AboutJob.tsx";
+import ApplicationProcess from "../ApplicationProcess.tsx";
 
 function JobTitleSection({ job }: { job: Job }) {
   return (
@@ -276,7 +277,7 @@ function JobDetails({ job }: { job: Job }) {
               "data-[state=active]:bg-white data-[state=active]:text-secondary"
             }
           >
-            About Teacher
+            Application Process
           </Tabs.Trigger>
         </Tabs.List>
 
@@ -285,7 +286,7 @@ function JobDetails({ job }: { job: Job }) {
           <AboutJob job={job} />
         </Tabs.Content>
         <Tabs.Content value={"application-process"}>
-          application-process
+          <ApplicationProcess job={job} />
         </Tabs.Content>
       </Tabs.Root>
     </section>
