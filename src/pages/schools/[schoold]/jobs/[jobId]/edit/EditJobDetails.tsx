@@ -6,7 +6,6 @@ import weteachApi from "../../../../../../configs/weteach-api.ts";
 import {
   AxiosResponse,
   Job,
-  PaymentRate,
   TeacherRequirement,
 } from "../../../../../../interfaces/api.ts";
 import { useForm } from "react-hook-form";
@@ -14,7 +13,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import optionalMinLength from "../../../../../../utils/optional-min-length.ts";
 
 const schema = z.object({
-  payment_rate: z.string(),
   teacher_requirements: z.array(z.string()).min(1, "Required"),
   duties_and_responsibilities: z
     .string()
@@ -48,20 +46,12 @@ function EditJobDetailsForm({ job }: { job: Job }) {
       teacher_requirements: job.teacher_requirements.map((d) =>
         d.id.toString(),
       ),
-      payment_rate:
-        job.payment_rate !== undefined ? job.payment_rate.id.toString() : "",
       duties_and_responsibilities: job.duties_and_responsibilities ?? "",
       additional_requirements: job.additional_requirements ?? "",
       minimum_requirements: job.minimum_requirements ?? "",
       how_to_apply: job.how_to_apply ?? "",
     },
     resolver: zodResolver(schema),
-  });
-
-  const paymentRateUrl = `/api/v1/payments/rates/`;
-  const paymentQuery = useQuery<AxiosResponse<PaymentRate[]>>({
-    queryKey: [paymentRateUrl],
-    queryFn: () => weteachApi.get(paymentRateUrl),
   });
 
   const teacherRequirementsUrl = `api/v1/subjects/`;
@@ -77,7 +67,6 @@ function EditJobDetailsForm({ job }: { job: Job }) {
       teacher_requirements: data.teacher_requirements.map((val) =>
         parseInt(val),
       ),
-      payment_rate: parseInt(data.payment_rate),
       duties_and_responsibilities: data.duties_and_responsibilities,
       minimum_requirements: data.minimum_requirements,
       how_to_apply: data.how_to_apply,
@@ -90,33 +79,6 @@ function EditJobDetailsForm({ job }: { job: Job }) {
   };
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      {/*<label>Publicity Package</label>*/}
-      {/*<RadioGroup.Root*/}
-      {/*  name={"payment_rate"}*/}
-      {/*  className={"flex flex-col gap-3 justify-evenly mb-3"}*/}
-      {/*  onValueChange={(value) => setValue("payment_rate", value)}*/}
-      {/*>*/}
-      {/*  {paymentQuery.data !== undefined ? (*/}
-      {/*    <>*/}
-      {/*      {paymentQuery.data.data.map((payment_rate) => (*/}
-      {/*        <div key={payment_rate.id} className={"w-full"}>*/}
-      {/*          <RadioGroup.Item*/}
-      {/*            value={payment_rate.id.toString()}*/}
-      {/*            className={*/}
-      {/*              "text-left text-sm border-gray-200 border rounded w-full h-full px-6 py-3 data-[state=checked]:text-primary  data-[state=checked]:bg-[#FBEFFF] data-[state=checked]:border-primary"*/}
-      {/*            }*/}
-      {/*          >*/}
-      {/*            {payment_rate.days} day(s) for Ksh {payment_rate.charges}*/}
-      {/*          </RadioGroup.Item>*/}
-      {/*        </div>*/}
-      {/*      ))}*/}
-      {/*    </>*/}
-      {/*  ) : null}*/}
-      {/*</RadioGroup.Root>*/}
-      {/*<p className={"text-xs text-error mt-1"}>*/}
-      {/*  {errors.payment_rate?.message}*/}
-      {/*</p>*/}
-
       <label>Subjects & Skills</label>
       {teacherRequirementsQuery.data !== undefined ? (
         <div

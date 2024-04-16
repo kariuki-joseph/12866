@@ -111,6 +111,7 @@ export interface Job {
   school: School;
   teacher_requirements: TeacherRequirement[];
   payment_rate: PaymentRate;
+  owner: Owner;
 }
 
 export interface Image {

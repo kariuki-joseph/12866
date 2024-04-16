@@ -57,7 +57,7 @@ function PostedJobsTable({ jobs }: { jobs: Job[] }) {
                   <Popover.Portal>
                     <Popover.Content
                       className={
-                        "bg-white *:px-3 *:py-2 z-20 border border-gray-200 text-xs flex flex-col"
+                        "bg-white *:px-3 *:py-2 z-20 border border-gray-200 text-xs flex flex-col w-[200px]"
                       }
                       side={"bottom"}
                       sideOffset={5}
