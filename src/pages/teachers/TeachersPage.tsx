@@ -210,6 +210,7 @@ function SchoolsTableSection() {
   const { data, isLoading } = useQuery<PaginatedResponse<Teacher>>({
     queryKey: [url],
     queryFn: () => weteachApi.get(url),
+    placeholderData: (previousData) => previousData,
   });
 
   function clearFilter() {

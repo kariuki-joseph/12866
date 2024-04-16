@@ -186,6 +186,7 @@ function JobsTableSection() {
   const { data } = useQuery({
     queryKey: [url],
     queryFn: () => weteachApi.get(url),
+    placeholderData: (previousData) => previousData,
   });
 
   function clearFilter() {
