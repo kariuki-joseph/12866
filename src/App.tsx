@@ -18,8 +18,8 @@ import EditTeacherBasicInfoForm from "./pages/teachers/[teacherId]/edit/EditTeac
 import EditTeacherLocationDetails from "./pages/teachers/[teacherId]/edit/EditTeacherLocationDetailsPage.tsx";
 import EditTeacherDetailsPage from "./pages/teachers/[teacherId]/edit/EditTeacherDetailsPage.tsx";
 import EditGalleryPage from "./pages/schools/[schoold]/edit/gallery/EditGalleryPage.tsx";
-import EditJobDetails from "./pages/schools/[schoold]/jobs/[jobId]/edit/EditJobDetails.tsx";
 import EditPaymentRatePage from "./pages/schools/[schoold]/jobs/[jobId]/edit/EditPaymentRatePage.tsx";
+import EditJobBasicInfo from "./pages/schools/[schoold]/jobs/[jobId]/edit/EditJobBasicInfo.tsx";
 
 export default function App() {
   return (
@@ -56,8 +56,12 @@ export default function App() {
             element={<CreateJobPage />}
           />
           <Route
-            path="schools/:schoolId/jobs/:jobId/edit/job-details"
-            element={<EditJobDetails />}
+            path="schools/:schoolId/jobs/:jobId/edit/basic-info"
+            element={<EditJobBasicInfo />}
+          />
+          <Route
+            path="schools/:schoolId/jobs/:jobId/edit/payment-rate"
+            element={<EditPaymentRatePage />}
           />
           <Route
             path="schools/:schoolId/jobs/:jobId/edit/payment-rate"
