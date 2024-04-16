@@ -50,11 +50,12 @@ export default function LoginPage({
 
       const user = userRes.data;
 
+      sessionStorage.setItem("id", user.id);
+      sessionStorage.setItem("name", user.name);
+
       setUser({
-        email: user.email,
         id: user.id,
-        name: user.name ?? "-",
-        phone_number: user.phone_number,
+        name: user.email ?? "-",
       });
 
       navigate("/");

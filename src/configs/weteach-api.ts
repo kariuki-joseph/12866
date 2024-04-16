@@ -12,8 +12,6 @@ const weteachApi = axios.create({
 weteachApi.interceptors.request.use((config) => {
   const accessToken = sessionStorage.getItem("accessToken");
 
-  console.log({ accessToken });
-
   config.headers.Authorization = `Bearer ${accessToken}`;
 
   return config;

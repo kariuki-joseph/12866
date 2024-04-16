@@ -4,8 +4,9 @@ import paperPlaneTiltPlain from "/icons/paper-plane-tilt-plain.svg";
 import paperPlaneTiltSecondary from "/icons/paper-plane-tilt-secondary.svg";
 import expandMore from "/icons/expand_more.svg";
 import notifications from "/icons/notifications.svg";
+import { User } from "../interfaces/api.ts";
 
-export default function Root() {
+export default function Root({ user }: { user: User | null }) {
   return (
     <>
       <nav
@@ -48,7 +49,7 @@ export default function Root() {
           <div
             className={"flex flex-row items-center justify-evenly gap-2 mr-4"}
           >
-            <p className={"text-sm"}>Peter Muhia</p>
+            <p className={"text-sm"}>{user !== null ? user.email : "-"}</p>
             <div>
               <img src={expandMore} alt={"expandMore"} />
             </div>

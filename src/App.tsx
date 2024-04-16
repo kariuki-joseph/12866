@@ -22,22 +22,63 @@ import EditPaymentRatePage from "./pages/schools/[schoold]/jobs/[jobId]/edit/Edi
 import EditJobBasicInfo from "./pages/schools/[schoold]/jobs/[jobId]/edit/EditJobBasicInfo.tsx";
 import EditJobDetails from "./pages/schools/[schoold]/jobs/[jobId]/edit/EditJobDetails.tsx";
 import SingleJobPage from "./pages/schools/[schoold]/jobs/[jobId]/SingleJobPage.tsx";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { User } from "./interfaces/api.ts";
 import LoginPage from "./pages/login/LoginPage.tsx";
+import weteachApi from "./configs/weteach-api.ts";
 
 function ProtectedRoutes({
+  setUser,
   user,
   children,
 }: {
+  setUser: any;
   user: User | null;
   children: any;
 }) {
-  if (!user) return <Navigate to={"login"} />;
+  const accessToken = sessionStorage.getItem("accessToken");
+
+  if (!user) {
+    if (accessToken) {
+      const id = sessionStorage.getItem("id");
+      const name = sessionStorage.getItem("name");
+
+      setUser({
+        id: id,
+        name: name,
+      });
+
+      return children;
+    }
+
+    return <Navigate to={"login"} />;
+  }
+
   return children;
 }
 export default function App() {
   const [user, setUser] = useState<User | null>(null);
+
+  useEffect(() => {
+    const getUser = async () => {
+      const accessToken = sessionStorage.getItem("accessToken");
+
+      if (accessToken) {
+        const userRes = await weteachApi.get("/api/v1/users/user");
+
+        const user = userRes.data;
+
+        setUser({
+          email: user.email,
+          id: user.id,
+          name: user.name ?? "-",
+          phone_number: user.phone_number,
+        });
+      }
+    };
+
+    getUser();
+  }, []);
 
   return (
     <BrowserRouter>
@@ -47,8 +88,8 @@ export default function App() {
         <Route
           path="/"
           element={
-            <ProtectedRoutes user={user}>
-              <Root />
+            <ProtectedRoutes user={user} setUser={setUser}>
+              <Root user={user} />
             </ProtectedRoutes>
           }
         >
