@@ -13,11 +13,11 @@
 
 
     thead tr th {
-        @apply px-4 py-2 border-0 m-0 font-bold text-left min-w-[100px] bg-white
+        @apply px-4 py-3 border-0 m-0 font-bold text-left min-w-[100px] bg-white
     }
 
     td {
-        @apply px-4 py-2 m-0  text-left min-w-[100px]  bg-white
+        @apply px-4 py-3 m-0  text-left min-w-[100px]  bg-white
     }
 
 
