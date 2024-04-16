@@ -18,6 +18,8 @@ import AboutTeacher from "./AboutTeacher.tsx";
 import editSecondary from "/icons/edit_secondary.svg";
 import * as Popover from "@radix-ui/react-popover";
 import LoadingBlocks from "../../../components/loading/LoadingBlocks.tsx";
+import ViewedJobs from "./ViewedJobs.tsx";
+import SavedJobs from "./SavedJobs.tsx";
 
 interface TeacherNameSectionProps {
   teacher: Teacher;
@@ -304,8 +306,12 @@ function JobDetails(props: JobDetailsProps) {
           </Tabs.Trigger>
         </Tabs.List>
 
-        <Tabs.Content value={"viewed-jobs"}>viewed-jobs</Tabs.Content>
-        <Tabs.Content value={"saved-jobs"}>saved-jobs</Tabs.Content>
+        <Tabs.Content value={"viewed-jobs"}>
+          <ViewedJobs />
+        </Tabs.Content>
+        <Tabs.Content value={"saved-jobs"}>
+          <SavedJobs />
+        </Tabs.Content>
         <Tabs.Content value={"about-teacher"}>
           <AboutTeacher teacher={teacher} />
         </Tabs.Content>
