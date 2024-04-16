@@ -2,6 +2,8 @@ import mail from "/icons/mail.svg";
 import call from "/icons/call.svg";
 import hotel from "/icons/hotel.svg";
 import male from "/icons/male.svg";
+import visibility from "/icons/visibility.svg";
+import payments_primary from "/icons/payments_primary.svg";
 import businessCenter from "/icons/business_center.svg";
 import editSecondary from "/icons/edit_secondary.svg";
 import paperPlaneTilt from "/icons/paper-plane-tilt.svg";
@@ -252,13 +254,13 @@ function SummarySection() {
             text={"Posted jobs"}
           />
           <StatCard
-            imageSrc={paperPlaneTilt}
+            imageSrc={visibility}
             title={data.data.total_post_impressions}
             text={"Total Post Impressions"}
           />
 
           <StatCard
-            imageSrc={paperPlaneTilt}
+            imageSrc={payments_primary}
             title={data.data.post_total_spending}
             text={"Spends on posts"}
           />

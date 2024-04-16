@@ -17,6 +17,8 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useState } from "react";
 import PaginationSection from "../../components/PaginationSection.tsx";
+import school_primary from "/icons/school_primary.svg";
+import payments_primary from "/icons/payments_primary.svg";
 
 function SchoolsStats() {
   const url = "api/v1/dashboard/schools/statistics/";
@@ -31,7 +33,7 @@ function SchoolsStats() {
   return (
     <section className="flex flex-row w-full justify-evenly gap-4 mb-3">
       <StatCard
-        imageSrc={paperPlaneTilt}
+        imageSrc={school_primary}
         title={data?.data.total_schools}
         text={"Schools on the platform"}
       />
@@ -49,7 +51,7 @@ function SchoolsStats() {
       />
 
       <StatCard
-        imageSrc={paperPlaneTilt}
+        imageSrc={payments_primary}
         title={data?.data.post_total_spending}
         text={"Spend on posts"}
       />
@@ -89,9 +91,9 @@ function SchoolsTable(props: SchoolsTableProps) {
                   key={school.id}
                 >
                   <th>{school.name}</th>
-                  <td>{school.institution_level}</td>
+                  <td>{school.institution_level ?? "-"}</td>
                   <td>{school.job_post_count}</td>
-                  <td>{school.formated_address}</td>
+                  <td>{school.formated_address ?? "-"}</td>
                   <td>{school.phone_number}</td>
                   <td>
                     {DateTime.fromISO(school.creation_time).toLocaleString({

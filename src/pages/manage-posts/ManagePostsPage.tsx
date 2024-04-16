@@ -16,6 +16,8 @@ import * as Popover from "@radix-ui/react-popover";
 import search from "/icons/search.svg";
 import PaginationSection from "../../components/PaginationSection.tsx";
 import more_vert from "/icons/more_vert.svg";
+import person from "/icons/person.svg";
+import attach_money from "/icons/attach_money.svg";
 
 function JobStats() {
   const url = "api/v1/dashboard/teachers/statistics/";
@@ -30,13 +32,13 @@ function JobStats() {
   return (
     <section className="flex flex-row w-full justify-evenly gap-4 mb-3">
       <StatCard
-        imageSrc={paperPlaneTilt}
+        imageSrc={person}
         title={data?.data.total_teachers}
         text={"Teachers on the platform"}
       />
 
       <StatCard
-        imageSrc={paperPlaneTilt}
+        imageSrc={attach_money}
         title={data?.data.paying_customers}
         text={"Paying Customers"}
       />
@@ -275,8 +277,7 @@ export default function ManagePostsPage() {
       <section>
         <h1 className={"font-bold text-lg"}>Jobs on Platform</h1>
         <p className={"text-sm text-gray-500 mb-3"}>
-          Explore and manage the profiles of teacher who have signed up onto the
-          platform
+          Explore and manage the jobs on the platform
         </p>
 
         <JobsTableSection />

@@ -2,7 +2,9 @@ import mail from "/icons/mail.svg";
 import call from "/icons/call.svg";
 import schedule from "/icons/schedule.svg";
 import school from "/icons/school.svg";
-import paperPlaneTilt from "/icons/paper-plane-tilt.svg";
+import visibility from "/icons/visibility.svg";
+import bookmark from "/icons/bookmark.svg";
+import payments_primary from "/icons/payments_primary.svg";
 import { Link, useParams } from "react-router-dom";
 import { Teacher } from "../../../interfaces/api.ts";
 import { useQuery } from "@tanstack/react-query";
@@ -241,18 +243,18 @@ function SummarySection() {
       {data !== undefined ? (
         <>
           <StatCard
-            imageSrc={paperPlaneTilt}
+            imageSrc={visibility}
             title={data.data.viewed_jobs}
             text={"Viewed jobs"}
           />
           <StatCard
-            imageSrc={paperPlaneTilt}
+            imageSrc={bookmark}
             title={data.data.saved_jobs}
             text={"Saved Jobs"}
           />
 
           <StatCard
-            imageSrc={paperPlaneTilt}
+            imageSrc={payments_primary}
             title={data.data.post_total_spending}
             text={"Spends on posts"}
           />

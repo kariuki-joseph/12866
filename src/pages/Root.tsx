@@ -4,6 +4,12 @@ import paperPlaneTiltPlain from "/icons/paper-plane-tilt-plain.svg";
 import paperPlaneTiltSecondary from "/icons/paper-plane-tilt-secondary.svg";
 import expandMore from "/icons/expand_more.svg";
 import person from "/icons/person.svg";
+import payments from "/icons/payments.svg";
+import payments_secondary from "/icons/payments_secondary.svg";
+import person_plain from "/icons/person_plain.svg";
+import person_secondary from "/icons/person_secondary.svg";
+import school from "/icons/school.svg";
+import school_secondary from "/icons/school_secondary.svg";
 import { User } from "../interfaces/api.ts";
 import * as Popover from "@radix-ui/react-popover";
 
@@ -89,18 +95,14 @@ export default function Root({ user }: { user: User | null }) {
                   {isActive ? (
                     <div>
                       <img
-                        src={paperPlaneTiltSecondary}
-                        alt={"paperPlaneTilt"}
-                        className={"w-6 h-6"}
+                        src={school_secondary}
+                        alt={"school_secondary"}
+                        className={"w-8 h-8"}
                       />
                     </div>
                   ) : (
                     <div>
-                      <img
-                        src={paperPlaneTiltPlain}
-                        alt={"paperPlaneTilt"}
-                        className={"w-6 h-6"}
-                      />
+                      <img src={school} alt={"school"} className={"w-8 h-8"} />
                     </div>
                   )}
                   <p className={`${isActive ? "text-secondary" : ""}`}>
@@ -117,17 +119,17 @@ export default function Root({ user }: { user: User | null }) {
                   {isActive ? (
                     <div>
                       <img
-                        src={paperPlaneTiltSecondary}
+                        src={person_secondary}
                         alt={"paperPlaneTilt"}
-                        className={"w-6 h-6"}
+                        className={"w-8 h-8"}
                       />
                     </div>
                   ) : (
                     <div>
                       <img
-                        src={paperPlaneTiltPlain}
+                        src={person_plain}
                         alt={"paperPlaneTilt"}
-                        className={"w-6 h-6"}
+                        className={"w-8 h-8"}
                       />
                     </div>
                   )}
@@ -147,7 +149,7 @@ export default function Root({ user }: { user: User | null }) {
                       <img
                         src={paperPlaneTiltSecondary}
                         alt={"paperPlaneTilt"}
-                        className={"w-6 h-6"}
+                        className={"w-8 h-8"}
                       />
                     </div>
                   ) : (
@@ -155,7 +157,7 @@ export default function Root({ user }: { user: User | null }) {
                       <img
                         src={paperPlaneTiltPlain}
                         alt={"paperPlaneTilt"}
-                        className={"w-6 h-6"}
+                        className={"w-8 h-8"}
                       />
                     </div>
                   )}
@@ -173,17 +175,17 @@ export default function Root({ user }: { user: User | null }) {
                   {isActive ? (
                     <div>
                       <img
-                        src={paperPlaneTiltSecondary}
-                        alt={"paperPlaneTilt"}
-                        className={"w-6 h-6"}
+                        src={payments_secondary}
+                        alt={"payments_secondary"}
+                        className={"w-8 h-8"}
                       />
                     </div>
                   ) : (
                     <div>
                       <img
-                        src={paperPlaneTiltPlain}
-                        alt={"paperPlaneTilt"}
-                        className={"w-6 h-6"}
+                        src={payments}
+                        alt={"payments"}
+                        className={"w-8 h-8"}
                       />
                     </div>
                   )}

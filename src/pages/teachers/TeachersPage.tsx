@@ -1,10 +1,13 @@
 import filterList from "/icons/filter_list.svg";
 import addWhite from "/icons/add_white.svg";
+import person from "/icons/person.svg";
+import attach_money from "/icons/attach_money.svg";
+import visibility from "/icons/visibility.svg";
+import payments_primary from "/icons/payments_primary.svg";
 import { Link, useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import weteachApi from "../../configs/weteach-api.ts";
 import LoadingBlocks from "../../components/loading/LoadingBlocks.tsx";
-import paperPlaneTilt from "/icons/paper-plane-tilt.svg";
 import StatCard from "../../components/StatCard.tsx";
 import LoadingTable from "../../components/loading/LoadingTable.tsx";
 import { PaginatedResponse, Teacher } from "../../interfaces/api.ts";
@@ -32,25 +35,25 @@ function TeacherStats() {
   return (
     <section className="flex flex-row w-full justify-evenly gap-4 mb-3">
       <StatCard
-        imageSrc={paperPlaneTilt}
+        imageSrc={person}
         title={data?.data.total_teachers}
         text={"Teachers on the platform"}
       />
 
       <StatCard
-        imageSrc={paperPlaneTilt}
+        imageSrc={attach_money}
         title={data?.data.paying_customers}
         text={"Paying Customers"}
       />
 
       <StatCard
-        imageSrc={paperPlaneTilt}
+        imageSrc={visibility}
         title={data?.data.avg_post_views}
         text={"Average Posts Views"}
       />
 
       <StatCard
-        imageSrc={paperPlaneTilt}
+        imageSrc={payments_primary}
         title={data?.data.post_total_spending}
         text={"Spend on posts"}
       />
