@@ -221,7 +221,7 @@ function SchoolsTableSection() {
   const url = `api/v1/dashboard/schools/list/${query === "" ? "" : "?" + query}`;
 
   const { data } = useQuery<PaginatedResponse<School>>({
-    queryKey: [query],
+    queryKey: [url],
     queryFn: () => weteachApi.get(url),
     placeholderData: (previousData) => previousData,
   });

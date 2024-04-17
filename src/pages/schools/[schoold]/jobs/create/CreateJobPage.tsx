@@ -1,14 +1,16 @@
+// @ts-ignore
+
 import FormSection from "../../../../../components/FormSection.tsx";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigate, useParams } from "react-router-dom";
-import weteachApi from "../../../../../configs/weteach-api.ts";
 import { DateTime } from "luxon";
+import weteachApi from "../../../../../configs/weteach-api.ts";
 
 const schema = z.object({
   title: z.string().min(5),
-  deadline: z.coerce.date(),
+  deadline: z.string().min(5, "Required"),
 });
 
 type ISchema = z.infer<typeof schema>;
@@ -28,10 +30,15 @@ export default function CreateJobPage() {
   });
 
   const onSubmit = async (data: ISchema) => {
+    const local = DateTime.local();
+    const deadline = DateTime.fromISO(data.deadline, {
+      zone: local.zoneName,
+    }).toISO();
+
     await weteachApi.post(`api/v1/jobs/owner/create/`, {
       school: schoolId,
       title: data.title,
-      deadline: DateTime.fromJSDate(data.deadline),
+      deadline: deadline,
     });
 
     navigate(previousPage, { relative: "path" });

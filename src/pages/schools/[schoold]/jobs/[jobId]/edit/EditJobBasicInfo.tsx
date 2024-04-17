@@ -10,7 +10,7 @@ import { Job } from "../../../../../../interfaces/api.ts";
 
 const schema = z.object({
   title: z.string().min(5),
-  deadline: z.coerce.date(),
+  deadline: z.string().min(5, "Required"),
 });
 
 type ISchema = z.infer<typeof schema>;
@@ -33,9 +33,14 @@ function EditJobBasicInfoForm({ job }: { job: Job }) {
   });
 
   const onSubmit = async (data: ISchema) => {
+    const local = DateTime.local();
+    const deadline = DateTime.fromISO(data.deadline, {
+      zone: local.zoneName,
+    }).toISO();
+
     await weteachApi.patch(`api/v1/jobs/modify/${job.id}/`, {
       title: data.title,
-      deadline: DateTime.fromJSDate(data.deadline),
+      deadline: deadline,
     });
 
     navigate(previousPage, { relative: "path" });
