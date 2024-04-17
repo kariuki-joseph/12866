@@ -1,4 +1,10 @@
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import {
+  BrowserRouter,
+  Navigate,
+  redirect,
+  Route,
+  Routes,
+} from "react-router-dom";
 import Root from "./pages/Root.tsx";
 import SchoolPage from "./pages/schools/SchoolPage.tsx";
 import SingleSchoolPage from "./pages/schools/[schoold]/SingleSchoolPage.tsx";
@@ -36,23 +42,7 @@ function ProtectedRoutes({
   user: User | null;
   children: any;
 }) {
-  const accessToken = sessionStorage.getItem("accessToken");
-
-  if (!user) {
-    if (accessToken) {
-      const id = sessionStorage.getItem("id");
-      const name = sessionStorage.getItem("name");
-
-      setUser({
-        id: id,
-        name: name,
-      });
-
-      return children;
-    }
-
-    return <Navigate to={"login"} />;
-  }
+  if (!user) return <Navigate to={"login"} />;
 
   return children;
 }
@@ -61,20 +51,18 @@ export default function App() {
 
   useEffect(() => {
     const getUser = async () => {
+      if (user) return;
+
       const accessToken = sessionStorage.getItem("accessToken");
 
-      if (accessToken) {
-        const userRes = await weteachApi.get("/api/v1/users/user");
+      if (!accessToken) redirect("/login");
 
-        const user = userRes.data;
+      const userRes = await weteachApi.get("/api/v1/users/user");
 
-        setUser({
-          email: user.email,
-          id: user.id,
-          name: user.name ?? "-",
-          phone_number: user.phone_number,
-        });
-      }
+      setUser({
+        id: userRes.data.id,
+        name: userRes.data.email ?? "-",
+      });
     };
 
     getUser();
@@ -85,14 +73,7 @@ export default function App() {
       <Routes>
         <Route path={"/login"} element={<LoginPage setUser={setUser} />} />
 
-        <Route
-          path="/"
-          element={
-            <ProtectedRoutes user={user} setUser={setUser}>
-              <Root user={user} />
-            </ProtectedRoutes>
-          }
-        >
+        <Route path="/" element={<Root user={user} />}>
           <Route index element={<SchoolPage />} />
 
           <Route path="schools/:schoolId" element={<SingleSchoolPage />} />

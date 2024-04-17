@@ -50,9 +50,6 @@ export default function LoginPage({
 
       const user = userRes.data;
 
-      sessionStorage.setItem("id", user.id);
-      sessionStorage.setItem("name", user.name);
-
       setUser({
         id: user.id,
         name: user.email ?? "-",
