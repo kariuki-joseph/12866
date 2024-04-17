@@ -134,3 +134,18 @@ export interface User {
 export interface JobViews {
   id: number;
 }
+
+export interface Payment {
+  id: number;
+  transaction_id: number;
+  checkout_request_id: string;
+  payment_status: string;
+  payment_method: string;
+  amount: 1.0;
+  purpose: string;
+  checked_out: boolean;
+  creation_time: string;
+  owner: User;
+  rate: PaymentRate;
+  job: Job;
+}

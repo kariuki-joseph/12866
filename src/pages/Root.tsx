@@ -198,7 +198,7 @@ export default function Root({ user }: { user: User | null }) {
           </menu>
         </aside>
 
-        <main className="bg-[#FDFDFD] p-4 w-[calc(100vw-240px)]">
+        <main className="bg-[#FDFDFD] p-4 w-[calc(100vw-240px)] overflow-y-scroll">
           <Outlet />
         </main>
       </div>
