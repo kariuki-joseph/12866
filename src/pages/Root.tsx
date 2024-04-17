@@ -167,7 +167,7 @@ export default function Root({ user }: { user: User | null }) {
                 </div>
               )}
             </NavLink>
-            <NavLink to="/finances">
+            <NavLink to="/payments">
               {({ isActive }) => (
                 <div
                   className={`flex flex-row items-center gap-3 px-4 py-3 rounded-lg ${isActive ? "bg-gray-100" : ""}`}

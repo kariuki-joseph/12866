@@ -43,8 +43,8 @@ export default function LoginPage({
       const refreshToken = res.data["refresh"];
       const accessToken = res.data.access;
 
-      sessionStorage.setItem("refreshToken", refreshToken);
-      sessionStorage.setItem("accessToken", accessToken);
+      localStorage.setItem("refreshToken", refreshToken);
+      localStorage.setItem("accessToken", accessToken);
 
       const userRes = await weteachApi.get("/api/v1/users/user");
 

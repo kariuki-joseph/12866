@@ -29,7 +29,7 @@ function PostedJobsTable({ payments }: { payments: Payment[] }) {
         </thead>
         <tbody>
           {payments.map((payment) => (
-            <tr key={payment.id} onClick={() => navigate(`jobs/${payment.id}`)}>
+            <tr key={payment.id} className={"hover:cursor-default"}>
               <th>{payment.job.school.name}</th>
               <td>
                 {payment.rate.days} day(s) for Ksh {payment.rate.charges}

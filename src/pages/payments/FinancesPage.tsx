@@ -8,6 +8,8 @@ import attach_money from "/icons/attach_money.svg";
 import * as Tabs from "@radix-ui/react-tabs";
 import { TabsContent } from "@radix-ui/react-tabs";
 import JobPayments from "./JobPayments.tsx";
+import ViewPayments from "./ViewPayments.tsx";
+import { Link } from "react-router-dom";
 
 function FinanceStats() {
   const url = "api/v1/dashboard/finances/statistics/";
@@ -17,7 +19,12 @@ function FinanceStats() {
     queryFn: () => weteachApi.get(url),
   });
 
-  if (isLoading) return <LoadingBlocks numberOfBlocks={4} />;
+  if (isLoading)
+    return (
+      <div className={"mb-3"}>
+        <LoadingBlocks numberOfBlocks={4} />
+      </div>
+    );
 
   return (
     <section className="flex flex-row w-full justify-evenly gap-4 mb-3">
@@ -65,14 +72,16 @@ export default function FinancesPage() {
             different post publicity packages for schools
           </p>
         </div>
-        <button
+        <Link
           className={
-            "flex flex-row items-center text-secondary gap-4 bg-white py-3 px-6 rounded-lg"
+            "flex flex-row items-center text-secondary gap-4 bg-white py-2 px-6 rounded-lg"
           }
+          to={"manage"}
+          relative={"path"}
         >
           <img src={tune} alt={"tune"} className={"w-6 h-6"} />
           <span>Manage</span>
-        </button>
+        </Link>
       </div>
 
       <h1 className={"text-lg font-bold"}>Finances</h1>
@@ -107,6 +116,9 @@ export default function FinancesPage() {
         </Tabs.List>
         <TabsContent value={"job-posts"}>
           <JobPayments />
+        </TabsContent>
+        <TabsContent value={"job-views"}>
+          <ViewPayments />
         </TabsContent>
       </Tabs.Root>
     </>

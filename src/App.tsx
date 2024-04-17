@@ -11,7 +11,7 @@ import SingleSchoolPage from "./pages/schools/[schoold]/SingleSchoolPage.tsx";
 import EditBasicInfoPage from "./pages/schools/[schoold]/edit/basic-info/EditBasicInfoPage.tsx";
 import TeachersPage from "./pages/teachers/TeachersPage.tsx";
 import ManagePostsPage from "./pages/manage-posts/ManagePostsPage.tsx";
-import FinancesPage from "./pages/finances/FinancesPage.tsx";
+import FinancesPage from "./pages/payments/FinancesPage.tsx";
 import EditSchoolDetailsPage from "./pages/schools/[schoold]/edit/school-details/EditSchoolDetailsPage.tsx";
 import ChangePasswordPage from "./pages/schools/[schoold]/edit/password/ChangePasswordPage.tsx";
 import EditTeacherPasswordPage from "./pages/schools/[schoold]/edit/password/ChangePasswordPage.tsx";
@@ -32,6 +32,7 @@ import { useEffect, useState } from "react";
 import { User } from "./interfaces/api.ts";
 import LoginPage from "./pages/login/LoginPage.tsx";
 import weteachApi from "./configs/weteach-api.ts";
+import ManagePayments from "./pages/payments/manage/ManagePayments.tsx";
 
 function ProtectedRoutes({
   setUser,
@@ -53,7 +54,7 @@ export default function App() {
     const getUser = async () => {
       if (user) return;
 
-      const accessToken = sessionStorage.getItem("accessToken");
+      const accessToken = localStorage.getItem("accessToken");
 
       if (!accessToken) redirect("/login");
 
@@ -143,7 +144,9 @@ export default function App() {
           />
 
           <Route path="manage-posts" element={<ManagePostsPage />} />
-          <Route path="finances" element={<FinancesPage />} />
+
+          <Route path="payments" element={<FinancesPage />} />
+          <Route path="payments/manage" element={<ManagePayments />} />
         </Route>
       </Routes>
     </BrowserRouter>
