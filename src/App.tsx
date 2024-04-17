@@ -1,10 +1,4 @@
-import {
-  BrowserRouter,
-  Navigate,
-  redirect,
-  Route,
-  Routes,
-} from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Root from "./pages/Root.tsx";
 import SchoolPage from "./pages/schools/SchoolPage.tsx";
 import SingleSchoolPage from "./pages/schools/[schoold]/SingleSchoolPage.tsx";
@@ -56,14 +50,17 @@ export default function App() {
 
       const accessToken = localStorage.getItem("accessToken");
 
-      if (!accessToken) redirect("/login");
+      if (!accessToken) {
+        if (window.location.pathname !== "/login")
+          window.location.replace("/login");
+      } else {
+        const userRes = await weteachApi.get("/api/v1/users/user");
 
-      const userRes = await weteachApi.get("/api/v1/users/user");
-
-      setUser({
-        id: userRes.data.id,
-        name: userRes.data.email ?? "-",
-      });
+        setUser({
+          id: userRes.data.id,
+          name: userRes.data.email ?? "-",
+        });
+      }
     };
 
     getUser();
