@@ -19,6 +19,8 @@ import paperPlaneTilt from "/icons/paper-plane-tilt.svg";
 import * as Tabs from "@radix-ui/react-tabs";
 import AboutJob from "./AboutJob.tsx";
 import ApplicationProcess from "../ApplicationProcess.tsx";
+import JobViews from "./JobViews.tsx";
+import SavedJobs from "./SavedJobs.tsx";
 
 function JobTitleSection({ job }: { job: Job }) {
   return (
@@ -248,19 +250,28 @@ function JobDetails({ job }: { job: Job }) {
     <section className={"w-9/12 "}>
       {/*<SummarySection />*/}
 
-      <Tabs.Root defaultValue={"post-impressions"} className={"mt-3"}>
+      <Tabs.Root defaultValue={"viewed-jobs"} className={"mt-3"}>
         <Tabs.List
           className={
             "flex flex-row items-center bg-gray-100 w-fit p-1 rounded-lg *:px-4 *:py-2 *:rounded-lg mb-3 text-sm gap-2"
           }
         >
           <Tabs.Trigger
-            value={"post-impressions"}
+            value={"viewed-jobs"}
             className={
               "data-[state=active]:bg-white data-[state=active]:text-secondary"
             }
           >
-            Post impressions
+            Viewed Jobs
+          </Tabs.Trigger>
+
+          <Tabs.Trigger
+            value={"saved-jobs"}
+            className={
+              "data-[state=active]:bg-white data-[state=active]:text-secondary"
+            }
+          >
+            Saved Jobs
           </Tabs.Trigger>
 
           <Tabs.Trigger
@@ -281,7 +292,12 @@ function JobDetails({ job }: { job: Job }) {
           </Tabs.Trigger>
         </Tabs.List>
 
-        <Tabs.Content value={"post-impressions"}>post-impression</Tabs.Content>
+        <Tabs.Content value={"viewed-jobs"}>
+          <JobViews />
+        </Tabs.Content>
+        <Tabs.Content value={"saved-jobs"}>
+          <SavedJobs />
+        </Tabs.Content>
         <Tabs.Content value={"about-job"}>
           <AboutJob job={job} />
         </Tabs.Content>

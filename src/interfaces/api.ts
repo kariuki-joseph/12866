@@ -130,3 +130,7 @@ export interface User {
   id: number;
   name: string;
 }
+
+export interface JobViews {
+  id: number;
+}
