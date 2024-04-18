@@ -1,5 +1,4 @@
 import filterList from "/icons/filter_list.svg";
-import addSecondary from "/icons/add_secondary.svg";
 import search from "/icons/search.svg";
 import { useQuery } from "@tanstack/react-query";
 import { Link, useNavigate, useParams } from "react-router-dom";
@@ -207,10 +206,6 @@ export default function JobViews() {
             />
           </label>
         </div>
-        <Link className={"btn-outlined"} to={"jobs/create"}>
-          <img src={addSecondary} className={"w-6 h-6"} />
-          <span>Post new job</span>
-        </Link>
       </div>
 
       {data !== undefined ? (

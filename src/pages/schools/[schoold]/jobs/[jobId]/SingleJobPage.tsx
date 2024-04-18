@@ -107,8 +107,12 @@ function JobInfo({ job }: { job: Job }) {
         "w-3/12 relative h-fit bg-white border border-gray-200 rounded px-4 pt-3 "
       }
     >
-      <div className={"bg-gray-50 p-2 rounded-[42px] w-fit mx-auto mb-3"}>
-        <img src={baseUrl + job.school.image} className={"w-12 h-12"} />
+      <div
+        className={
+          "bg-gray-50 w-32 h-32 rounded-[300px] mx-auto mt-5 mb-8 overflow-clip"
+        }
+      >
+        <img src={baseUrl + job.school.image} className={"object-cover"} />
       </div>
 
       <div
