@@ -10,6 +10,8 @@ import baseUrl from "../../../../../configs/baseUrl.ts";
 import school from "/icons/school.svg";
 import call from "/icons/call.svg";
 import mail from "/icons/mail.svg";
+import visibility from "/icons/visibility.svg";
+import bookmark from "/icons/bookmark.svg";
 import schedule from "/icons/schedule.svg";
 import business_center from "/icons/business_center.svg";
 import { DateTime } from "luxon";
@@ -212,9 +214,9 @@ function JobInfo({ job }: { job: Job }) {
 }
 
 function SummarySection() {
-  const { teacherId } = useParams();
+  const { jobId } = useParams();
 
-  const url = `api/v1/dashboard/teacher/statistics/${teacherId}/`;
+  const url = `api/v1/dashboard/job/statistics/${jobId}/`;
 
   const { data, isLoading } = useQuery({
     queryKey: [url],
@@ -229,19 +231,19 @@ function SummarySection() {
         <>
           <StatCard
             imageSrc={paperPlaneTilt}
-            title={data.data.viewed_jobs}
-            text={"Viewed jobs"}
+            title={data.data.similar_subject_posts}
+            text={"Similar Subjects Posts"}
           />
           <StatCard
-            imageSrc={paperPlaneTilt}
-            title={data.data.saved_jobs}
-            text={"Saved Jobs"}
+            imageSrc={visibility}
+            title={data.data.post_impressions}
+            text={"Total Post Impressions"}
           />
 
           <StatCard
-            imageSrc={paperPlaneTilt}
-            title={data.data.post_total_spending}
-            text={"Spends on posts"}
+            imageSrc={bookmark}
+            title={data.data.saves}
+            text={"Saved by Teachers"}
           />
         </>
       ) : null}
@@ -252,30 +254,30 @@ function SummarySection() {
 function JobDetails({ job }: { job: Job }) {
   return (
     <section className={"w-9/12 "}>
-      {/*<SummarySection />*/}
+      <SummarySection />
 
-      <Tabs.Root defaultValue={"viewed-jobs"} className={"mt-3"}>
+      <Tabs.Root defaultValue={"job-views"} className={"mt-3"}>
         <Tabs.List
           className={
             "flex flex-row items-center bg-gray-100 w-fit p-1 rounded-lg *:px-4 *:py-2 *:rounded-lg mb-3 text-sm gap-2"
           }
         >
           <Tabs.Trigger
-            value={"viewed-jobs"}
+            value={"job-views"}
             className={
               "data-[state=active]:bg-white data-[state=active]:text-secondary"
             }
           >
-            Viewed Jobs
+            Job Views
           </Tabs.Trigger>
 
           <Tabs.Trigger
-            value={"saved-jobs"}
+            value={"job-saves"}
             className={
               "data-[state=active]:bg-white data-[state=active]:text-secondary"
             }
           >
-            Saved Jobs
+            Job Saves
           </Tabs.Trigger>
 
           <Tabs.Trigger
@@ -296,10 +298,10 @@ function JobDetails({ job }: { job: Job }) {
           </Tabs.Trigger>
         </Tabs.List>
 
-        <Tabs.Content value={"viewed-jobs"}>
+        <Tabs.Content value={"job-views"}>
           <JobViews />
         </Tabs.Content>
-        <Tabs.Content value={"saved-jobs"}>
+        <Tabs.Content value={"job-saves"}>
           <SavedJobs />
         </Tabs.Content>
         <Tabs.Content value={"about-job"}>

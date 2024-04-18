@@ -3,7 +3,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import weteachApi from "../../configs/weteach-api.ts";
 import LoadingBlocks from "../../components/loading/LoadingBlocks.tsx";
-import paperPlaneTilt from "/icons/paper-plane-tilt.svg";
 import StatCard from "../../components/StatCard.tsx";
 import { Job } from "../../interfaces/api.ts";
 import { DateTime } from "luxon";
@@ -16,11 +15,11 @@ import * as Popover from "@radix-ui/react-popover";
 import search from "/icons/search.svg";
 import PaginationSection from "../../components/PaginationSection.tsx";
 import more_vert from "/icons/more_vert.svg";
-import person from "/icons/person.svg";
+import visibility from "/icons/visibility.svg";
 import attach_money from "/icons/attach_money.svg";
 
 function JobStats() {
-  const url = "api/v1/dashboard/teachers/statistics/";
+  const url = "api/v1/dashboard/jobs/statistics/";
 
   const { data, isLoading } = useQuery({
     queryKey: [url],
@@ -32,27 +31,27 @@ function JobStats() {
   return (
     <section className="flex flex-row w-full justify-evenly gap-4 mb-3">
       <StatCard
-        imageSrc={person}
-        title={data?.data.total_teachers}
-        text={"Teachers on the platform"}
+        imageSrc={attach_money}
+        title={data?.data.total_revenue}
+        text={"Total Platform Revenue"}
       />
 
       <StatCard
         imageSrc={attach_money}
-        title={data?.data.paying_customers}
-        text={"Paying Customers"}
+        title={data?.data.job_post_revenue}
+        text={"Revenue from Job Posts"}
       />
 
       <StatCard
-        imageSrc={paperPlaneTilt}
-        title={data?.data.avg_post_views}
-        text={"Average Posts Views"}
+        imageSrc={attach_money}
+        title={data?.data.job_view_revenue}
+        text={"Revenue from Job Views"}
       />
 
       <StatCard
-        imageSrc={paperPlaneTilt}
-        title={data?.data.post_total_spending}
-        text={"Spend on posts"}
+        imageSrc={visibility}
+        title={data?.data.post_publicity_packages}
+        text={"Post Publicity Packages"}
       />
     </section>
   );

@@ -3,6 +3,14 @@ import { Job } from "../../../../../interfaces/api.ts";
 export default function AboutJob({ job }: { job: Job }) {
   return (
     <section className={"flex flex-col gap-3"}>
+      <div className={"px-6 py-5 border border-gray-200 rounded-lg w-full"}>
+        <p className={"font-bold mb-3 text-sm"}>About</p>
+
+        <p className={"text-sm text-gray-500 text-justify"}>
+          {job.about !== undefined ? job.about : "-"}
+        </p>
+      </div>
+
       <div className={"flex flex-row gap-3"}>
         <div className={"px-6 py-5 border border-gray-200 rounded-lg w-1/2"}>
           <p className={"font-bold mb-3 text-sm"}>Subjects & Skills</p>
