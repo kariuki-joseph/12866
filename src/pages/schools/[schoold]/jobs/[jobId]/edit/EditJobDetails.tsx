@@ -43,7 +43,6 @@ function EditJobDetailsForm({ job }: { job: Job }) {
     formState: { errors },
   } = useForm<ISchema>({
     defaultValues: {
-      about: job.about ?? "",
       teacher_requirements: job.teacher_requirements.map((d) =>
         d.id.toString(),
       ),
