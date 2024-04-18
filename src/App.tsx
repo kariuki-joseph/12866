@@ -26,6 +26,8 @@ import { useState } from "react";
 import { User } from "./interfaces/api.ts";
 import LoginPage from "./pages/login/LoginPage.tsx";
 import ManagePayments from "./pages/payments/manage/ManagePayments.tsx";
+import CreatePaymentPage from "./pages/payments/manage/CreatePaymentPage.tsx";
+import EditRatePage from "./pages/payments/manage/EditRatePage.tsx";
 
 function ProtectedRoutes({
   setUser,
@@ -121,6 +123,11 @@ export default function App() {
 
           <Route path="payments" element={<FinancesPage />} />
           <Route path="payments/manage" element={<ManagePayments />} />
+          <Route path="payments/create" element={<CreatePaymentPage />} />
+          <Route
+            path="payments/manage/:rateId/edit"
+            element={<EditRatePage />}
+          />
         </Route>
       </Routes>
     </BrowserRouter>

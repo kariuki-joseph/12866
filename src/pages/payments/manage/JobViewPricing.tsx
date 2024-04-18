@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 import queryClient from "../../../configs/query-client.ts";
 
 const schema = z.object({
-  charge: z.coerce.number().min(0),
+  charge: z.coerce.number().min(1),
 });
 
 type ISchema = z.infer<typeof schema>;
