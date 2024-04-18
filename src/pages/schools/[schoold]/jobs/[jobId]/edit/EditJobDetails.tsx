@@ -14,7 +14,6 @@ import optionalMinLength from "../../../../../../utils/optional-min-length.ts";
 
 const schema = z.object({
   teacher_requirements: z.array(z.string()).min(1, "Required"),
-  about: z.string().min(5),
   duties_and_responsibilities: z
     .string()
     .refine(optionalMinLength, "String should not be less than (5) characters"),
@@ -69,7 +68,6 @@ function EditJobDetailsForm({ job }: { job: Job }) {
       teacher_requirements: data.teacher_requirements.map((val) =>
         parseInt(val),
       ),
-      about: data.about,
       duties_and_responsibilities: data.duties_and_responsibilities,
       minimum_requirements: data.minimum_requirements,
       how_to_apply: data.how_to_apply,
@@ -80,10 +78,6 @@ function EditJobDetailsForm({ job }: { job: Job }) {
   };
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <label htmlFor={"about"}>About</label>
-      <textarea {...register("about")} placeholder={"Enter about"} rows={4} />
-      <p className={"text-xs text-error mt-1"}>{errors.about?.message}</p>
-
       <label>Subjects & Skills</label>
       {teacherRequirementsQuery.data !== undefined ? (
         <div
