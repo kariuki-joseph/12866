@@ -62,24 +62,24 @@ export default function FinancesPage() {
 
       <div
         className={
-          "flex flex-row justify-between p-6 bg-purple-50 border border-gray-200 rounded-lg mb-3"
+          "flex flex-row justify-between p-6 bg-gradient-to-r from-[#E2E3FF]  to-[#F8E2FF] rounded-lg mb-3"
         }
       >
         <div className={""}>
           <h1 className={"text-lg font-bold mb-2"}>Manage Payment Packages</h1>
-          <p className={"text-sm text-gray-500"}>
+          <p className={"text-sm text-gray-700"}>
             Set up the amounts paid to view job posts as well as the cost of
             different post publicity packages for schools
           </p>
         </div>
         <Link
           className={
-            "flex flex-row items-center text-secondary gap-4 bg-white py-2 px-6 rounded-lg"
+            "flex flex-row items-center text-secondary gap-4 bg-white py-1 px-6 rounded"
           }
           to={"manage"}
           relative={"path"}
         >
-          <img src={tune} alt={"tune"} className={"w-6 h-6"} />
+          <img src={tune} alt={"tune"} className={"w-5 h-5"} />
           <span>Manage</span>
         </Link>
       </div>
