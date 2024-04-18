@@ -66,6 +66,7 @@ function JobsTable({ jobs }: { jobs: Job[] }) {
         <thead>
           <tr>
             <th>Job Title</th>
+            <th>School</th>
             <th>Status</th>
             <th>Post Impression</th>
             <th>Post Publicity</th>
@@ -82,6 +83,7 @@ function JobsTable({ jobs }: { jobs: Job[] }) {
               }
             >
               <th>{job.title}</th>
+              <th>{job.school.name}</th>
               <td>{job.status}</td>
               <td>{job.views}</td>
               <td>
