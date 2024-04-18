@@ -12,6 +12,7 @@ import { Payment } from "../../interfaces/api.ts";
 import PaginationSection from "../../components/PaginationSection.tsx";
 import weteachApi from "../../configs/weteach-api.ts";
 import queryString from "query-string";
+import NoData from "../../components/no-data.tsx";
 
 function PostedJobsTable({ payments }: { payments: Payment[] }) {
   const navigate = useNavigate();
@@ -133,7 +134,12 @@ export default function ViewPayments() {
 
       {data !== undefined ? (
         <>
-          <PostedJobsTable payments={data.data.results} />
+          {data.data.results.length !== 0 ? (
+            <PostedJobsTable payments={data.data.results} />
+          ) : (
+            <NoData />
+          )}
+
           <PaginationSection
             page={page}
             total={data.data.count}

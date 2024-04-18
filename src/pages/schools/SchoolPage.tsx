@@ -19,6 +19,7 @@ import { useEffect, useState } from "react";
 import PaginationSection from "../../components/PaginationSection.tsx";
 import school_primary from "/icons/school_primary.svg";
 import payments_primary from "/icons/payments_primary.svg";
+import NoData from "../../components/no-data.tsx";
 
 function SchoolsStats() {
   const url = "api/v1/dashboard/schools/statistics/";
@@ -324,9 +325,16 @@ function SchoolsTableSection() {
         </Link>
       </div>
 
-      {data ? (
+      {data !== undefined ? (
         <>
-          <SchoolsTable schools={data.data.results} />
+          {data.data.results.length !== 0 ? (
+            <>
+              <SchoolsTable schools={data.data.results} />
+            </>
+          ) : (
+            <NoData />
+          )}
+
           <PaginationSection
             page={page}
             total={data.data.count}

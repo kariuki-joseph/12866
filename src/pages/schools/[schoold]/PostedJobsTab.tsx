@@ -14,6 +14,7 @@ import queryString from "query-string";
 import PaginationSection from "../../../components/PaginationSection.tsx";
 import * as Popover from "@radix-ui/react-popover";
 import more_vert from "/icons/more_vert.svg";
+import NoData from "../../../components/no-data.tsx";
 
 function PostedJobsTable({ jobs }: { jobs: Job[] }) {
   const navigate = useNavigate();
@@ -215,7 +216,14 @@ export default function PostedJobsTab() {
 
       {data !== undefined ? (
         <>
-          <PostedJobsTable jobs={data.data.results} />
+          {data.data.results.length !== 0 ? (
+            <>
+              <PostedJobsTable jobs={data.data.results} />
+            </>
+          ) : (
+            <NoData />
+          )}
+
           <PaginationSection
             page={page}
             total={data.data.count}

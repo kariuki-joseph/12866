@@ -17,6 +17,7 @@ import PaginationSection from "../../components/PaginationSection.tsx";
 import more_vert from "/icons/more_vert.svg";
 import visibility from "/icons/visibility.svg";
 import attach_money from "/icons/attach_money.svg";
+import NoData from "../../components/no-data.tsx";
 
 function JobStats() {
   const url = "api/v1/dashboard/jobs/statistics/";
@@ -260,7 +261,12 @@ function JobsTableSection() {
 
       {data !== undefined ? (
         <>
-          <JobsTable jobs={data.data.results} />
+          {data.data.results.length !== 0 ? (
+            <JobsTable jobs={data.data.results} />
+          ) : (
+            <NoData />
+          )}
+
           <PaginationSection
             page={page}
             total={data.data.count}

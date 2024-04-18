@@ -12,6 +12,7 @@ import PaginationSection from "../../../components/PaginationSection.tsx";
 import { z } from "zod";
 import { Job } from "../../../interfaces/api.ts";
 import { DateTime } from "luxon";
+import NoData from "../../../components/no-data.tsx";
 
 function JobsTable({ jobs }: { jobs: Job[] }) {
   return (
@@ -163,7 +164,12 @@ export default function ViewedJobs() {
 
       {data !== undefined ? (
         <>
-          <JobsTable jobs={data.data.results} />
+          {data.data.results.length !== 0 ? (
+            <JobsTable jobs={data.data.results} />
+          ) : (
+            <NoData />
+          )}
+
           <PaginationSection
             page={page}
             total={data.data.count}

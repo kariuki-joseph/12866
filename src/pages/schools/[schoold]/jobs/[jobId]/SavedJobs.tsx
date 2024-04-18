@@ -13,6 +13,7 @@ import more_vert from "/icons/more_vert.svg";
 import { Job } from "../../../../../interfaces/api.ts";
 import weteachApi from "../../../../../configs/weteach-api.ts";
 import PaginationSection from "../../../../../components/PaginationSection.tsx";
+import NoData from "../../../../../components/no-data.tsx";
 
 function JobsTable({ jobs }: { jobs: Job[] }) {
   const navigate = useNavigate();
@@ -210,7 +211,14 @@ export default function SavedJobs() {
 
       {data !== undefined ? (
         <>
-          <JobsTable jobs={data.data.results} />
+          {data.data.results.length !== 0 ? (
+            <>
+              <JobsTable jobs={data.data.results} />
+            </>
+          ) : (
+            <NoData />
+          )}
+
           <PaginationSection
             page={page}
             total={data.data.count}
