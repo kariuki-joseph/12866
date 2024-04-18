@@ -22,10 +22,9 @@ import EditPaymentRatePage from "./pages/schools/[schoold]/jobs/[jobId]/edit/Edi
 import EditJobBasicInfo from "./pages/schools/[schoold]/jobs/[jobId]/edit/EditJobBasicInfo.tsx";
 import EditJobDetails from "./pages/schools/[schoold]/jobs/[jobId]/edit/EditJobDetails.tsx";
 import SingleJobPage from "./pages/schools/[schoold]/jobs/[jobId]/SingleJobPage.tsx";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { User } from "./interfaces/api.ts";
 import LoginPage from "./pages/login/LoginPage.tsx";
-import weteachApi from "./configs/weteach-api.ts";
 import ManagePayments from "./pages/payments/manage/ManagePayments.tsx";
 
 function ProtectedRoutes({
@@ -44,34 +43,12 @@ function ProtectedRoutes({
 export default function App() {
   const [user, setUser] = useState<User | null>(null);
 
-  useEffect(() => {
-    const getUser = async () => {
-      if (user) return;
-
-      const accessToken = localStorage.getItem("accessToken");
-
-      if (!accessToken) {
-        if (window.location.pathname !== "/login")
-          window.location.replace("/login");
-      } else {
-        const userRes = await weteachApi.get("/api/v1/users/user");
-
-        setUser({
-          id: userRes.data.id,
-          name: userRes.data.email ?? "-",
-        });
-      }
-    };
-
-    getUser();
-  }, []);
-
   return (
     <BrowserRouter>
       <Routes>
         <Route path={"/login"} element={<LoginPage setUser={setUser} />} />
 
-        <Route path="/" element={<Root user={user} />}>
+        <Route path="/" element={<Root user={user} setUser={setUser} />}>
           <Route index element={<SchoolPage />} />
 
           <Route path="schools/:schoolId" element={<SingleSchoolPage />} />

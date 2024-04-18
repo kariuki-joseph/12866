@@ -12,9 +12,32 @@ import school from "/icons/school.svg";
 import school_secondary from "/icons/school_secondary.svg";
 import { User } from "../interfaces/api.ts";
 import * as Popover from "@radix-ui/react-popover";
+import { useEffect } from "react";
 
-export default function Root({ user }: { user: User | null }) {
+export default function Root({
+  user,
+  setUser,
+}: {
+  user: User | null;
+  setUser: any;
+}) {
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (user) return;
+
+    const accessToken = localStorage.getItem("accessToken");
+    const userId = localStorage.getItem("userId");
+    const userName = localStorage.getItem("userName");
+
+    if (!userId || !userName || !accessToken) navigate("/login");
+
+    setUser({
+      id: userId,
+      name: userName,
+    });
+  }, []);
+
   return (
     <>
       <nav

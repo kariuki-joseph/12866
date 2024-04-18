@@ -50,6 +50,9 @@ export default function LoginPage({
 
       const user = userRes.data;
 
+      localStorage.setItem("userId", user.id);
+      localStorage.setItem("userName", user.email);
+
       setUser({
         id: user.id,
         name: user.email ?? "-",
