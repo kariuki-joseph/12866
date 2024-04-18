@@ -94,6 +94,10 @@ export interface PaymentRate {
   charges: number;
   creation_time: string;
 }
+export interface ViewPaymentRate {
+  id: number;
+  charge: number;
+}
 
 export interface Job {
   id: number;
