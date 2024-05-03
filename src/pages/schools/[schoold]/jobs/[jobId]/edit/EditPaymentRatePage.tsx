@@ -148,7 +148,7 @@ function ProcessingPayment() {
 
   return (
     <>
-      {!isPaid ? (
+      {isPaid ? (
         <div>
           <img
             src={check_circle}
