@@ -87,6 +87,12 @@ function TeacherNameSection(props: TeacherNameSectionProps) {
               Location Details
             </Link>
             <Link
+              to={"edit/make-payment"}
+              className={"hover:bg-gray-100 hover:text-black"}
+            >
+              Make Payment
+            </Link>
+            <Link
               to={"edit/password"}
               className={"hover:bg-gray-100 hover:text-black"}
             >
