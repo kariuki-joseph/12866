@@ -10,7 +10,12 @@ import LoadingBlocks from "../../components/loading/LoadingBlocks.tsx";
 import paperPlaneTilt from "/icons/paper-plane-tilt.svg";
 import StatCard from "../../components/StatCard.tsx";
 import * as Popover from "@radix-ui/react-popover";
-import { PaginatedResponse, School } from "../../interfaces/api.ts";
+import {
+  AxiosResponse,
+  InstitutionLevel,
+  PaginatedResponse,
+  School,
+} from "../../interfaces/api.ts";
 import { DateTime } from "luxon";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
@@ -198,7 +203,11 @@ const schema = z.object({
 
 type ISchema = z.infer<typeof schema>;
 
-function SchoolsTableSection() {
+function SchoolsTableSection(props: {
+  institution_levels: InstitutionLevel[];
+}) {
+  const { institution_levels } = props;
+  console.log(institution_levels);
   const [page, setPage] = useState(1);
 
   const { register, watch, reset } = useForm<ISchema>({
@@ -233,14 +242,6 @@ function SchoolsTableSection() {
   const { data } = useQuery<PaginatedResponse<School>>({
     queryKey: [url],
     queryFn: () => weteachApi.get(url),
-    placeholderData: (previousData) => previousData,
-  });
-
-  const institution_levels_url = "api/v1/subjects/institution/levels/";
-
-  const { data: institution_levels } = useQuery<PaginatedResponse<School>>({
-    queryKey: [institution_levels_url],
-    queryFn: () => weteachApi.get(institution_levels_url),
     placeholderData: (previousData) => previousData,
   });
 
@@ -291,9 +292,15 @@ function SchoolsTableSection() {
                       className={"p-2 text-xs"}
                     >
                       <option value={""}>Select level of institution</option>
-                      <option value={"ECDE"}>ECDE</option>
-                      <option value={"Primary School"}>Primary School</option>
-                      <option value={"High School"}>High School</option>
+
+                      {institution_levels.map((institution_level) => (
+                        <option
+                          value={institution_level.id}
+                          key={institution_level.id}
+                        >
+                          {institution_level.name}
+                        </option>
+                      ))}
                     </select>
 
                     <select {...register("gender")} className={"p-2 text-xs"}>
@@ -364,6 +371,14 @@ function SchoolsTableSection() {
 }
 
 function SchoolSection() {
+  const institution_levels_url = "api/v1/subjects/institution/levels/";
+
+  const { data } = useQuery<AxiosResponse<InstitutionLevel[]>>({
+    queryKey: [institution_levels_url],
+    queryFn: () => weteachApi.get(institution_levels_url),
+    placeholderData: (previousData) => previousData,
+  });
+
   return (
     <section>
       <div className={""}>
@@ -374,7 +389,9 @@ function SchoolSection() {
         </p>
       </div>
 
-      <SchoolsTableSection />
+      {data !== undefined ? (
+        <SchoolsTableSection institution_levels={data.data} />
+      ) : null}
     </section>
   );
 }
