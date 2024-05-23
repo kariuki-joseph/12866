@@ -116,6 +116,7 @@ export interface Job {
   title: string;
   duties_and_responsibilities: string;
   minimum_requirements: string;
+  institution_level: InstitutionLevel;
   status: string;
   views: number;
   additional_requirements: string;

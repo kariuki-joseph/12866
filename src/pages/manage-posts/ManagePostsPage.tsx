@@ -33,20 +33,20 @@ function JobStats() {
     <section className="flex flex-row w-full justify-evenly gap-4 mb-3">
       <StatCard
         imageSrc={attach_money}
-        title={data?.data.total_revenue}
-        text={"Total Platform Revenue"}
+        title={data?.data.total_job_posts}
+        text={"Posted Jobs"}
       />
 
       <StatCard
         imageSrc={attach_money}
         title={data?.data.job_post_revenue}
-        text={"Revenue from Job Posts"}
+        text={"Total Post impressions"}
       />
 
       <StatCard
         imageSrc={attach_money}
         title={data?.data.job_view_revenue}
-        text={"Revenue from Job Views"}
+        text={"Spends on post"}
       />
 
       <StatCard
@@ -68,6 +68,7 @@ function JobsTable({ jobs }: { jobs: Job[] }) {
           <tr>
             <th>Job Title</th>
             <th>School</th>
+            <th>Institution Level</th>
             <th>Status</th>
             <th>Post Impression</th>
             <th>Post Publicity</th>
@@ -85,6 +86,11 @@ function JobsTable({ jobs }: { jobs: Job[] }) {
             >
               <th>{job.title}</th>
               <th>{job.school.name}</th>
+              <th>
+                {job.institution_level !== null
+                  ? job.institution_level.name
+                  : "-"}
+              </th>
               <td>{job.status}</td>
               <td>{job.views}</td>
               <td>
