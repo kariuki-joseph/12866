@@ -2,7 +2,8 @@ import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigate } from "react-router-dom";
-import paperPlaneTiltPlain from "/icons/paper-plane-tilt-plain.svg";
+import { InstitutionLevel } from "../../../interfaces/api.ts";
+import * as ToggleGroup from "@radix-ui/react-toggle-group";
 import weteachApi from "../../../configs/weteach-api.ts";
 
 const schema = z.object({
@@ -11,17 +12,22 @@ const schema = z.object({
   primary_email: z.string().email().min(5),
   website: z.string().url(),
   image: z.unknown(),
+  institution_levels: z.array(z.string()),
 });
 
 type ISchema = z.infer<typeof schema>;
 
-export default function CreateSchoolTab() {
+export default function CreateSchoolTab(props: {
+  institution_levels: InstitutionLevel[];
+}) {
+  const { institution_levels } = props;
   const previousPage = "/";
   const navigate = useNavigate();
 
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm<ISchema>({
     resolver: zodResolver(schema),
@@ -33,24 +39,22 @@ export default function CreateSchoolTab() {
     primary_email,
     image,
     website,
+    institution_levels,
   }: ISchema) => {
-    const userId = sessionStorage.getItem("userId");
-    const formData = new FormData();
+    const owner = sessionStorage.getItem("userId");
 
-    formData.append("image", image[0]);
-
-    formData.append("name", name);
-    formData.append("primary_email", primary_email);
-    formData.append("phone_number", phone_number);
-    formData.append("web_site", website);
-    formData.append("owner", userId);
+    const institution_levels_ints = institution_levels.map((v) => parseInt(v));
 
     try {
-      await weteachApi.post("api/v1/users/school/", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
+      await weteachApi.post("api/v1/users/school/", {
+        name,
+        primary_email,
+        phone_number,
+        web_site: website,
+        owner: owner,
+        institution_level: institution_levels_ints,
       });
+
       navigate(previousPage, { relative: "path" });
     } catch (e) {
       alert(e.response.data);
@@ -59,28 +63,6 @@ export default function CreateSchoolTab() {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <label className="flex flex-row items-center justify-between  bg-gray-50 border border-gray-200 rounded-lg px-2 mb-3">
-        <div className="flex flex-row items-center gap-2">
-          <div className={"bg-purple-50 p-2 rounded-3xl m-3"}>
-            <img src={paperPlaneTiltPlain} alt={"logo"} className={"w-8 h-8"} />
-          </div>
-
-          <div className="w-2/3 flex flex-col gap-1">
-            <p className={"text-sm font-bold"}>Add institution logo</p>
-            <p className={"text-xs text-gray-500"}>
-              This logo will appear as the profile picture
-            </p>
-          </div>
-        </div>
-        <input
-          type="file"
-          {...register("image")}
-          className={"w-fit"}
-          accept=".png, .jpg, .jpeg"
-          required
-        />
-      </label>
-
       <label htmlFor={"name"}>Name</label>
       <input {...register("name")} placeholder={"Enter name"} type={"text"} />
       <p className={"text-xs text-error mt-1"}>{errors.name?.message}</p>
@@ -108,6 +90,29 @@ export default function CreateSchoolTab() {
         type={"text"}
       />
       <p className={"text-xs text-error mt-1"}>{errors.website?.message}</p>
+
+      <ToggleGroup.Root
+        type={"multiple"}
+        className={
+          "*:px-6 *:py-3 text-sm *:rounded-3xl *:border *:border-gray-200 *:w-1/3 flex flex-row gap-3 justify-evenly "
+        }
+        onValueChange={(values) => setValue("institution_levels", values)}
+      >
+        {institution_levels.map((institution_level) => (
+          <ToggleGroup.Item
+            key={institution_level.id}
+            value={institution_level.id.toString()}
+            className={
+              "data-[state=on]:text-primary  data-[state=on]:bg-[#FBEFFF] data-[state=checked]:border-primary"
+            }
+          >
+            {institution_level.name}
+          </ToggleGroup.Item>
+        ))}
+      </ToggleGroup.Root>
+      <p className={"text-xs text-error mt-1"}>
+        {errors.institution_levels?.message}
+      </p>
 
       <div className={"flex flex-row justify-end gap-3 mt-3"}>
         <button

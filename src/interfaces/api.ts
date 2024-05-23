@@ -33,7 +33,7 @@ interface Owner {
   name: string;
 }
 
-interface InstitutionalLevel {
+export interface InstitutionLevel {
   id: number;
   name: string;
 }
@@ -45,7 +45,7 @@ export interface School {
   ward: string;
   phone_number: string;
   primary_email: string;
-  institution_level: InstitutionalLevel[];
+  institution_level: InstitutionLevel[];
   accommodation: string;
   gender: string;
   web_site: string;
