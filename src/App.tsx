@@ -28,6 +28,7 @@ import LoginPage from "./pages/login/LoginPage.tsx";
 import ManagePayments from "./pages/payments/manage/ManagePayments.tsx";
 import CreatePaymentPage from "./pages/payments/manage/CreatePaymentPage.tsx";
 import EditRatePage from "./pages/payments/manage/EditRatePage.tsx";
+import MakeTeacherPayment from "./pages/teachers/[teacherId]/edit/make-payment";
 
 function ProtectedRoutes({
   setUser,
@@ -113,6 +114,10 @@ export default function App() {
           <Route
             path="teachers/:teacherId/edit/location-details"
             element={<EditTeacherLocationDetails />}
+          />
+          <Route
+            path="teachers/:teacherId/edit/make-payment"
+            element={<MakeTeacherPayment />}
           />
           <Route
             path="teachers/:teacherId/edit/password"

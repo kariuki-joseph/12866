@@ -7,7 +7,7 @@ import * as RadioGroup from "@radix-ui/react-radio-group";
 import weteachApi from "../../../../configs/weteach-api.ts";
 import queryClient from "../../../../configs/query-client.ts";
 import { useQuery } from "@tanstack/react-query";
-import { Teacher } from "../../../../interfaces/api.ts";
+import { InstitutionLevel, Teacher } from "../../../../interfaces/api.ts";
 import FormSection from "../../../../components/FormSection.tsx";
 
 const schema = z.object({
@@ -19,7 +19,13 @@ const schema = z.object({
 
 type ISchema = z.infer<typeof schema>;
 
-function EditTeacherBasicInfoForm({ teacher }: { teacher: Teacher }) {
+function EditTeacherBasicInfoForm({
+  teacher,
+  institutional_levels,
+}: {
+  teacher: Teacher;
+  institutional_levels: InstitutionLevel[];
+}) {
   const previousPage = "/teachers";
   const navigate = useNavigate();
 
@@ -27,12 +33,13 @@ function EditTeacherBasicInfoForm({ teacher }: { teacher: Teacher }) {
     register,
     handleSubmit,
     setValue,
+    getValues,
     formState: { errors },
   } = useForm<ISchema>({
     defaultValues: {
       full_name: teacher.full_name,
       experience: teacher.experience,
-      institution_level: teacher.institution_level,
+      institution_level: teacher.institution_level.id.toString(),
     },
     resolver: zodResolver(schema),
   });
@@ -118,36 +125,23 @@ function EditTeacherBasicInfoForm({ teacher }: { teacher: Teacher }) {
       <label htmlFor={"institution_level"}>Level of Institution</label>
       <RadioGroup.Root
         name={"institution_level"}
-        defaultValue={teacher.institution_level}
+        defaultValue={getValues("institution_level")}
         className={
           "*:px-6 *:py-3 text-sm *:rounded-3xl *:border *:border-gray-200 *:w-1/3 flex flex-row gap-3 justify-evenly "
         }
         onValueChange={(value) => setValue("institution_level", value)}
       >
-        <RadioGroup.Item
-          value={"ECDE"}
-          className={
-            "data-[state=checked]:text-primary  data-[state=checked]:bg-[#FBEFFF] data-[state=checked]:border-primary"
-          }
-        >
-          ECDE
-        </RadioGroup.Item>
-        <RadioGroup.Item
-          value={"Primary School"}
-          className={
-            "data-[state=checked]:text-primary  data-[state=checked]:bg-[#FBEFFF] data-[state=checked]:border-primary"
-          }
-        >
-          Primary School
-        </RadioGroup.Item>
-        <RadioGroup.Item
-          value={"High School"}
-          className={
-            "data-[state=checked]:text-primary  data-[state=checked]:bg-[#FBEFFF] data-[state=checked]:border-primary"
-          }
-        >
-          High School
-        </RadioGroup.Item>
+        {institutional_levels.map((institutional_levels) => (
+          <RadioGroup.Item
+            value={institutional_levels.id.toString()}
+            key={institutional_levels.id}
+            className={
+              "data-[state=checked]:text-primary  data-[state=checked]:bg-[#FBEFFF] data-[state=checked]:border-primary"
+            }
+          >
+            {institutional_levels.name}
+          </RadioGroup.Item>
+        ))}
       </RadioGroup.Root>
       <p className={"text-xs text-error mt-1"}>
         {errors.institution_level?.message}
@@ -176,13 +170,22 @@ export default function EditTeacherBasicInfo() {
     queryFn: () => weteachApi.get(url),
   });
 
+  const url2 = `api/v1/subjects/institution/levels/`;
+  const { data: data2 } = useQuery({
+    queryKey: [url2],
+    queryFn: () => weteachApi.get(url2),
+  });
+
   return (
     <FormSection
       title={"Edit Teacher Basic Info"}
       previousPage={`/teachers/${teacherId}`}
     >
-      {data !== undefined ? (
-        <EditTeacherBasicInfoForm teacher={data.data} />
+      {data !== undefined && data2 !== undefined ? (
+        <EditTeacherBasicInfoForm
+          teacher={data.data}
+          institutional_levels={data2.data}
+        />
       ) : null}
     </FormSection>
   );
