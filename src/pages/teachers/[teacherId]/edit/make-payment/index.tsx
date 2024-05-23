@@ -50,7 +50,7 @@ function EditPaymentRateForm({
   });
 
   const onSubmit = async (data: ISchema) => {
-    const owner = sessionStorage.getItem("owner");
+    const owner = sessionStorage.getItem("userId");
     const teacher_profile_post = sessionStorage.getItem("paymentProfileId");
 
     const res = await weteachApi.post("api/v1/payments/mpesa/profile/make/", {
