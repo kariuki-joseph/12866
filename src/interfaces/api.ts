@@ -16,6 +16,11 @@ export interface County {
   name: string;
 }
 
+export interface Ward {
+  id: number;
+  name: string;
+}
+
 export interface SubCounty {
   id: number;
   name: string;
@@ -42,7 +47,7 @@ export interface School {
   job_post_count: number;
   name: string;
   image: string;
-  ward: string;
+  ward: Ward;
   phone_number: string;
   primary_email: string;
   institution_level: InstitutionLevel[];

@@ -93,6 +93,34 @@ const SelectSubCounty = forwardRef<
   );
 });
 
+const SelectWard = forwardRef<
+  HTMLSelectElement,
+  { label: string; countyId: string } & ReturnType<UseFormRegister<ISchema>>
+>(({ onChange, onBlur, name, label, subCountyId }, ref) => {
+  const url = `api/v1/users/sub-scounties/list/?sub_county__id=${subCountyId}`;
+
+  const { data } = useQuery<AxiosResponse<County[]>>({
+    queryKey: [url],
+    queryFn: () => weteachApi.get(url),
+  });
+
+  return (
+    <>
+      <label htmlFor={name}>{label}</label>
+
+      {data !== undefined ? (
+        <select name={name} ref={ref} onChange={onChange} onBlur={onBlur}>
+          {data.data.map((ward) => (
+            <option value={ward.id} key={ward.id}>
+              {ward.name}
+            </option>
+          ))}
+        </select>
+      ) : null}
+    </>
+  );
+});
+
 function EditLocationDetailsForm(props: EditLocationDetailsFormProps) {
   const { school } = props;
 
@@ -148,9 +176,11 @@ function EditLocationDetailsForm(props: EditLocationDetailsFormProps) {
         countyId={watch("countyId")}
       />
 
-      <label htmlFor={"ward"}>Ward</label>
-      <input {...register("ward")} placeholder={"Enter ward"} type={"text"} />
-      <p className={"text-xs text-error mt-1"}>{errors.ward?.message}</p>
+      <SelectWard
+        label="ward"
+        {...register("ward")}
+        subCountyId={watch("subCountyId")}
+      />
 
       <label htmlFor={"formated_address"}>Address</label>
       <input
