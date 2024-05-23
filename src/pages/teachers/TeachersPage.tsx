@@ -84,6 +84,8 @@ function TeachersTable(props: TeachersTableProps) {
               <th>Institutional Level</th>
               <th>Experience</th>
               <th>Location</th>
+              <th>Job Views</th>
+              <th>Profile Status</th>
               <th>Joined On</th>
               <th>Actions</th>
             </tr>
@@ -100,6 +102,26 @@ function TeachersTable(props: TeachersTableProps) {
                   <td>{teacher.institution_level.name}</td>
                   <td>{teacher.experience}</td>
                   <td>{teacher.formated_address}</td>
+                  <td>{teacher.job_view_count}</td>
+                  <td>
+                    {teacher.has_active_profile_post ? (
+                      <span
+                        className={
+                          "px-2 py-1 bg-[#D6FBD8] text-[#2E7D32] rounded-3xl text-center"
+                        }
+                      >
+                        Live
+                      </span>
+                    ) : (
+                      <span
+                        className={
+                          "px-2 py-1 bg-[#F8BD00] bg-opacity-10 text-[#CD7F4B] rounded-3xl text-center"
+                        }
+                      >
+                        Offline
+                      </span>
+                    )}
+                  </td>
                   <td>
                     {DateTime.fromISO(teacher.creation_time).toLocaleString({
                       locale: "en-gb",
@@ -184,7 +206,7 @@ const schema = z.object({
 
 type ISchema = z.infer<typeof schema>;
 
-function SchoolsTableSection(props: {
+function TeachersTableSection(props: {
   institutional_levels: InstitutionLevel[];
 }) {
   const { institutional_levels } = props;
@@ -337,7 +359,7 @@ function TeachersSection() {
       </p>
 
       {data !== undefined ? (
-        <SchoolsTableSection institutional_levels={data.data} />
+        <TeachersTableSection institutional_levels={data.data} />
       ) : null}
     </section>
   );

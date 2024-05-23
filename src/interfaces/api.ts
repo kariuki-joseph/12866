@@ -87,6 +87,8 @@ export interface Teacher {
   formated_address: string;
   creation_time: string;
   last_updated_time: string;
+  job_view_count: number;
+  has_active_profile_post: number;
   county: County;
   sub_county: SubCounty;
   qualifications: Qualification[];

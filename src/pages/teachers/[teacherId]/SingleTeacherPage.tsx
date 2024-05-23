@@ -5,6 +5,7 @@ import school from "/icons/school.svg";
 import visibility from "/icons/visibility.svg";
 import bookmark from "/icons/bookmark.svg";
 import payments_primary from "/icons/payments_primary.svg";
+import sensors from "/icons/sensors.svg";
 import { Link, useParams } from "react-router-dom";
 import { Teacher } from "../../../interfaces/api.ts";
 import { useQuery } from "@tanstack/react-query";
@@ -205,6 +206,33 @@ function TeacherInfo(props: TeacherInfoProps) {
               })}
             </p>
           </div>
+        </div>
+      </div>
+
+      <div className={"text-sm"}>
+        <div className={"flex flex-row items-center justify-between py-3"}>
+          <div className={"flex flex-row items-center gap-2"}>
+            <img src={sensors} className={"w-5 h-5"} alt={"sensors"} />
+            <p>Profile</p>
+          </div>
+
+          {teacher.has_active_profile_post ? (
+            <span
+              className={
+                "px-2 py-1 bg-[#D6FBD8] text-[#2E7D32] rounded-3xl text-center"
+              }
+            >
+              Live
+            </span>
+          ) : (
+            <span
+              className={
+                "px-2 py-1 bg-[#F8BD00] bg-opacity-10 text-[#CD7F4B] rounded-3xl text-center"
+              }
+            >
+              Offline
+            </span>
+          )}
         </div>
       </div>
 
