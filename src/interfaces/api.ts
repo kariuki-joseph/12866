@@ -32,6 +32,11 @@ interface Owner {
   id: number;
   name: string;
 }
+
+interface InstitutionalLevel {
+  id: number;
+  name: string;
+}
 export interface School {
   id: number;
   job_post_count: number;
@@ -40,7 +45,7 @@ export interface School {
   ward: string;
   phone_number: string;
   primary_email: string;
-  institution_level: string;
+  institution_level: InstitutionalLevel[];
   accommodation: string;
   gender: string;
   web_site: string;

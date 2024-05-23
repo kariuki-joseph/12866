@@ -67,6 +67,7 @@ interface SchoolsTableProps {
 function SchoolsTable(props: SchoolsTableProps) {
   const navigate = useNavigate();
   const { schools } = props;
+  console.log({ schools });
 
   return (
     <>
@@ -92,7 +93,16 @@ function SchoolsTable(props: SchoolsTableProps) {
                   key={school.id}
                 >
                   <th>{school.name}</th>
-                  <td>{school.institution_level ?? "-"}</td>
+                  <td>
+                    {school.institution_level.map((v, index) => (
+                      <span key={v.id}>
+                        {v.name}
+                        {index !== school.institution_level.length - 1
+                          ? ","
+                          : null}
+                      </span>
+                    ))}
+                  </td>
                   <td>{school.job_post_count}</td>
                   <td>{school.formated_address ?? "-"}</td>
                   <td>{school.phone_number}</td>
@@ -101,7 +111,6 @@ function SchoolsTable(props: SchoolsTableProps) {
                       locale: "en-gb",
                     })}
                   </td>
-
                   <td>
                     <Popover.Root>
                       <Popover.Trigger
@@ -224,6 +233,14 @@ function SchoolsTableSection() {
   const { data } = useQuery<PaginatedResponse<School>>({
     queryKey: [url],
     queryFn: () => weteachApi.get(url),
+    placeholderData: (previousData) => previousData,
+  });
+
+  const institution_levels_url = "api/v1/subjects/institution/levels/";
+
+  const { data: institution_levels } = useQuery<PaginatedResponse<School>>({
+    queryKey: [institution_levels_url],
+    queryFn: () => weteachApi.get(institution_levels_url),
     placeholderData: (previousData) => previousData,
   });
 
