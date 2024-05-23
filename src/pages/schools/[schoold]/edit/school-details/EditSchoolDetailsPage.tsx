@@ -13,9 +13,6 @@ const schema = z.object({
   about: z.string({
     invalid_type_error: "About is required",
   }),
-  institution_level: z.string({
-    invalid_type_error: "Institution level is required",
-  }),
   accommodation: z.string({
     invalid_type_error: "Accommodation is required",
   }),
@@ -44,7 +41,6 @@ function EditSchoolDetailsForm(props: EditSchoolDetailsFormProps) {
   } = useForm<ISchema>({
     defaultValues: {
       about: school.about,
-      institution_level: school.institution_level,
       accommodation: school.accommodation,
       gender: school.gender,
     },
@@ -77,44 +73,6 @@ function EditSchoolDetailsForm(props: EditSchoolDetailsFormProps) {
         rows={5}
       />
       <p className={"text-xs text-error mt-1"}>{errors.about?.message}</p>
-
-      <label htmlFor={"institution_level"}>Level of Institution</label>
-      <RadioGroup.Root
-        name={"institution_level"}
-        defaultValue={school.institution_level}
-        className={
-          "*:px-6 *:py-3 text-sm *:rounded-3xl *:border *:border-gray-200 *:w-1/3 flex flex-row gap-3 justify-evenly "
-        }
-        onValueChange={(value) => setValue("institution_level", value)}
-      >
-        <RadioGroup.Item
-          value={"ECDE"}
-          className={
-            "data-[state=checked]:text-primary  data-[state=checked]:bg-[#FBEFFF] data-[state=checked]:border-primary"
-          }
-        >
-          ECDE
-        </RadioGroup.Item>
-        <RadioGroup.Item
-          value={"Primary School"}
-          className={
-            "data-[state=checked]:text-primary  data-[state=checked]:bg-[#FBEFFF] data-[state=checked]:border-primary"
-          }
-        >
-          Primary School
-        </RadioGroup.Item>
-        <RadioGroup.Item
-          value={"High School"}
-          className={
-            "data-[state=checked]:text-primary  data-[state=checked]:bg-[#FBEFFF] data-[state=checked]:border-primary"
-          }
-        >
-          High School
-        </RadioGroup.Item>
-      </RadioGroup.Root>
-      <p className={"text-xs text-error mt-1"}>
-        {errors.institution_level?.message}
-      </p>
 
       <label htmlFor={"accommodation"}>Accommodation</label>
       <RadioGroup.Root

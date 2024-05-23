@@ -9,8 +9,10 @@ import optionalMinLength from "../../../../../utils/optional-min-length.ts";
 import { useQuery } from "@tanstack/react-query";
 import {
   AxiosResponse,
+  InstitutionLevel,
   TeacherRequirement,
 } from "../../../../../interfaces/api.ts";
+import * as ToggleGroup from "@radix-ui/react-toggle-group";
 
 const schema = z.object({
   title: z.string().min(5),
@@ -28,11 +30,15 @@ const schema = z.object({
   how_to_apply: z
     .string()
     .refine(optionalMinLength, "String should not be less than (5) characters"),
+  institution_levels: z.array(z.string()),
 });
 
 type ISchema = z.infer<typeof schema>;
 
-export default function CreateJobPage() {
+export function CreateJobForm(props: {
+  institutional_levels: InstitutionLevel[];
+}) {
+  const { institutional_levels } = props;
   const { schoolId } = useParams();
   const navigate = useNavigate();
 
@@ -42,6 +48,7 @@ export default function CreateJobPage() {
     watch,
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm<ISchema>({
     defaultValues: {
@@ -89,6 +96,30 @@ export default function CreateJobPage() {
           type={"text"}
         />
         <p className={"text-xs text-error mt-1"}>{errors.title?.message}</p>
+
+        <label htmlFor={"institution_levels"}>Institution level</label>
+        <ToggleGroup.Root
+          type={"multiple"}
+          className={
+            "*:px-6 *:py-3 text-sm *:rounded-3xl *:border *:border-gray-200 *:w-1/3 flex flex-row gap-3 justify-evenly "
+          }
+          onValueChange={(values) => setValue("institution_levels", values)}
+        >
+          {institutional_levels.map((institution_level) => (
+            <ToggleGroup.Item
+              key={institution_level.id}
+              value={institution_level.id.toString()}
+              className={
+                "data-[state=on]:text-primary  data-[state=on]:bg-[#FBEFFF] data-[state=checked]:border-primary"
+              }
+            >
+              {institution_level.name}
+            </ToggleGroup.Item>
+          ))}
+        </ToggleGroup.Root>
+        <p className={"text-xs text-error mt-1"}>
+          {errors.institution_levels?.message}
+        </p>
 
         <label htmlFor={"deadline"}>Deadline</label>
         <input
@@ -182,5 +213,21 @@ export default function CreateJobPage() {
         </div>
       </form>
     </FormSection>
+  );
+}
+
+export default function CreateJobPage() {
+  const url = `api/v1/subjects/institution/levels/`;
+  const { data } = useQuery({
+    queryKey: [url],
+    queryFn: () => weteachApi.get(url),
+  });
+
+  return (
+    <>
+      {data !== undefined ? (
+        <CreateJobForm institutional_levels={data.data} />
+      ) : null}
+    </>
   );
 }

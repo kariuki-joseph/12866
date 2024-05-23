@@ -76,7 +76,7 @@ export interface Teacher {
   full_name: string;
   image: string;
   experience: number;
-  institution_level: string;
+  institution_level: InstitutionLevel;
   latitude: string;
   longitude: string;
   formated_address: string;

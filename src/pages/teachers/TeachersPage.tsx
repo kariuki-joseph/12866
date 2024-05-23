@@ -10,7 +10,11 @@ import weteachApi from "../../configs/weteach-api.ts";
 import LoadingBlocks from "../../components/loading/LoadingBlocks.tsx";
 import StatCard from "../../components/StatCard.tsx";
 import LoadingTable from "../../components/loading/LoadingTable.tsx";
-import { PaginatedResponse, Teacher } from "../../interfaces/api.ts";
+import {
+  InstitutionLevel,
+  PaginatedResponse,
+  Teacher,
+} from "../../interfaces/api.ts";
 import { DateTime } from "luxon";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
@@ -93,7 +97,7 @@ function TeachersTable(props: TeachersTableProps) {
                   key={teacher.id}
                 >
                   <th>{teacher.full_name}</th>
-                  <td>{teacher.institution_level}</td>
+                  <td>{teacher.institution_level.name}</td>
                   <td>{teacher.experience}</td>
                   <td>{teacher.formated_address}</td>
                   <td>
@@ -180,7 +184,10 @@ const schema = z.object({
 
 type ISchema = z.infer<typeof schema>;
 
-function SchoolsTableSection() {
+function SchoolsTableSection(props: {
+  institutional_levels: InstitutionLevel[];
+}) {
+  const { institutional_levels } = props;
   const [page, setPage] = useState(1);
 
   const { register, watch, reset } = useForm<ISchema>({
@@ -255,9 +262,14 @@ function SchoolsTableSection() {
                       className={"p-2 text-xs"}
                     >
                       <option value={""}>Select level of institution</option>
-                      <option value={"ECDE"}>ECDE</option>
-                      <option value={"Primary School"}>Primary School</option>
-                      <option value={"High School"}>High School</option>
+                      {institutional_levels.map((institutional_level) => (
+                        <option
+                          value={institutional_level.id}
+                          key={institutional_level.id}
+                        >
+                          {institutional_level.name}
+                        </option>
+                      ))}
                     </select>
                   </div>
                 </div>
@@ -310,6 +322,12 @@ function SchoolsTableSection() {
 }
 
 function TeachersSection() {
+  const url = `api/v1/subjects/institution/levels/`;
+  const { data } = useQuery({
+    queryKey: [url],
+    queryFn: () => weteachApi.get(url),
+  });
+
   return (
     <section>
       <h1 className={"font-bold text-lg"}>Teachers on Platform</h1>
@@ -318,7 +336,9 @@ function TeachersSection() {
         platform
       </p>
 
-      <SchoolsTableSection />
+      {data !== undefined ? (
+        <SchoolsTableSection institutional_levels={data.data} />
+      ) : null}
     </section>
   );
 }

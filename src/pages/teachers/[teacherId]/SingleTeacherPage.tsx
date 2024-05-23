@@ -172,7 +172,7 @@ function TeacherInfo(props: TeacherInfoProps) {
             </div>
 
             <p className={"text-left text-black"}>
-              {teacher.institution_level ?? "-"}
+              {teacher.institution_level.name ?? "-"}
             </p>
           </div>
 
