@@ -240,7 +240,8 @@ function TeacherInfo(props: TeacherInfoProps) {
         )}
       </div>
 
-      <div
+      <Link
+        to={`/teachers/${teacher.id}/edit/unpublish-profile`}
         className={
           "flex flex-row items-center justify-between py-3 text-sm border border-error rounded px-2 mb-3"
         }
@@ -252,7 +253,7 @@ function TeacherInfo(props: TeacherInfoProps) {
         <div className={"flex flex-row items-center gap-2 "}>
           <img src={open_in_new} className={"w-5 h-5"} alt={"open_in_new"} />
         </div>
-      </div>
+      </Link>
 
       <div
         className={
@@ -380,6 +381,14 @@ function JobDetails(props: JobDetailsProps) {
           >
             About Teacher
           </Tabs.Trigger>
+          <Tabs.Trigger
+            value={"profile-publicity"}
+            className={
+              "data-[state=active]:bg-white data-[state=active]:text-secondary"
+            }
+          >
+            Profile Publicity
+          </Tabs.Trigger>
         </Tabs.List>
 
         <Tabs.Content value={"viewed-jobs"}>
@@ -390,6 +399,9 @@ function JobDetails(props: JobDetailsProps) {
         </Tabs.Content>
         <Tabs.Content value={"about-teacher"}>
           <AboutTeacher teacher={teacher} />
+        </Tabs.Content>
+        <Tabs.Content value={"profile-publicity"}>
+          Profile publicity
         </Tabs.Content>
       </Tabs.Root>
     </section>
