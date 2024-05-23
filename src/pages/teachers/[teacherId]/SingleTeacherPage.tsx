@@ -6,6 +6,8 @@ import visibility from "/icons/visibility.svg";
 import bookmark from "/icons/bookmark.svg";
 import payments_primary from "/icons/payments_primary.svg";
 import sensors from "/icons/sensors.svg";
+import open_in_new from "/icons/open_in_new.svg";
+import visibility_error from "/icons/visibility_error.svg";
 import { Link, useParams } from "react-router-dom";
 import { Teacher } from "../../../interfaces/api.ts";
 import { useQuery } from "@tanstack/react-query";
@@ -209,30 +211,64 @@ function TeacherInfo(props: TeacherInfoProps) {
         </div>
       </div>
 
-      <div className={"text-sm"}>
-        <div className={"flex flex-row items-center justify-between py-3"}>
-          <div className={"flex flex-row items-center gap-2"}>
-            <img src={sensors} className={"w-5 h-5"} alt={"sensors"} />
-            <p>Profile</p>
-          </div>
+      <div
+        className={
+          "flex flex-row items-center justify-between py-3 text-sm mb-3"
+        }
+      >
+        <div className={"flex flex-row items-center gap-2"}>
+          <img src={sensors} className={"w-5 h-5"} alt={"sensors"} />
+          <p>Profile</p>
+        </div>
 
-          {teacher.has_active_profile_post ? (
-            <span
-              className={
-                "px-2 py-1 bg-[#D6FBD8] text-[#2E7D32] rounded-3xl text-center"
-              }
-            >
-              Live
-            </span>
-          ) : (
-            <span
-              className={
-                "px-2 py-1 bg-[#F8BD00] bg-opacity-10 text-[#CD7F4B] rounded-3xl text-center"
-              }
-            >
-              Offline
-            </span>
-          )}
+        {teacher.has_active_profile_post ? (
+          <span
+            className={
+              "px-2 py-1 bg-[#D6FBD8] text-[#2E7D32] rounded-3xl text-center"
+            }
+          >
+            Live
+          </span>
+        ) : (
+          <span
+            className={
+              "px-2 py-1 bg-[#F8BD00] bg-opacity-10 text-[#CD7F4B] rounded-3xl text-center"
+            }
+          >
+            Offline
+          </span>
+        )}
+      </div>
+
+      <div
+        className={
+          "flex flex-row items-center justify-between py-3 text-sm border border-error rounded px-2 mb-3"
+        }
+      >
+        <div className={"flex flex-row items-center gap-2 text-error"}>
+          Unpublish Profile
+        </div>
+
+        <div className={"flex flex-row items-center gap-2 "}>
+          <img src={open_in_new} className={"w-5 h-5"} alt={"open_in_new"} />
+        </div>
+      </div>
+
+      <div
+        className={
+          "flex flex-row items-center justify-between py-3 text-sm border border-error rounded px-2 mb-3"
+        }
+      >
+        <div className={"flex flex-row items-center gap-2 text-error"}>
+          Suspend
+        </div>
+
+        <div className={"flex flex-row items-center gap-2 "}>
+          <img
+            src={visibility_error}
+            className={"w-5 h-5"}
+            alt={"visibility_error"}
+          />
         </div>
       </div>
 
