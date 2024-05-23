@@ -37,7 +37,6 @@ export default function CreateSchoolTab(props: {
     name,
     phone_number,
     primary_email,
-    image,
     website,
     institution_levels,
   }: ISchema) => {
@@ -91,6 +90,7 @@ export default function CreateSchoolTab(props: {
       />
       <p className={"text-xs text-error mt-1"}>{errors.website?.message}</p>
 
+      <label htmlFor={"institution_levels"}>Institution level</label>
       <ToggleGroup.Root
         type={"multiple"}
         className={
