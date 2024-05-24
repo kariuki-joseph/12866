@@ -14,8 +14,10 @@ import * as Popover from "@radix-ui/react-popover";
 import search from "/icons/search.svg";
 import PaginationSection from "../../components/PaginationSection.tsx";
 import more_vert from "/icons/more_vert.svg";
+import inbox from "/icons/inbox.svg";
 import visibility from "/icons/visibility.svg";
-import attach_money from "/icons/attach_money.svg";
+import paper_plane_tilt from "/icons/paper-plane-tilt.svg";
+import visibility_off_primary from "/icons/visibility_off_primary.svg";
 import NoData from "../../components/no-data.tsx";
 
 function JobStats() {
@@ -31,27 +33,27 @@ function JobStats() {
   return (
     <section className="flex flex-row w-full justify-evenly gap-4 mb-3">
       <StatCard
-        imageSrc={attach_money}
+        imageSrc={paper_plane_tilt}
         title={data?.data.total_job_posts}
-        text={"Posted Jobs"}
-      />
-
-      <StatCard
-        imageSrc={attach_money}
-        title={data?.data.job_post_revenue}
-        text={"Total Post impressions"}
-      />
-
-      <StatCard
-        imageSrc={attach_money}
-        title={data?.data.job_view_revenue}
-        text={"Spends on post"}
+        text={"Total Job Posts"}
       />
 
       <StatCard
         imageSrc={visibility}
-        title={data?.data.post_publicity_packages}
-        text={"Post Publicity Packages"}
+        title={data?.data.active_posts}
+        text={"Active Posts"}
+      />
+
+      <StatCard
+        imageSrc={inbox}
+        title={data?.data.draft_posts}
+        text={"Drafts (Unpaid for)"}
+      />
+
+      <StatCard
+        imageSrc={visibility_off_primary}
+        title={data?.data.unviewed_posts}
+        text={"Unviewed Posts"}
       />
     </section>
   );
