@@ -1,33 +1,34 @@
 import filterList from "/icons/filter_list.svg";
-import search from "/icons/search.svg";
 import addWhite from "/icons/add_white.svg";
-import more_vert from "/icons/more_vert.svg";
-import queryString from "query-string";
+import person from "/icons/person.svg";
+import attach_money from "/icons/attach_money.svg";
+import visibility from "/icons/visibility.svg";
+import payments_primary from "/icons/payments_primary.svg";
 import { Link, useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import weteachApi from "../../configs/weteach-api.ts";
 import LoadingBlocks from "../../components/loading/LoadingBlocks.tsx";
-import paperPlaneTilt from "/icons/paper-plane-tilt.svg";
 import StatCard from "../../components/StatCard.tsx";
-import * as Popover from "@radix-ui/react-popover";
+import LoadingTable from "../../components/loading/LoadingTable.tsx";
 import {
-  AxiosResponse,
   InstitutionLevel,
   PaginatedResponse,
-  School,
+  Teacher,
 } from "../../interfaces/api.ts";
 import { DateTime } from "luxon";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useState } from "react";
+import queryString from "query-string";
+import * as Popover from "@radix-ui/react-popover";
+import search from "/icons/search.svg";
 import PaginationSection from "../../components/PaginationSection.tsx";
-import school_primary from "/icons/school_primary.svg";
-import payments_primary from "/icons/payments_primary.svg";
+import more_vert from "/icons/more_vert.svg";
 import NoData from "../../components/no-data.tsx";
 
-function SchoolsStats() {
-  const url = "api/v1/dashboard/schools/statistics/";
+function TeacherStats() {
+  const url = "api/v1/dashboard/teachers/statistics/";
 
   const { data, isLoading } = useQuery({
     queryKey: [url],
@@ -39,21 +40,21 @@ function SchoolsStats() {
   return (
     <section className="flex flex-row w-full justify-evenly gap-4 mb-3">
       <StatCard
-        imageSrc={school_primary}
-        title={data?.data.total_schools}
-        text={"Schools on the platform"}
+        imageSrc={person}
+        title={data?.data.total_teachers}
+        text={"Teachers on the platform"}
       />
 
       <StatCard
-        imageSrc={paperPlaneTilt}
-        title={data?.data.posting_schools}
-        text={"Posting Schools"}
+        imageSrc={attach_money}
+        title={data?.data.paying_customers}
+        text={"Paying Customers"}
       />
 
       <StatCard
-        imageSrc={paperPlaneTilt}
-        title={data?.data.avg_school_posts}
-        text={"Average Posts per School"}
+        imageSrc={visibility}
+        title={data?.data.avg_post_views}
+        text={"Average Posts Views"}
       />
 
       <StatCard
@@ -65,14 +66,13 @@ function SchoolsStats() {
   );
 }
 
-interface SchoolsTableProps {
-  schools: School[];
+interface TeachersTableProps {
+  teachers: Teacher[];
 }
 
-function SchoolsTable(props: SchoolsTableProps) {
+function TeachersTable(props: TeachersTableProps) {
   const navigate = useNavigate();
-  const { schools } = props;
-  console.log({ schools });
+  const { teachers } = props;
 
   return (
     <>
@@ -82,37 +82,48 @@ function SchoolsTable(props: SchoolsTableProps) {
             <tr>
               <th>Name</th>
               <th>Institutional Level</th>
-              <th>Total Job Posts</th>
-              <th>Locations</th>
-              <th>Phone number</th>
+              <th>Experience</th>
+              <th>Location</th>
+              <th>Job Views</th>
+              <th>Profile Status</th>
               <th>Joined On</th>
               <th>Actions</th>
             </tr>
           </thead>
           <tbody>
-            {schools.map((school) => {
+            {teachers.map((teacher) => {
               return (
                 <tr
                   className={"hover:cursor-pointer"}
-                  onClick={() => navigate(`/schools/${school.id}`)}
-                  key={school.id}
+                  onClick={() => navigate(`/teachers/${teacher.id}`)}
+                  key={teacher.id}
                 >
-                  <th>{school.name}</th>
+                  <th>{teacher.full_name}</th>
+                  <td>{teacher.institution_level.name}</td>
+                  <td>{teacher.experience}</td>
+                  <td>{teacher.formated_address}</td>
+                  <td>{teacher.job_view_count}</td>
                   <td>
-                    {school.institution_level.map((v, index) => (
-                      <span key={v.id}>
-                        {v.name}
-                        {index !== school.institution_level.length - 1
-                          ? ","
-                          : null}
+                    {teacher.has_active_profile_post ? (
+                      <span
+                        className={
+                          "px-2 py-1 bg-[#D6FBD8] text-[#2E7D32] rounded-3xl text-center"
+                        }
+                      >
+                        Live
                       </span>
-                    ))}
+                    ) : (
+                      <span
+                        className={
+                          "px-2 py-1 bg-[#F8BD00] bg-opacity-10 text-[#CD7F4B] rounded-3xl text-center"
+                        }
+                      >
+                        Offline
+                      </span>
+                    )}
                   </td>
-                  <td>{school.job_post_count}</td>
-                  <td>{school.formated_address ?? "-"}</td>
-                  <td>{school.phone_number}</td>
                   <td>
-                    {DateTime.fromISO(school.creation_time).toLocaleString({
+                    {DateTime.fromISO(teacher.creation_time).toLocaleString({
                       locale: "en-gb",
                     })}
                   </td>
@@ -144,39 +155,32 @@ function SchoolsTable(props: SchoolsTableProps) {
                           align={"end"}
                         >
                           <Link
-                            to={`schools/${school.id}/edit/basic-info`}
-                            className={"hover:bg-gray-100 hover:text-black"}
+                            to={`${teacher.id}/edit/basic-info`}
+                            className={"hover:bg-gray-200 hover:text-black"}
                             onClick={(e) => e.stopPropagation()}
                           >
                             Basic Info
                           </Link>
                           <Link
-                            to={`schools/${school.id}/edit/school-details`}
-                            className={"hover:bg-gray-100 hover:text-black"}
+                            to={`${teacher.id}/edit/teacher-details`}
+                            className={"hover:bg-gray-200 hover:text-black"}
                             onClick={(e) => e.stopPropagation()}
                           >
-                            School Details
+                            Teacher Details
                           </Link>
                           <Link
-                            to={`schools/${school.id}/edit/location-details`}
-                            className={"hover:bg-gray-100 hover:text-black"}
+                            to={`jobs/${teacher.id}/edit/loocation-details`}
+                            className={"hover:bg-gray-200 hover:text-black"}
                             onClick={(e) => e.stopPropagation()}
                           >
-                            Location Details
+                            Location details
                           </Link>
                           <Link
-                            to={`schools/${school.id}/edit/gallery`}
-                            className={"hover:bg-gray-100 hover:text-black"}
+                            to={`jobs/${teacher.id}/edit/password`}
+                            className={"hover:bg-gray-200 hover:text-black"}
                             onClick={(e) => e.stopPropagation()}
                           >
-                            Gallery
-                          </Link>
-                          <Link
-                            to={`schools/${school.id}/edit/password`}
-                            className={"hover:bg-gray-100 hover:text-black"}
-                            onClick={(e) => e.stopPropagation()}
-                          >
-                            Change password
+                            Change Password
                           </Link>
                         </Popover.Content>
                       </Popover.Portal>
@@ -193,9 +197,8 @@ function SchoolsTable(props: SchoolsTableProps) {
 }
 
 const schema = z.object({
-  gender: z.string().optional(),
   name: z.string().optional(),
-  accommodation: z.string().optional(),
+  qualifications__name: z.string().optional(),
   county__name: z.string().optional(),
   sub_county__name: z.string().optional(),
   institution_level: z.string().optional(),
@@ -203,21 +206,18 @@ const schema = z.object({
 
 type ISchema = z.infer<typeof schema>;
 
-function SchoolsTableSection(props: {
-  institution_levels: InstitutionLevel[];
+function TeachersTableSection(props: {
+  institutional_levels: InstitutionLevel[];
 }) {
-  const { institution_levels } = props;
-  console.log(institution_levels);
+  const { institutional_levels } = props;
   const [page, setPage] = useState(1);
 
   const { register, watch, reset } = useForm<ISchema>({
     resolver: zodResolver(schema),
   });
 
-  const gender = watch("gender");
-  const accommodation = watch("accommodation");
-  const institution_level = watch("institution_level");
   const name = watch("name");
+  const institution_level = watch("institution_level");
 
   useEffect(() => {
     const subscription = watch(() => setPage(1));
@@ -226,10 +226,8 @@ function SchoolsTableSection(props: {
 
   const query = queryString.stringify(
     {
-      gender,
-      accommodation,
       institution_level,
-      name,
+      search: name,
       page,
     },
     {
@@ -237,9 +235,9 @@ function SchoolsTableSection(props: {
     },
   );
 
-  const url = `api/v1/dashboard/schools/list/${query === "" ? "" : "?" + query}`;
+  const url = `/api/v1/dashboard/teachers/list/${query === "" ? "" : "?" + query}`;
 
-  const { data } = useQuery<PaginatedResponse<School>>({
+  const { data, isLoading } = useQuery<PaginatedResponse<Teacher>>({
     queryKey: [url],
     queryFn: () => weteachApi.get(url),
     placeholderData: (previousData) => previousData,
@@ -247,8 +245,6 @@ function SchoolsTableSection(props: {
 
   function clearFilter() {
     reset({
-      gender: "",
-      accommodation: "",
       institution_level: "",
     });
   }
@@ -280,10 +276,6 @@ function SchoolsTableSection(props: {
                     <label className={"text-right text-xs"}>
                       Level of Institution
                     </label>
-                    <label className={"text-right text-xs"}>Gender</label>
-                    <label className={"text-right text-xs"}>
-                      Accommodation
-                    </label>
                   </div>
 
                   <div className={"flex flex-col gap-3"}>
@@ -292,32 +284,14 @@ function SchoolsTableSection(props: {
                       className={"p-2 text-xs"}
                     >
                       <option value={""}>Select level of institution</option>
-
-                      {institution_levels.map((institution_level) => (
+                      {institutional_levels.map((institutional_level) => (
                         <option
-                          value={institution_level.id}
-                          key={institution_level.id}
+                          value={institutional_level.id}
+                          key={institutional_level.id}
                         >
-                          {institution_level.name}
+                          {institutional_level.name}
                         </option>
                       ))}
-                    </select>
-
-                    <select {...register("gender")} className={"p-2 text-xs"}>
-                      <option value={""}>Select gender</option>
-                      <option value={"Mixed"}>Mixed</option>
-                      <option value={"Boys"}>Boys School</option>
-                      <option value={"Girls"}>Girls School</option>
-                    </select>
-
-                    <select
-                      {...register("accommodation")}
-                      className={"p-2 text-xs"}
-                    >
-                      <option value={""}>Select accommodation</option>
-                      <option value={"Mixed"}>Mixed</option>
-                      <option value={"Day School"}>Day School</option>
-                      <option value={"Boarding School"}>Boarding School</option>
                     </select>
                   </div>
                 </div>
@@ -343,18 +317,17 @@ function SchoolsTableSection(props: {
           </label>
         </div>
 
-        <Link className={"btn"} to={"schools/register"}>
+        <Link className={"btn"} to={"register"}>
           <img src={addWhite} alt={"add"} />
-          <p className={"font-bold"}>Register School</p>
+          <p className={"font-bold"}>Register Teacher</p>
         </Link>
       </div>
+      {isLoading ? <LoadingTable /> : null}
 
       {data !== undefined ? (
         <>
           {data.data.results.length !== 0 ? (
-            <>
-              <SchoolsTable schools={data.data.results} />
-            </>
+            <TeachersTable teachers={data.data.results} />
           ) : (
             <NoData />
           )}
@@ -370,37 +343,33 @@ function SchoolsTableSection(props: {
   );
 }
 
-function SchoolSection() {
-  const institution_levels_url = "api/v1/subjects/institution/levels/";
-
-  const { data } = useQuery<AxiosResponse<InstitutionLevel[]>>({
-    queryKey: [institution_levels_url],
-    queryFn: () => weteachApi.get(institution_levels_url),
-    placeholderData: (previousData) => previousData,
+function TeachersSection() {
+  const url = `api/v1/subjects/institution/levels/`;
+  const { data } = useQuery({
+    queryKey: [url],
+    queryFn: () => weteachApi.get(url),
   });
 
   return (
     <section>
-      <div className={""}>
-        <h1 className={"font-bold text-lg"}>Schools on Platform</h1>
-        <p className={"text-sm text-gray-500"}>
-          Explore and manage the profiles of schools which have signed up onto
-          the platform
-        </p>
-      </div>
+      <h1 className={"font-bold text-lg"}>Teachers on Platform</h1>
+      <p className={"text-sm text-gray-500"}>
+        Explore and manage the profiles of teacher who have signed up onto the
+        platform
+      </p>
 
       {data !== undefined ? (
-        <SchoolsTableSection institution_levels={data.data} />
+        <TeachersTableSection institutional_levels={data.data} />
       ) : null}
     </section>
   );
 }
 
-export default function SchoolPage() {
+export default function TeachersPage() {
   return (
     <>
-      <SchoolsStats />
-      <SchoolSection />
+      <TeacherStats />
+      <TeachersSection />
     </>
   );
 }

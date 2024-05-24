@@ -408,7 +408,7 @@ function JobDetails(props: JobDetailsProps) {
   );
 }
 
-export default function SingleTeacherPage() {
+export default function SingleTeachersPage() {
   const { teacherId } = useParams();
 
   const url = `/api/v1/dashboard/teacher/get/${teacherId}/`;

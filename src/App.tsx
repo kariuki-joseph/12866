@@ -1,9 +1,8 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Root from "./pages/Root.tsx";
-import SchoolPage from "./pages/schools/SchoolPage.tsx";
+import SchoolsPage from "./pages/schools";
 import SingleSchoolPage from "./pages/schools/[schoold]/SingleSchoolPage.tsx";
 import EditBasicInfoPage from "./pages/schools/[schoold]/edit/basic-info/EditBasicInfoPage.tsx";
-import TeachersPage from "./pages/teachers/TeachersPage.tsx";
 import ManagePostsPage from "./pages/manage-posts/ManagePostsPage.tsx";
 import FinancesPage from "./pages/payments/FinancesPage.tsx";
 import EditSchoolDetailsPage from "./pages/schools/[schoold]/edit/school-details/EditSchoolDetailsPage.tsx";
@@ -12,7 +11,7 @@ import EditTeacherPasswordPage from "./pages/schools/[schoold]/edit/password/Cha
 import RegisterSchoolPage from "./pages/schools/register/RegisterSchoolPage.tsx";
 import EditLocationDetailsPage from "./pages/schools/[schoold]/edit/location-details/EditLocationDetailsPage.tsx";
 import CreateJobPage from "./pages/schools/[schoold]/jobs/create/CreateJobPage.tsx";
-import SingleTeacherPage from "./pages/teachers/[teacherId]/SingleTeacherPage.tsx";
+import SingleTeachersPage from "./pages/teachers/[teacherId]";
 import RegisterTeacherPage from "./pages/teachers/register/RegisterTeacherPage.tsx";
 import EditTeacherBasicInfoForm from "./pages/teachers/[teacherId]/edit/EditTeacherBasicInfo.tsx";
 import EditTeacherLocationDetails from "./pages/teachers/[teacherId]/edit/EditTeacherLocationDetailsPage.tsx";
@@ -30,6 +29,7 @@ import CreatePaymentPage from "./pages/payments/manage/CreatePaymentPage.tsx";
 import EditRatePage from "./pages/payments/manage/EditRatePage.tsx";
 import MakeTeacherPayment from "./pages/teachers/[teacherId]/edit/make-payment";
 import UnpublishTeacherProfilePage from "./pages/teachers/[teacherId]/edit/unpublish-profile";
+import TeachersPage from "./pages/teachers";
 
 function ProtectedRoutes({
   setUser,
@@ -53,7 +53,7 @@ export default function App() {
         <Route path={"/login"} element={<LoginPage setUser={setUser} />} />
 
         <Route path="/" element={<Root user={user} setUser={setUser} />}>
-          <Route index element={<SchoolPage />} />
+          <Route index element={<SchoolsPage />} />
 
           <Route path="schools/:schoolId" element={<SingleSchoolPage />} />
 
@@ -103,7 +103,7 @@ export default function App() {
 
           <Route path="teachers" element={<TeachersPage />} />
           <Route path="teachers/register" element={<RegisterTeacherPage />} />
-          <Route path="teachers/:teacherId" element={<SingleTeacherPage />} />
+          <Route path="teachers/:teacherId" element={<SingleTeachersPage />} />
           <Route
             path="teachers/:teacherId/edit/basic-info"
             element={<EditTeacherBasicInfoForm />}
