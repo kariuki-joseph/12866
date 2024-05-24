@@ -133,7 +133,7 @@ export default function SavedJobs() {
     },
   );
 
-  const url = `api/v1/dashboard/job/views/${jobId}/${query === "" ? "" : "?" + query}`;
+  const url = `api/v1/dashboard/job/saves/${jobId}/${query === "" ? "" : "?" + query}`;
 
   const { data } = useQuery({
     queryKey: [url],

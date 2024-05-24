@@ -37,9 +37,9 @@ function JobsTable({ jobs }: { jobs: Job[] }) {
               <td>{job.status}</td>
               <td>{job.views}</td>
               <td>
-                {job.payment_rate !== null
-                  ? `${job.payment_rate.days} days(s) for Ksh ${job.payment_rate.charges})`
-                  : "-"}
+                {/*{job.payment_rate !== null*/}
+                {/*  ? `${job.payment_rate.days} days(s) for Ksh ${job.payment_rate.charges})`*/}
+                {/*  : "-"}*/}
               </td>
               <td>
                 {DateTime.fromISO(job.creation_time).toLocaleString({
