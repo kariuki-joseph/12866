@@ -1,7 +1,7 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Root from "./pages/Root.tsx";
 import SchoolsPage from "./pages/schools";
-import SingleSchoolPage from "./pages/schools/[schoold]/SingleSchoolPage.tsx";
+import SingleSchoolPage from "./pages/schools/[schoold]";
 import EditBasicInfoPage from "./pages/schools/[schoold]/edit/basic-info/EditBasicInfoPage.tsx";
 import ManagePostsPage from "./pages/manage-posts";
 import FinancesPage from "./pages/payments/FinancesPage.tsx";
@@ -20,7 +20,7 @@ import EditGalleryPage from "./pages/schools/[schoold]/edit/gallery/EditGalleryP
 import EditPaymentRatePage from "./pages/schools/[schoold]/jobs/[jobId]/edit/EditPaymentRatePage.tsx";
 import EditJobBasicInfo from "./pages/schools/[schoold]/jobs/[jobId]/edit/EditJobBasicInfo.tsx";
 import EditJobDetails from "./pages/schools/[schoold]/jobs/[jobId]/edit/EditJobDetails.tsx";
-import SingleJobPage from "./pages/schools/[schoold]/jobs/[jobId]/SingleJobPage.tsx";
+import SingleJobPage from "./pages/schools/[schoold]/jobs/[jobId]";
 import { useState } from "react";
 import { User } from "./interfaces/api.ts";
 import LoginPage from "./pages/login/LoginPage.tsx";

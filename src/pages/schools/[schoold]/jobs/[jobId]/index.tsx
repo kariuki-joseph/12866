@@ -23,29 +23,31 @@ import AboutJob from "./AboutJob.tsx";
 import ApplicationProcess from "../ApplicationProcess.tsx";
 import JobViews from "./JobViews.tsx";
 import SavedJobs from "./SavedJobs.tsx";
+import visibility_error from "/icons/visibility_error.svg";
+import queryClient from "../../../../../configs/query-client.ts";
 
 function JobTitleSection({ job }: { job: Job }) {
   return (
     <section className={"flex flex-row items-center justify-between mb-5"}>
       <div className={"flex flex-row items-center gap-4"}>
         <h1 className={"font-bold"}>{job.title}</h1>
-        {/*{teacher.is_suspended ? (*/}
-        {/*  <p*/}
-        {/*    className={*/}
-        {/*      "text-sm rounded-3xl px-3 py-1 bg-error text-white text-green-950 w-fit"*/}
-        {/*    }*/}
-        {/*  >*/}
-        {/*    Inactive*/}
-        {/*  </p>*/}
-        {/*) : (*/}
-        {/*  <p*/}
-        {/*    className={*/}
-        {/*      "text-sm rounded-3xl px-3 py-1 bg-green-100 text-green-950 w-fit"*/}
-        {/*    }*/}
-        {/*  >*/}
-        {/*    Active*/}
-        {/*  </p>*/}
-        {/*)}*/}
+        {job.status === "inactive" ? (
+          <p
+            className={
+              "text-sm rounded-3xl px-3 py-1 bg-error text-white w-fit"
+            }
+          >
+            Inactive
+          </p>
+        ) : (
+          <p
+            className={
+              "text-sm rounded-3xl px-3 py-1 bg-green-100 text-green-950 w-fit"
+            }
+          >
+            Active
+          </p>
+        )}
       </div>
 
       <Popover.Root>
@@ -89,18 +91,14 @@ function JobTitleSection({ job }: { job: Job }) {
 }
 
 function JobInfo({ job }: { job: Job }) {
-  async function handleSuspendSchool(id: number) {
-    // try {
-    //   await weteachApi.patch(`api/v1/dashboard/school/modify/${teacher.id}/`, {
-    //     is_suspended: !teacher.is_suspended,
-    //   });
-    //
-    //   await queryClient.invalidateQueries({
-    //     queryKey: [`api/v1/dashboard/school/get/${teacher.id}/`],
-    //   });
-    // } catch (e) {
-    //   console.log(e.response.data);
-    // }
+  async function endJobPost() {
+    await weteachApi.patch(`api/v1/jobs/modify/${job.id}/`, {
+      status: "inactive",
+    });
+
+    await queryClient.invalidateQueries({
+      queryKey: [`/api/v1/jobs/view/${job.id}/`],
+    });
   }
 
   return (
@@ -185,30 +183,26 @@ function JobInfo({ job }: { job: Job }) {
         </div>
       </div>
 
-      {/*<div className={"text-gray-500 mb-3"}>*/}
-      {/*  <p className={"text-sm"}>Payment Information</p>*/}
-      {/*  <hr className={"my-1"} />*/}
-      {/*  {teacher.school_owner_payment_methods.map((d) => (*/}
-      {/*    <div*/}
-      {/*      className={"flex flex-row items-center justify-between py-3"}*/}
-      {/*      key={d.id}*/}
-      {/*    >*/}
-      {/*      <p>{d.title}</p>*/}
+      {job.status === "inactive" ? null : (
+        <button
+          className={
+            "flex flex-row items-center justify-between py-3 text-sm border border-error rounded px-2 mb-3 w-full"
+          }
+          onClick={endJobPost}
+        >
+          <div className={"flex flex-row items-center gap-2 text-error"}>
+            End Job post
+          </div>
 
-      {/*      <p className={"text-left text-black"}>{teacher.gender ?? "-"}</p>*/}
-      {/*    </div>*/}
-      {/*  ))}*/}
-      {/*</div>*/}
-
-      {/*<div className={"mt-12 py-2"}>*/}
-      {/*  <hr />*/}
-      {/*  <button*/}
-      {/*    className={"text-error py-2 w-full"}*/}
-      {/*    onClick={() => handleSuspendSchool(teacher.id)}*/}
-      {/*  >*/}
-      {/*    {teacher.is_suspended ? "Unsuspend" : "Suspend"}*/}
-      {/*  </button>*/}
-      {/*</div>*/}
+          <div className={"flex flex-row items-center gap-2 "}>
+            <img
+              src={visibility_error}
+              className={"w-5 h-5"}
+              alt={"visibility_error"}
+            />
+          </div>
+        </button>
+      )}
     </section>
   );
 }
