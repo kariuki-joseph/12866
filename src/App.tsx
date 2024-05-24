@@ -3,7 +3,7 @@ import Root from "./pages/Root.tsx";
 import SchoolsPage from "./pages/schools";
 import SingleSchoolPage from "./pages/schools/[schoold]/SingleSchoolPage.tsx";
 import EditBasicInfoPage from "./pages/schools/[schoold]/edit/basic-info/EditBasicInfoPage.tsx";
-import ManagePostsPage from "./pages/manage-posts/ManagePostsPage.tsx";
+import ManagePostsPage from "./pages/manage-posts";
 import FinancesPage from "./pages/payments/FinancesPage.tsx";
 import EditSchoolDetailsPage from "./pages/schools/[schoold]/edit/school-details/EditSchoolDetailsPage.tsx";
 import ChangePasswordPage from "./pages/schools/[schoold]/edit/password/ChangePasswordPage.tsx";
