@@ -1,7 +1,6 @@
 import filterList from "/icons/filter_list.svg";
 import search from "/icons/search.svg";
 import { useQuery } from "@tanstack/react-query";
-import { useNavigate } from "react-router-dom";
 import { DateTime } from "luxon";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -15,7 +14,6 @@ import queryString from "query-string";
 import NoData from "../../components/no-data.tsx";
 
 function PostedJobsTable({ payments }: { payments: Payment[] }) {
-  const navigate = useNavigate();
   return (
     <div className={"table-container mt-3"}>
       <table>
@@ -38,7 +36,7 @@ function PostedJobsTable({ payments }: { payments: Payment[] }) {
                   : "-"}
               </td>
               <td>{payment.payment_method}</td>
-              <td>-</td>
+              <td>{payment.job.views}</td>
               <td>
                 {DateTime.fromISO(payment.creation_time).toLocaleString({
                   locale: "en-gb",

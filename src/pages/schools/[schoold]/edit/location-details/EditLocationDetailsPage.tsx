@@ -97,7 +97,7 @@ const SelectWard = forwardRef<
   HTMLSelectElement,
   { label: string; countyId: string } & ReturnType<UseFormRegister<ISchema>>
 >(({ onChange, onBlur, name, label, subCountyId }, ref) => {
-  const url = `api/v1/users/sub-scounties/list/?sub_county__id=${subCountyId}`;
+  const url = `api/v1/users/ward/list/?sub_county__id=${subCountyId}`;
 
   const { data } = useQuery<AxiosResponse<County[]>>({
     queryKey: [url],
