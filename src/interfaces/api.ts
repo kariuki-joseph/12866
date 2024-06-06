@@ -90,6 +90,7 @@ export interface Teacher {
   creation_time: string;
   last_updated_time: string;
   job_view_count: number;
+  is_active: number;
   has_active_profile_post: number;
   county: County;
   sub_county: SubCounty;

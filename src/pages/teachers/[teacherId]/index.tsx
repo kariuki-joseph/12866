@@ -24,6 +24,7 @@ import * as Popover from "@radix-ui/react-popover";
 import LoadingBlocks from "../../../components/loading/LoadingBlocks.tsx";
 import ViewedJobs from "./ViewedJobs.tsx";
 import SavedJobs from "./SavedJobs.tsx";
+import queryClient from "../../../configs/query-client.ts";
 
 interface TeacherNameSectionProps {
   teacher: Teacher;
@@ -36,23 +37,15 @@ function TeacherNameSection(props: TeacherNameSectionProps) {
     <section className={"flex flex-row items-center justify-between mb-5"}>
       <div className={"flex flex-row items-center gap-4"}>
         <h1 className={"font-bold"}>{teacher.full_name}</h1>
-        {/*{teacher.is_suspended ? (*/}
-        {/*  <p*/}
-        {/*    className={*/}
-        {/*      "text-sm rounded-3xl px-3 py-1 bg-error text-white text-green-950 w-fit"*/}
-        {/*    }*/}
-        {/*  >*/}
-        {/*    Inactive*/}
-        {/*  </p>*/}
-        {/*) : (*/}
-        {/*  <p*/}
-        {/*    className={*/}
-        {/*      "text-sm rounded-3xl px-3 py-1 bg-green-100 text-green-950 w-fit"*/}
-        {/*    }*/}
-        {/*  >*/}
-        {/*    Active*/}
-        {/*  </p>*/}
-        {/*)}*/}
+        {teacher.is_active ? (
+          <div className="text-sm rounded-3xl px-3 py-1 bg-error text-white w-fit">
+            Inactive
+          </div>
+        ) : (
+          <div className="text-sm rounded-3xl px-3 py-1 bg-green-100 text-green-950 w-fit">
+            Active
+          </div>
+        )}
       </div>
 
       <Popover.Root>
@@ -114,18 +107,18 @@ interface TeacherInfoProps {
 function TeacherInfo(props: TeacherInfoProps) {
   const { teacher } = props;
 
-  async function handleSuspendSchool(id: number) {
-    // try {
-    //   await weteachApi.patch(`api/v1/dashboard/school/modify/${teacher.id}/`, {
-    //     is_suspended: !teacher.is_suspended,
-    //   });
-    //
-    //   await queryClient.invalidateQueries({
-    //     queryKey: [`api/v1/dashboard/school/get/${teacher.id}/`],
-    //   });
-    // } catch (e) {
-    //   console.log(e.response.data);
-    // }
+  async function toggleIsActive() {
+    try {
+      await weteachApi.patch(`api/v1/dashboard/teacher/modify/${teacher.id}/`, {
+        is_active: !teacher.is_active,
+      });
+
+      await queryClient.invalidateQueries({
+        queryKey: [`api/v1/dashboard/teacher/get/${teacher.id}/`],
+      });
+    } catch (e) {
+      console.log(e.response.data);
+    }
   }
 
   return (
@@ -239,38 +232,62 @@ function TeacherInfo(props: TeacherInfoProps) {
         )}
       </div>
 
-      <Link
-        to={`/teachers/${teacher.id}/edit/unpublish-profile`}
-        className={
-          "flex flex-row items-center justify-between py-3 text-sm border border-error rounded px-2 mb-3"
-        }
-      >
-        <div className={"flex flex-row items-center gap-2 text-error"}>
-          Unpublish Profile
-        </div>
+      {teacher.has_active_profile_post ? (
+        <Link
+          to={`/teachers/${teacher.id}/edit/unpublish-profile`}
+          className={
+            "flex flex-row items-center justify-between py-3 text-sm border border-error rounded px-2 mb-3"
+          }
+        >
+          <div className={"flex flex-row items-center gap-2 text-error"}>
+            Unpublish Profile
+          </div>
 
-        <div className={"flex flex-row items-center gap-2 "}>
-          <img src={open_in_new} className={"w-5 h-5"} alt={"open_in_new"} />
-        </div>
-      </Link>
+          <div className={"flex flex-row items-center gap-2 "}>
+            <img src={open_in_new} className={"w-5 h-5"} alt={"open_in_new"} />
+          </div>
+        </Link>
+      ) : null}
 
-      <div
-        className={
-          "flex flex-row items-center justify-between py-3 text-sm border border-error rounded px-2 mb-3"
-        }
-      >
-        <div className={"flex flex-row items-center gap-2 text-error"}>
-          Suspend
-        </div>
+      {teacher.is_active ? (
+        <button
+          className={
+            "flex flex-row items-center justify-between py-3 text-sm border border-error rounded px-2 mb-3 w-full"
+          }
+          onClick={() => toggleIsActive()}
+        >
+          <div className={"flex flex-row items-center gap-2 text-error"}>
+            Suspend
+          </div>
 
-        <div className={"flex flex-row items-center gap-2 "}>
-          <img
-            src={visibility_error}
-            className={"w-5 h-5"}
-            alt={"visibility_error"}
-          />
-        </div>
-      </div>
+          <div className={"flex flex-row items-center gap-2 "}>
+            <img
+              src={visibility_error}
+              className={"w-5 h-5"}
+              alt={"visibility_error"}
+            />
+          </div>
+        </button>
+      ) : (
+        <button
+          className={
+            "flex flex-row items-center justify-between py-3 text-sm border border-error rounded px-2 mb-3 w-full"
+          }
+          onClick={() => toggleIsActive()}
+        >
+          <div className={"flex flex-row items-center gap-2 text-error"}>
+            Unsuspend
+          </div>
+
+          <div className={"flex flex-row items-center gap-2 "}>
+            <img
+              src={visibility_error}
+              className={"w-5 h-5"}
+              alt={"visibility_error"}
+            />
+          </div>
+        </button>
+      )}
 
       {/*<div className={"text-gray-500 mb-3"}>*/}
       {/*  <p className={"text-sm"}>Payment Information</p>*/}
@@ -410,7 +427,7 @@ function JobDetails(props: JobDetailsProps) {
 export default function SingleTeachersPage() {
   const { teacherId } = useParams();
 
-  const url = `/api/v1/dashboard/teacher/get/${teacherId}/`;
+  const url = `api/v1/dashboard/teacher/get/${teacherId}/`;
 
   const { data, isLoading } = useQuery<AxiosResponse<Teacher>>({
     queryKey: [url],
