@@ -1,4 +1,3 @@
-import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import weteachApi from "../../../configs/weteach-api.ts";
 import { PaymentRate } from "../../../interfaces/api.ts";
@@ -12,7 +11,7 @@ function JobPostPricingTable({ rates }: { rates: PaymentRate[] }) {
   const deletePackage = async (id: number) => {
     await weteachApi.delete(`/api/v1/payments/rates/modify/${id}/`);
 
-    queryClient.invalidateQueries({
+    await queryClient.invalidateQueries({
       queryKey: ["api/v1/payments/rates/"],
     });
   };
@@ -50,6 +49,14 @@ function JobPostPricingTable({ rates }: { rates: PaymentRate[] }) {
                       sideOffset={5}
                       align={"end"}
                     >
+                      <Link
+                        to={`${rate.id}/edit`}
+                        className={
+                          "hover:bg-gray-100 hover:text-black text-left"
+                        }
+                      >
+                        Edit
+                      </Link>
                       <Popover.Close asChild>
                         <button
                           className={
@@ -60,14 +67,6 @@ function JobPostPricingTable({ rates }: { rates: PaymentRate[] }) {
                           Delete
                         </button>
                       </Popover.Close>
-                      <Link
-                        to={`${rate.id}/edit`}
-                        className={
-                          "hover:bg-gray-100 hover:text-black text-left"
-                        }
-                      >
-                        Edit
-                      </Link>
                     </Popover.Content>
                   </Popover.Portal>
                 </Popover.Root>
@@ -79,17 +78,14 @@ function JobPostPricingTable({ rates }: { rates: PaymentRate[] }) {
     </div>
   );
 }
-export default function JobPostPricing({
-  setTab,
-}: {
-  setTab: React.Dispatch<React.SetStateAction<string>>;
-}) {
+export default function JobPostPricing() {
   const url = `api/v1/payments/rates/`;
 
-  const { data, isLoading } = useQuery({
+  const { data } = useQuery({
     queryKey: [url],
     queryFn: () => weteachApi.get(url),
   });
+
   return (
     <>
       <div className={"flex flex-row justify-end mb-3"}>
