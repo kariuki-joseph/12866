@@ -24,6 +24,8 @@ import baseUrl from "../../../configs/baseUrl.ts";
 import queryClient from "../../../configs/query-client.ts";
 import { GalleryTab } from "./GalleryTab.tsx";
 import visibility_error from "/icons/visibility_error.svg";
+import SavedTeachersTab from "./SavedTeachersTab.tsx";
+import ViewedTeachersTab from "./ViewedTeachersTab.tsx";
 
 interface SchoolTitleSectionProps {
   school: School;
@@ -314,6 +316,22 @@ function JobDetails(props: JobDetailsProps) {
           >
             Posted Jobs
           </Tabs.Trigger>
+          <Tabs.Trigger
+            value={"saved-teachers"}
+            className={
+              "data-[state=active]:bg-white data-[state=active]:text-secondary"
+            }
+          >
+            Saved Teachers
+          </Tabs.Trigger>
+          <Tabs.Trigger
+            value={"viewed-teachers"}
+            className={
+              "data-[state=active]:bg-white data-[state=active]:text-secondary"
+            }
+          >
+            Viewed Teachers
+          </Tabs.Trigger>
 
           <Tabs.Trigger
             value={"about-school"}
@@ -341,6 +359,12 @@ function JobDetails(props: JobDetailsProps) {
         </Tabs.Content>
         <Tabs.Content value={"gallery"}>
           <GalleryTab />
+        </Tabs.Content>
+        <Tabs.Content value={"saved-teachers"}>
+          <SavedTeachersTab />
+        </Tabs.Content>
+        <Tabs.Content value={"viewed-teachers"}>
+          <ViewedTeachersTab />
         </Tabs.Content>
       </Tabs.Root>
     </section>

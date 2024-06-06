@@ -178,3 +178,20 @@ export interface TeacherProfilePayment {
   teacher: Teacher;
   payment: Payment;
 }
+
+export interface TeacherSave {
+  id: number;
+  creation_time: string;
+  last_updated_time: string;
+  owner: Owner;
+  teacher_profile: TeacherProfilePayment;
+}
+
+export interface TeacherView {
+  id: number;
+  creation_time: string;
+  last_updated_time: string;
+  is_active: boolean;
+  expiry_time: string;
+  teacher: Teacher;
+}
