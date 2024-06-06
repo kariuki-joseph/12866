@@ -324,14 +324,14 @@ function SummarySection() {
           />
           <StatCard
             imageSrc={bookmark}
-            title={data.data.saved_jobs}
-            text={"Saved Jobs"}
+            title={data.data.profile_impressions}
+            text={"Profile Impressions"}
           />
 
           <StatCard
             imageSrc={payments_primary}
             title={data.data.post_total_spending}
-            text={"Spends on posts"}
+            text={"Spend on Job Views"}
           />
         </>
       ) : null}
