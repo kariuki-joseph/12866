@@ -25,7 +25,11 @@ export function TeacherPayments(props: { payments: TeacherProfilePayment[] }) {
         <tbody>
           {payments.map((payment) => (
             <tr key={payment.id} className={"hover:cursor-default"}>
-              <th>{`${payment.payment.profile_rate.charges} for ${payment.payment.profile_rate.days}(s)`}</th>
+              <th>
+                {payment.payment !== null
+                  ? `${payment.payment.profile_rate.charges} for ${payment.payment.profile_rate.days}(s)`
+                  : "-"}
+              </th>
               <td>{payment.views}</td>
               <td>
                 {payment.is_active ? (
@@ -47,11 +51,13 @@ export function TeacherPayments(props: { payments: TeacherProfilePayment[] }) {
                 )}
               </td>
               <td>
-                {DateTime.fromISO(
-                  payment.payment.last_updated_time,
-                ).toLocaleString({
-                  locale: "en-gb",
-                })}
+                {payment.payment !== null
+                  ? `${DateTime.fromISO(
+                    payment.payment.last_updated_time,
+                  ).toLocaleString({
+                    locale: "en-gb",
+                  })}`
+                  : "-"}
               </td>
             </tr>
           ))}
