@@ -227,7 +227,7 @@ function SchoolsTableSection(props: {
       gender,
       accommodation,
       institution_level,
-      name,
+      search: name,
       page,
     },
     {

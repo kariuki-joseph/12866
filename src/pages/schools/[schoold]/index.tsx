@@ -11,7 +11,7 @@ import * as Tabs from "@radix-ui/react-tabs";
 import * as Popover from "@radix-ui/react-popover";
 import PostedJobsTab from "./PostedJobsTab.tsx";
 import AboutSchoolTab from "./AboutSchoolTab.tsx";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { School } from "../../../interfaces/api.ts";
 import { useQuery } from "@tanstack/react-query";
 import { AxiosResponse } from "axios";
@@ -23,6 +23,7 @@ import StatCard from "../../../components/StatCard.tsx";
 import baseUrl from "../../../configs/baseUrl.ts";
 import queryClient from "../../../configs/query-client.ts";
 import { GalleryTab } from "./GalleryTab.tsx";
+import visibility_error from "/icons/visibility_error.svg";
 
 interface SchoolTitleSectionProps {
   school: School;
@@ -111,7 +112,6 @@ interface SchoolInfoProps {
 }
 
 function SchoolInfo(props: SchoolInfoProps) {
-  const navigate = useNavigate();
   const { school } = props;
 
   async function handleSuspendSchool(id: number) {
@@ -208,30 +208,45 @@ function SchoolInfo(props: SchoolInfoProps) {
         </div>
       </div>
 
-      <div className={"text-gray-500 mb-3"}>
-        <p className={"text-sm"}>Payment Information</p>
-        <hr className={"my-1"} />
-        {school.school_owner_payment_methods.map((d) => (
-          <div
-            className={"flex flex-row items-center justify-between py-3"}
-            key={d.id}
-          >
-            <p>{d.title}</p>
-
-            <p className={"text-left text-black"}>{school.gender ?? "-"}</p>
-          </div>
-        ))}
-      </div>
-
-      <div className={"mt-12 py-2"}>
-        <hr />
+      {school.is_suspended ? (
         <button
-          className={"text-error py-2 w-full"}
+          className={
+            "flex flex-row items-center justify-between py-3 text-sm border border-error rounded px-2 mb-3 w-full"
+          }
           onClick={() => handleSuspendSchool(school.id)}
         >
-          {school.is_suspended ? "Unsuspend" : "Suspend"}
+          <div className={"flex flex-row items-center gap-2 text-error"}>
+            Unsuspend
+          </div>
+
+          <div className={"flex flex-row items-center gap-2 "}>
+            <img
+              src={visibility_error}
+              className={"w-5 h-5"}
+              alt={"visibility_error"}
+            />
+          </div>
         </button>
-      </div>
+      ) : (
+        <button
+          className={
+            "flex flex-row items-center justify-between py-3 text-sm border border-error rounded px-2 mb-3 w-full"
+          }
+          onClick={() => handleSuspendSchool(school.id)}
+        >
+          <div className={"flex flex-row items-center gap-2 text-error"}>
+            Suspend
+          </div>
+
+          <div className={"flex flex-row items-center gap-2 "}>
+            <img
+              src={visibility_error}
+              className={"w-5 h-5"}
+              alt={"visibility_error"}
+            />
+          </div>
+        </button>
+      )}
     </section>
   );
 }
