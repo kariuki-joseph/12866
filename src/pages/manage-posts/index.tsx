@@ -187,7 +187,7 @@ function JobsTableSection(props: { institution_levels: InstitutionLevel[] }) {
     {
       status,
       page,
-      title,
+      search: title,
       institution_level,
     },
     {
