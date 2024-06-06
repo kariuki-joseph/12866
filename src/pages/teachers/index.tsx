@@ -47,20 +47,20 @@ function TeacherStats() {
 
       <StatCard
         imageSrc={attach_money}
-        title={data?.data.paying_customers}
-        text={"Paying Customers"}
+        title={data?.data.publicised_profiles}
+        text={"Publicized Profiles"}
       />
 
       <StatCard
         imageSrc={visibility}
-        title={data?.data.avg_post_views}
-        text={"Average Posts Views"}
+        title={data?.data.total_post_payments}
+        text={"Spend on Posting Profiles"}
       />
 
       <StatCard
         imageSrc={payments_primary}
-        title={data?.data.post_total_spending}
-        text={"Spend on posts"}
+        title={data?.data.total_view_payments}
+        text={"Spend on Job Views"}
       />
     </section>
   );

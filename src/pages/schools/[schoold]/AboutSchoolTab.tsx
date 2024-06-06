@@ -155,7 +155,7 @@ export default function AboutSchoolTab(props: AboutSchoolTabProps) {
               <img src={location_on} className={"w-5 h-5"} />
               <p className={"text-xs"}>
                 <b>Ward: </b>
-                {school.sub_county !== null ? school.ward.name : "-"}
+                {school.sub_county !== null ? school.ward : "-"}
               </p>
             </div>
 

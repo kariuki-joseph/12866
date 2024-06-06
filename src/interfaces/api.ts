@@ -1,3 +1,5 @@
+import { StringifiableRecord } from "query-string";
+
 export interface PaginatedResponse<T> {
   data: {
     count: number;
@@ -47,7 +49,7 @@ export interface School {
   job_post_count: number;
   name: string;
   image: string;
-  ward: Ward;
+  ward: StringifiableRecord;
   phone_number: string;
   primary_email: string;
   institution_level: InstitutionLevel[];
