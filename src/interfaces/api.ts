@@ -169,3 +169,12 @@ export interface Payment {
   rate: PaymentRate;
   job: Job;
 }
+
+export interface TeacherProfilePayment {
+  id: number;
+  views: number;
+  creation_time: string;
+  is_active: boolean;
+  teacher: Teacher;
+  payment: Payment;
+}

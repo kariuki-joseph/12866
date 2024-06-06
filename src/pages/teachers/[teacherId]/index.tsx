@@ -25,6 +25,7 @@ import LoadingBlocks from "../../../components/loading/LoadingBlocks.tsx";
 import ViewedJobs from "./ViewedJobs.tsx";
 import SavedJobs from "./SavedJobs.tsx";
 import queryClient from "../../../configs/query-client.ts";
+import ProfilePublicityTab from "./ProfilePublicityTab.tsx";
 
 interface TeacherNameSectionProps {
   teacher: Teacher;
@@ -417,7 +418,7 @@ function JobDetails(props: JobDetailsProps) {
           <AboutTeacher teacher={teacher} />
         </Tabs.Content>
         <Tabs.Content value={"profile-publicity"}>
-          Profile publicity
+          <ProfilePublicityTab />
         </Tabs.Content>
       </Tabs.Root>
     </section>
