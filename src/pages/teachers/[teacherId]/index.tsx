@@ -3,7 +3,6 @@ import call from "/icons/call.svg";
 import schedule from "/icons/schedule.svg";
 import school from "/icons/school.svg";
 import visibility from "/icons/visibility.svg";
-import bookmark from "/icons/bookmark.svg";
 import payments_primary from "/icons/payments_primary.svg";
 import sensors from "/icons/sensors.svg";
 import open_in_new from "/icons/open_in_new.svg";
@@ -323,7 +322,7 @@ function SummarySection() {
             text={"Viewed jobs"}
           />
           <StatCard
-            imageSrc={bookmark}
+            imageSrc={visibility}
             title={data.data.profile_impressions}
             text={"Profile Impressions"}
           />

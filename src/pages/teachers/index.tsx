@@ -3,7 +3,6 @@ import addWhite from "/icons/add_white.svg";
 import person from "/icons/person.svg";
 import attach_money from "/icons/attach_money.svg";
 import visibility from "/icons/visibility.svg";
-import payments_primary from "/icons/payments_primary.svg";
 import { Link, useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import weteachApi from "../../configs/weteach-api.ts";
@@ -46,19 +45,19 @@ function TeacherStats() {
       />
 
       <StatCard
-        imageSrc={attach_money}
+        imageSrc={visibility}
         title={data?.data.publicised_profiles}
         text={"Publicized Profiles"}
       />
 
       <StatCard
-        imageSrc={visibility}
+        imageSrc={attach_money}
         title={data?.data.total_post_payments}
         text={"Spend on Posting Profiles"}
       />
 
       <StatCard
-        imageSrc={payments_primary}
+        imageSrc={attach_money}
         title={data?.data.total_view_payments}
         text={"Spend on Job Views"}
       />
