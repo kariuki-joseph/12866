@@ -16,9 +16,9 @@ import { z } from "zod";
 import { useNavigate, useParams } from "react-router-dom";
 import { DateTime } from "luxon";
 
-function TeachersTable(props: { views: TeacherSave[] }) {
+function TeachersTable(props: { saves: TeacherSave[] }) {
   const navigate = useNavigate();
-  const { views } = props;
+  const { saves: views } = props;
 
   return (
     <>
@@ -29,18 +29,18 @@ function TeachersTable(props: { views: TeacherSave[] }) {
               <th>Name</th>
               <th>Institutional Level</th>
               <th>Experience</th>
-              <th>Viewed On</th>
+              <th>Saved On</th>
             </tr>
           </thead>
           <tbody>
-            {views.map((view) => {
+            {views.map((save) => {
               return (
-                <tr key={view.id}>
-                  <th>{view.teacher_profile.teacher.full_name}</th>
-                  <td>{view.teacher_profile.teacher.institution_level.name}</td>
-                  <td>{view.teacher_profile.teacher.experience}</td>
+                <tr key={save.id}>
+                  <th>{save.teacher_profile.teacher.full_name}</th>
+                  <td>{save.teacher_profile.teacher.institution_level.name}</td>
+                  <td>{save.teacher_profile.teacher.experience}</td>
                   <td>
-                    {DateTime.fromISO(view.creation_time).toLocaleString({
+                    {DateTime.fromISO(save.creation_time).toLocaleString({
                       locale: "en-gb",
                     })}
                   </td>
@@ -112,7 +112,7 @@ function TeachersTableSection(props: {
       {data !== undefined ? (
         <>
           {data.data.results.length !== 0 ? (
-            <TeachersTable views={data.data.results} />
+            <TeachersTable saves={data.data.results} />
           ) : (
             <NoData />
           )}
