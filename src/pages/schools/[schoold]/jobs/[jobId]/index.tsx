@@ -192,7 +192,7 @@ function JobInfo({ job }: { job: Job }) {
         <div className="flex flex-row p-3 bg-gradient-to-r from-[#E2E3FF]  to-[#F8E2FF] rounded-lg mb-3">
           <p className="w-3/12 text-2xl font-bold text-center">{diffInDays}</p>
           <div className="flex flex-col w-19/13 text-sm">
-            <p className="font-bold">Days</p>
+            <p className="font-bold">Day(s)</p>
             <p>To the end of post</p>
           </div>
         </div>
