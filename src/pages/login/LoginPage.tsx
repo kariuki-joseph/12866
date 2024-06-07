@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import paperPlaneTilt from "/icons/paper-plane-tilt.svg";
 import weteachApi from "../../configs/weteach-api.ts";
+import login_bg from "/images/login_bg.png";
 
 const schema = z.object({
   email: z.string().email(),
@@ -65,54 +66,63 @@ export default function LoginPage({
   };
 
   return (
-    <section
-      className={"h-[100vh] w-full flex flex-col items-center justify-center"}
-    >
-      <form
-        className={
-          "w-[500px] border border-gray-200 p-6 flex flex-col gap-3 mx-auto rounded"
-        }
-        onSubmit={handleSubmit(onSubmit)}
+    <div className="flex flex-row h-[100vh]">
+      <section
+        className={"h-[100vh] w-1/2 flex flex-col items-center justify-center"}
       >
-        <h1 className={"flex flex-row items-center gap-3 justify-center"}>
-          <img src={paperPlaneTilt} alt={"logo"} />
-          <span className={"text-3xl font-bold text-primary"}>Weteach</span>
-        </h1>
-        <p className={"text-sm text-gray-500 text-center mb-6"}>
-          Welcome to Weteach. Enter your credentials to log in.
-        </p>
-        <div>
-          <label htmlFor={"email"}>Email</label>
-          <input {...register("email")} placeholder={"Enter email"} />
-          <p className={"text-xs text-error mt-1"}>{errors.email?.message}</p>
-        </div>
-
-        <div>
-          <label htmlFor={"password"}>Password</label>
-          <input
-            {...register("password")}
-            placeholder={"Enter password"}
-            type={"password"}
-          />
-          <p className={"text-xs text-error mt-1"}>
-            {errors.password?.message}
-          </p>
-        </div>
-
-        {errorMessage !== null ? (
-          <p className={"text-xs text-error mt-1 text-center mb-6"}>
-            {errorMessage}
-          </p>
-        ) : null}
-
-        <button
+        <form
           className={
-            "bg-secondary text-white py-3 rounded mx-auto w-[275px] text-center font-bold"
+            "w-[500px] border border-gray-200 p-6 flex flex-col gap-3 mx-auto rounded"
           }
+          onSubmit={handleSubmit(onSubmit)}
         >
-          Login
-        </button>
-      </form>
-    </section>
+          <h1 className={"flex flex-row items-center gap-3 justify-center"}>
+            <img src={paperPlaneTilt} alt={"logo"} />
+            <span className={"text-3xl font-bold text-primary"}>Weteach</span>
+          </h1>
+          <p className={"text-sm text-gray-500 text-center mb-6"}>
+            Welcome to Weteach. Enter your credentials to log in.
+          </p>
+          <div>
+            <label htmlFor={"email"}>Email</label>
+            <input {...register("email")} placeholder={"Enter email"} />
+            <p className={"text-xs text-error mt-1"}>{errors.email?.message}</p>
+          </div>
+
+          <div>
+            <label htmlFor={"password"}>Password</label>
+            <input
+              {...register("password")}
+              placeholder={"Enter password"}
+              type={"password"}
+            />
+            <p className={"text-xs text-error mt-1"}>
+              {errors.password?.message}
+            </p>
+          </div>
+
+          {errorMessage !== null ? (
+            <p className={"text-xs text-error mt-1 text-center mb-6"}>
+              {errorMessage}
+            </p>
+          ) : null}
+
+          <button
+            className={
+              "bg-secondary text-white py-3 rounded mx-auto w-[275px] text-center font-bold w-full"
+            }
+          >
+            Login
+          </button>
+        </form>
+      </section>
+      <div className="h-[100vh] w-1/2 bg-green-200">
+        <img
+          src={login_bg}
+          alt="login background"
+          className="object-cover object-center h-[100vh] w-full"
+        />
+      </div>
+    </div>
   );
 }
