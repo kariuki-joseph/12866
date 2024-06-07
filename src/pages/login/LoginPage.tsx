@@ -116,7 +116,7 @@ export default function LoginPage({
           </button>
         </form>
       </section>
-      <div className="h-[100vh] w-1/2 bg-green-200">
+      <div className="h-[100vh] w-1/2 ">
         <img
           src={login_bg}
           alt="login background"
