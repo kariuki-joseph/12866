@@ -31,21 +31,21 @@ function JobTitleSection({ job }: { job: Job }) {
     <section className={"flex flex-row items-center justify-between mb-5"}>
       <div className={"flex flex-row items-center gap-4"}>
         <h1 className={"font-bold"}>{job.title}</h1>
-        {job.status === "inactive" ? (
+        {job.status === "active" ? (
           <p
             className={
-              "text-sm rounded-3xl px-3 py-1 bg-error text-white w-fit"
+              " text-sm rounded-3xl px-3 py-1 bg-green-100 text-green-950 w-fit"
             }
           >
-            Inactive
+            Active
           </p>
         ) : (
           <p
             className={
-              "text-sm rounded-3xl px-3 py-1 bg-green-100 text-green-950 w-fit"
+              "text-sm rounded-3xl px-3 py-1 bg-error text-white w-fit capitalize"
             }
           >
-            Active
+            {job.status}
           </p>
         )}
       </div>
@@ -91,6 +91,11 @@ function JobTitleSection({ job }: { job: Job }) {
 }
 
 function JobInfo({ job }: { job: Job }) {
+  const expiryDate = DateTime.fromISO(job.expiry_time);
+  const now = DateTime.now();
+
+  const diffInDays = Math.ceil(expiryDate.diff(now, "days").days);
+
   async function endJobPost() {
     await weteachApi.patch(`api/v1/jobs/modify/${job.id}/`, {
       status: "inactive",
@@ -182,6 +187,16 @@ function JobInfo({ job }: { job: Job }) {
           </div>
         </div>
       </div>
+
+      {job.status === "active" ? (
+        <div className="flex flex-row p-3 bg-gradient-to-r from-[#E2E3FF]  to-[#F8E2FF] rounded-lg mb-3">
+          <p className="w-3/12 text-2xl font-bold text-center">{diffInDays}</p>
+          <div className="flex flex-col w-19/13 text-sm">
+            <p className="font-bold">Days</p>
+            <p>To the end of post</p>
+          </div>
+        </div>
+      ) : null}
 
       {job.status === "inactive" ? null : (
         <button
