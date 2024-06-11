@@ -225,7 +225,7 @@ function TeachersTableSection(props: {
 
   const query = queryString.stringify(
     {
-      institution_level,
+      institution_level__id: institution_level,
       search: name,
       page,
     },
