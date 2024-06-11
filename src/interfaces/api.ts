@@ -195,3 +195,8 @@ export interface TeacherView {
   expiry_time: string;
   teacher: Teacher;
 }
+
+export interface JobView {
+  teacher_profile: Teacher;
+  created_at: string;
+}
