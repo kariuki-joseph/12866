@@ -83,7 +83,7 @@ function TeachersTableSection(props: {
 
   const query = queryString.stringify(
     {
-      institution_level,
+      institution_level__id: institution_level,
       page,
     },
     {
@@ -109,6 +109,22 @@ function TeachersTableSection(props: {
 
   return (
     <section>
+      <div className={"flex flex-row items-center justify-between mb-2"}>
+        <div className={"flex flex-row gap-3 w-full"}>
+          <select
+            {...register("institution_level")}
+            className={"p-2 text-xs w-fit"}
+          >
+            <option value={""}>Select level of institution</option>
+
+            {institutional_levels.map((institution_level) => (
+              <option value={institution_level.id} key={institution_level.id}>
+                {institution_level.name}
+              </option>
+            ))}
+          </select>
+        </div>
+      </div>
       {data !== undefined ? (
         <>
           {data.data.results.length !== 0 ? (
