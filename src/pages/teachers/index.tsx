@@ -85,6 +85,7 @@ function TeachersTable(props: TeachersTableProps) {
               <th>Location</th>
               <th>Job Views</th>
               <th>Profile Status</th>
+              <th>Profile Impressions</th>
               <th>Joined On</th>
               <th>Actions</th>
             </tr>
@@ -121,6 +122,7 @@ function TeachersTable(props: TeachersTableProps) {
                       </span>
                     )}
                   </td>
+                  <td>{teacher.profile_view_count}</td>
                   <td>
                     {DateTime.fromISO(teacher.creation_time).toLocaleString({
                       locale: "en-gb",

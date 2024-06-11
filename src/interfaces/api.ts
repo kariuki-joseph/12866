@@ -84,6 +84,7 @@ export interface Teacher {
   image: string;
   experience: number;
   institution_level: InstitutionLevel;
+  profile_view_count: number;
   latitude: string;
   longitude: string;
   formated_address: string;
