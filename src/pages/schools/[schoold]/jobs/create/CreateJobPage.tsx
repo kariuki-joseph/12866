@@ -14,6 +14,7 @@ import {
   TeacherRequirement,
 } from "../../../../../interfaces/api.ts";
 import * as ToggleGroup from "@radix-ui/react-toggle-group";
+import { useEffect } from "react";
 
 const schema = z.object({
   title: z.string().min(5),
@@ -31,17 +32,61 @@ const schema = z.object({
   how_to_apply: z
     .string()
     .refine(optionalMinLength, "String should not be less than (5) characters"),
-  institution_levels: z.string(),
+  institution_level: z.string(),
 });
 
 type ISchema = z.infer<typeof schema>;
 
-// function SubjectSelection(props: { institution_levels: string }) {
-//   const url = ``;
-//   const { data } = useQuery({ queryKey: [url], queryFn: () => getFn(url) });
+function SubjectSelection(props: {
+  institution_level: string;
+  watch: any;
+  register: any;
+}) {
+  const { register, watch } = props;
 
-//   return <></>;
-// }
+  const url = `api/v1/subjects/categories/?institution_level=${props.institution_level}`;
+  const { data } = useQuery({
+    queryKey: [url],
+    queryFn: () => weteachApi.get(url),
+  });
+
+  return (
+    <>
+      {data !== undefined ? (
+        <>
+          {data.data.map((subject: any) => (
+            <div key={subject.id} className="mb-2">
+              <p className="text-gray-500 underline mb-2">{subject.name}</p>
+              <div
+                className={
+                  "*:px-6 *:py-3 text-sm *:rounded-3xl *:border *:border-gray-200 grid grid-cols-4 gap-3"
+                }
+              >
+                {subject.subjects.map(({ id, name }) => (
+                  <label
+                    htmlFor={id.toString()}
+                    key={id}
+                    className={`${watch("teacher_requirements").findIndex((d) => d === id.toString()) >= 0 ? ` text-primary  bg-[#FBEFFF] !border-primary ` : null} text-center`}
+                  >
+                    <span>{name}</span>
+                    <input
+                      type="checkbox"
+                      value={id}
+                      id={id.toString()}
+                      className={"absolute bottom-0 invisible"}
+                      {...register("teacher_requirements")}
+                    />
+                  </label>
+                ))}
+              </div>
+            </div>
+          ))}
+        </>
+      ) : null}
+    </>
+  );
+}
+
 export function CreateJobForm(props: {
   school: School;
   institutional_levels: InstitutionLevel[];
@@ -62,11 +107,16 @@ export function CreateJobForm(props: {
     formState: { errors },
   } = useForm<ISchema>({
     defaultValues: {
-      institution_levels: institutional_levels[0].id.toString(),
+      institution_level: institutional_levels[0].name,
       teacher_requirements: [],
     },
     resolver: zodResolver(schema),
   });
+
+  const current_institution_level = watch("institution_level");
+  useEffect(() => {
+    setValue("teacher_requirements", []);
+  }, [current_institution_level, setValue]);
 
   const teacherRequirementsUrl = `api/v1/subjects/`;
   const teacherRequirementsQuery = useQuery<
@@ -100,6 +150,14 @@ export function CreateJobForm(props: {
   return (
     <FormSection title={"Post New Job"} previousPage={previousPage}>
       <form onSubmit={handleSubmit(onSubmit)}>
+        <label htmlFor={"deadline"}>Deadline</label>
+        <input
+          {...register("deadline")}
+          placeholder={"Enter deadline"}
+          type={"date"}
+        />
+        <p className={"text-xs text-error mt-1"}>{errors.deadline?.message}</p>
+
         <label htmlFor={"title"}>Job Title</label>
         <input
           {...register("title")}
@@ -110,17 +168,17 @@ export function CreateJobForm(props: {
 
         <label htmlFor={"institution_levels"}>Institution level</label>
         <ToggleGroup.Root
-          defaultValue={getValues("institution_levels")}
+          defaultValue={getValues("institution_level")}
           type={"single"}
           className={
             "*:px-6 *:py-3 text-sm *:rounded-3xl *:border *:border-gray-200 *:w-1/3 flex flex-row gap-3 justify-evenly "
           }
-          onValueChange={(values) => setValue("institution_levels", values)}
+          onValueChange={(values) => setValue("institution_level", values)}
         >
           {institutional_levels.map((institution_level) => (
             <ToggleGroup.Item
               key={institution_level.id}
-              value={institution_level.id.toString()}
+              value={institution_level.name}
               className={
                 "data-[state=on]:text-primary  data-[state=on]:bg-[#FBEFFF] data-[state=on]:border-primary"
               }
@@ -130,19 +188,16 @@ export function CreateJobForm(props: {
           ))}
         </ToggleGroup.Root>
         <p className={"text-xs text-error mt-1"}>
-          {errors.institution_levels?.message}
+          {errors.institution_level?.message}
         </p>
 
-        <label htmlFor={"deadline"}>Deadline</label>
-        <input
-          {...register("deadline")}
-          placeholder={"Enter deadline"}
-          type={"date"}
-        />
-        <p className={"text-xs text-error mt-1"}>{errors.deadline?.message}</p>
-
         <label>Subjects & Skills</label>
-        {teacherRequirementsQuery.data !== undefined ? (
+        <SubjectSelection
+          institution_level={watch("institution_level")}
+          watch={watch}
+          register={register}
+        />
+        {/* {teacherRequirementsQuery.data !== undefined ? (
           <div
             className={
               "*:px-6 *:py-3 text-sm *:rounded-3xl *:border *:border-gray-200 grid grid-cols-4 gap-3"
@@ -165,7 +220,7 @@ export function CreateJobForm(props: {
               </label>
             ))}
           </div>
-        ) : null}
+        ) : null} */}
         <p className={"text-xs text-error mt-1"}>
           {errors.teacher_requirements?.message}
         </p>
