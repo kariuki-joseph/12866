@@ -95,8 +95,15 @@ export interface Teacher {
   has_active_profile_post: number;
   county: County;
   sub_county: SubCounty;
+  recent_profile_post: ProfilePost;
   qualifications: Qualification[];
   user: User;
+}
+
+interface ProfilePost {
+  id: number;
+  views: number;
+  is_active: boolean;
 }
 
 export interface TeacherRequirement {
