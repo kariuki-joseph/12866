@@ -7,12 +7,7 @@ import { DateTime } from "luxon";
 import weteachApi from "../../../../../configs/weteach-api.ts";
 import optionalMinLength from "../../../../../utils/optional-min-length.ts";
 import { useQuery } from "@tanstack/react-query";
-import {
-  AxiosResponse,
-  InstitutionLevel,
-  School,
-  TeacherRequirement,
-} from "../../../../../interfaces/api.ts";
+import { InstitutionLevel, School } from "../../../../../interfaces/api.ts";
 import * as ToggleGroup from "@radix-ui/react-toggle-group";
 import { useEffect } from "react";
 
@@ -117,14 +112,6 @@ export function CreateJobForm(props: {
   useEffect(() => {
     setValue("teacher_requirements", []);
   }, [current_institution_level, setValue]);
-
-  const teacherRequirementsUrl = `api/v1/subjects/`;
-  const teacherRequirementsQuery = useQuery<
-    AxiosResponse<TeacherRequirement[]>
-  >({
-    queryKey: [teacherRequirementsUrl],
-    queryFn: () => weteachApi.get(teacherRequirementsUrl),
-  });
 
   const onSubmit = async (data: ISchema) => {
     const local = DateTime.local();
