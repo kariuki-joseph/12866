@@ -19,10 +19,8 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useState } from "react";
 import queryString from "query-string";
-import * as Popover from "@radix-ui/react-popover";
 import search from "/icons/search.svg";
 import PaginationSection from "../../components/PaginationSection.tsx";
-import more_vert from "/icons/more_vert.svg";
 import NoData from "../../components/no-data.tsx";
 
 function TeacherStats() {
@@ -86,7 +84,6 @@ function TeachersTable(props: TeachersTableProps) {
               <th>Profile Status</th>
               <th>Profile Impressions</th>
               <th>Joined On</th>
-              <th>Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -123,69 +120,9 @@ function TeachersTable(props: TeachersTableProps) {
                   </td>
                   <td>{teacher.profile_view_count}</td>
                   <td>
-                    {DateTime.fromISO(teacher.creation_time).toLocaleString({
-                      locale: "en-gb",
-                    })}
+                    {DateTime.fromISO(teacher.creation_time).toLocaleString()}
                   </td>
-                  <td>
-                    <Popover.Root>
-                      <Popover.Trigger
-                        asChild
-                        onClick={(e) => e.stopPropagation()}
-                      >
-                        <button
-                          className={
-                            "flex flex-row items-center justify-center"
-                          }
-                        >
-                          <img
-                            src={more_vert}
-                            alt={"more"}
-                            className={"w-4 h-4"}
-                          />
-                        </button>
-                      </Popover.Trigger>
-                      <Popover.Portal>
-                        <Popover.Content
-                          className={
-                            "bg-white *:px-3 *:py-2 z-20 border border-gray-200 text-xs flex flex-col w-[200px]"
-                          }
-                          side={"bottom"}
-                          sideOffset={5}
-                          align={"end"}
-                        >
-                          <Link
-                            to={`${teacher.id}/edit/basic-info`}
-                            className={"hover:bg-gray-200 hover:text-black"}
-                            onClick={(e) => e.stopPropagation()}
-                          >
-                            Basic Info
-                          </Link>
-                          <Link
-                            to={`${teacher.id}/edit/teacher-details`}
-                            className={"hover:bg-gray-200 hover:text-black"}
-                            onClick={(e) => e.stopPropagation()}
-                          >
-                            Teacher Details
-                          </Link>
-                          <Link
-                            to={`jobs/${teacher.id}/edit/loocation-details`}
-                            className={"hover:bg-gray-200 hover:text-black"}
-                            onClick={(e) => e.stopPropagation()}
-                          >
-                            Location details
-                          </Link>
-                          <Link
-                            to={`jobs/${teacher.id}/edit/password`}
-                            className={"hover:bg-gray-200 hover:text-black"}
-                            onClick={(e) => e.stopPropagation()}
-                          >
-                            Change Password
-                          </Link>
-                        </Popover.Content>
-                      </Popover.Portal>
-                    </Popover.Root>
-                  </td>
+
                 </tr>
               );
             })}

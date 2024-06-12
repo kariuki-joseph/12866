@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import weteachApi from "../../configs/weteach-api.ts";
 import LoadingBlocks from "../../components/loading/LoadingBlocks.tsx";
@@ -10,10 +10,8 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useState } from "react";
 import queryString from "query-string";
-import * as Popover from "@radix-ui/react-popover";
 import search from "/icons/search.svg";
 import PaginationSection from "../../components/PaginationSection.tsx";
-import more_vert from "/icons/more_vert.svg";
 import inbox from "/icons/inbox.svg";
 import visibility from "/icons/visibility.svg";
 import paper_plane_tilt from "/icons/paper-plane-tilt.svg";
@@ -74,7 +72,6 @@ function JobsTable({ jobs }: { jobs: Job[] }) {
             <th>Post Impression</th>
             <th>Post Publicity</th>
             <th>Posted On</th>
-            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -100,53 +97,9 @@ function JobsTable({ jobs }: { jobs: Job[] }) {
                   : "-"}
               </td>
               <td>
-                {DateTime.fromISO(job.creation_time).toLocaleString({
-                  locale: "en-gb",
-                })}
+                {DateTime.fromISO(job.creation_time).toLocaleString()}
               </td>
-              <td>
-                <Popover.Root>
-                  <Popover.Trigger asChild onClick={(e) => e.stopPropagation()}>
-                    <button
-                      className={"flex flex-row items-center justify-center"}
-                    >
-                      <img src={more_vert} alt={"more"} className={"w-4 h-4"} />
-                    </button>
-                  </Popover.Trigger>
-                  <Popover.Portal>
-                    <Popover.Content
-                      className={
-                        "bg-white *:px-3 *:py-2 z-20 border border-gray-200 text-xs flex flex-col w-[200px]"
-                      }
-                      side={"bottom"}
-                      sideOffset={5}
-                      align={"end"}
-                    >
-                      <Link
-                        to={`/schools/${job.school.id}/jobs/${job.id}/edit/basic-info`}
-                        className={"hover:bg-gray-200 hover:text-black"}
-                        onClick={(e) => e.stopPropagation()}
-                      >
-                        Basic Info
-                      </Link>
-                      <Link
-                        to={`/schools/${job.school.id}/jobs/${job.id}/edit/job-details`}
-                        className={"hover:bg-gray-200 hover:text-black"}
-                        onClick={(e) => e.stopPropagation()}
-                      >
-                        Job Details
-                      </Link>
-                      <Link
-                        to={`/schools/${job.school.id}/jobs/${job.id}/edit/payment-rate`}
-                        className={"hover:bg-gray-200 hover:text-black"}
-                        onClick={(e) => e.stopPropagation()}
-                      >
-                        Make payment
-                      </Link>
-                    </Popover.Content>
-                  </Popover.Portal>
-                </Popover.Root>
-              </td>
+
             </tr>
           ))}
         </tbody>
