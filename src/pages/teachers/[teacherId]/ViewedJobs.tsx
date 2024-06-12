@@ -5,8 +5,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import queryString from "query-string";
 import { useQuery } from "@tanstack/react-query";
 import weteachApi from "../../../configs/weteach-api.ts";
-import * as Popover from "@radix-ui/react-popover";
-import filterList from "/icons/filter_list.svg";
 import search from "/icons/search.svg";
 import PaginationSection from "../../../components/PaginationSection.tsx";
 import { z } from "zod";
@@ -104,51 +102,13 @@ export default function ViewedJobs() {
     <section>
       <div className={"flex flex-row items-center justify-between"}>
         <div className={"flex flex-row gap-3"}>
-          <Popover.Root>
-            <Popover.Trigger asChild>
-              <button className="flex flex-row text-sm items-center gap-3 px-4 py-2  border border-gray-200 rounded-[32px]">
-                <img src={filterList} alt={"filter"} />
-                <p>Filter</p>
-              </button>
-            </Popover.Trigger>
-            <Popover.Portal>
-              <Popover.Content
-                className={"bg-white p-3 z-20 border border-gray-200 text-xs"}
-                side={"bottom"}
-                sideOffset={5}
-                align={"start"}
-              >
-                <div
-                  className={
-                    "flex flex-col gap-3 border-b border-gray-200 pb-3 mt-3"
-                  }
-                >
-                  <div
-                    className={
-                      "flex flex-row items-center w-full justify-center gap-3"
-                    }
-                  >
-                    <label className={"text-right text-xs"}>Status</label>
-
-                    <select {...register("status")} className={"p-2 text-xs"}>
-                      <option value={""}>Select status</option>
-                      <option value={"active"}>Active</option>
-                      <option value={"inactive"}>Inactive</option>
-                      <option value={"expired"}>Expired</option>
-                      <option value={"draft"}>Draft</option>
-                    </select>
-                  </div>
-                </div>
-
-                <button
-                  className={"w-full text-secondary text-sm pt-3"}
-                  onClick={() => clearFilter()}
-                >
-                  Clear filter
-                </button>
-              </Popover.Content>
-            </Popover.Portal>
-          </Popover.Root>
+          <select {...register("status")} className={"p-2 text-xs"}>
+            <option value={""}>Select status</option>
+            <option value={"active"}>Active</option>
+            <option value={"inactive"}>Inactive</option>
+            <option value={"expired"}>Expired</option>
+            <option value={"draft"}>Draft</option>
+          </select>
 
           <label className="flex flex-row text-sm items-center gap-3 px-4 py-0 border border-gray-200 rounded-[32px] w-[300px]">
             <img src={search} alt={"filter"} />

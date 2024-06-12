@@ -1,4 +1,3 @@
-import filterList from "/icons/filter_list.svg";
 import addWhite from "/icons/add_white.svg";
 import person from "/icons/person.svg";
 import attach_money from "/icons/attach_money.svg";
@@ -254,58 +253,22 @@ function TeachersTableSection(props: {
     <section>
       <div className={"flex flex-row items-center justify-between py-3 gap-4"}>
         <div className={"flex flex-row gap-3"}>
-          <Popover.Root>
-            <Popover.Trigger asChild>
-              <button className="flex flex-row text-sm items-center gap-3 px-4 py-2  border border-gray-200 rounded-[32px]">
-                <img src={filterList} alt={"filter"} />
-                <p>Filter</p>
-              </button>
-            </Popover.Trigger>
-            <Popover.Portal>
-              <Popover.Content
-                className={"bg-white p-3 z-20 border border-gray-200 text-xs"}
-                side={"bottom"}
-                sideOffset={5}
-                align={"start"}
-              >
-                <div
-                  className={
-                    "flex flex-row gap-3 border-b border-gray-200 pb-3 mt-3"
-                  }
+          <div className={"flex flex-col gap-3"}>
+            <select
+              {...register("institution_level")}
+              className={"p-2 text-xs"}
+            >
+              <option value={""}>Select level of institution</option>
+              {institutional_levels.map((institutional_level) => (
+                <option
+                  value={institutional_level.id}
+                  key={institutional_level.id}
                 >
-                  <div className={"flex flex-col gap-3"}>
-                    <label className={"text-right text-xs"}>
-                      Level of Institution
-                    </label>
-                  </div>
-
-                  <div className={"flex flex-col gap-3"}>
-                    <select
-                      {...register("institution_level")}
-                      className={"p-2 text-xs"}
-                    >
-                      <option value={""}>Select level of institution</option>
-                      {institutional_levels.map((institutional_level) => (
-                        <option
-                          value={institutional_level.id}
-                          key={institutional_level.id}
-                        >
-                          {institutional_level.name}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                </div>
-
-                <button
-                  className={"w-full text-secondary text-sm pt-3"}
-                  onClick={() => clearFilter()}
-                >
-                  Clear filter
-                </button>
-              </Popover.Content>
-            </Popover.Portal>
-          </Popover.Root>
+                  {institutional_level.name}
+                </option>
+              ))}
+            </select>
+          </div>
 
           <label className="flex flex-row text-sm items-center gap-3 px-4 py-0 border border-gray-200 rounded-[32px] w-[300px]">
             <img src={search} alt={"filter"} />
