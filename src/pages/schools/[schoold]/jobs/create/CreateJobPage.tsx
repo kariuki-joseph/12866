@@ -57,11 +57,11 @@ function SubjectSelection(props: {
                   "*:px-6 *:py-3 text-sm *:rounded-3xl *:border *:border-gray-200 grid grid-cols-4 gap-3"
                 }
               >
-                {subject.subjects.map(({ id, name }) => (
+                {subject.subjects.map(({ id, name }: any) => (
                   <label
                     htmlFor={id.toString()}
                     key={id}
-                    className={`${watch("teacher_requirements").findIndex((d) => d === id.toString()) >= 0 ? ` text-primary  bg-[#FBEFFF] !border-primary ` : null} text-center`}
+                    className={`${watch("teacher_requirements").findIndex((d: any) => d === id.toString()) >= 0 ? ` text-primary  bg-[#FBEFFF] !border-primary ` : null} text-center`}
                   >
                     <span>{name}</span>
                     <input
@@ -184,30 +184,6 @@ export function CreateJobForm(props: {
           watch={watch}
           register={register}
         />
-        {/* {teacherRequirementsQuery.data !== undefined ? (
-          <div
-            className={
-              "*:px-6 *:py-3 text-sm *:rounded-3xl *:border *:border-gray-200 grid grid-cols-4 gap-3"
-            }
-          >
-            {teacherRequirementsQuery.data.data.map(({ id, name }) => (
-              <label
-                htmlFor={id.toString()}
-                key={id}
-                className={`${watch("teacher_requirements").findIndex((d) => d === id.toString()) >= 0 ? ` text-primary  bg-[#FBEFFF] !border-primary ` : null} text-center`}
-              >
-                <span>{name}</span>
-                <input
-                  type="checkbox"
-                  value={id}
-                  id={id.toString()}
-                  className={"absolute bottom-0 invisible"}
-                  {...register("teacher_requirements")}
-                />
-              </label>
-            ))}
-          </div>
-        ) : null} */}
         <p className={"text-xs text-error mt-1"}>
           {errors.teacher_requirements?.message}
         </p>
