@@ -4,9 +4,9 @@ import { z } from "zod";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import paperPlaneTilt from "/icons/paper-plane-tilt.svg";
 import weteachApi from "../../configs/weteach-api.ts";
 import login_bg from "/images/login_bg.png";
+import { Toaster, toast } from 'sonner';
 
 const schema = z.object({
   email: z.string().email(),
@@ -61,6 +61,7 @@ export default function LoginPage({
 
       navigate("/");
     } catch (e) {
+      toast('Invalid Username or Password')
       setErrorMessage(e.response.data.detail);
     }
   };
@@ -77,8 +78,7 @@ export default function LoginPage({
           onSubmit={handleSubmit(onSubmit)}
         >
           <h1 className={"flex flex-row items-center gap-3 justify-center"}>
-            <img src={paperPlaneTilt} alt={"logo"} />
-            <span className={"text-3xl font-bold text-primary"}>Weteach</span>
+            <span className={"text-3xl font-bold text-primary"}>Mwalimu Finder</span>
           </h1>
           <p className={"text-sm text-gray-500 text-center mb-6"}>
             Welcome to Weteach. Enter your credentials to log in.
@@ -123,6 +123,9 @@ export default function LoginPage({
           className="object-cover object-center h-[100vh] w-full"
         />
       </div>
+
+      <Toaster />
+
     </div>
   );
 }

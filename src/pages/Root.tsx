@@ -1,10 +1,10 @@
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
-import paperPlaneTilt from "/icons/paper-plane-tilt.svg";
 import paperPlaneTiltPlain from "/icons/paper-plane-tilt-plain.svg";
 import paperPlaneTiltSecondary from "/icons/paper-plane-tilt-secondary.svg";
 import expandMore from "/icons/expand_more.svg";
 import person from "/icons/person.svg";
 import payments from "/icons/payments.svg";
+import mwalimu_finder_logo from "/images/mwalimu_finder_logo.png";
 import payments_secondary from "/icons/payments_secondary.svg";
 import person_plain from "/icons/person_plain.svg";
 import person_secondary from "/icons/person_secondary.svg";
@@ -52,10 +52,10 @@ export default function Root({
             }
           >
             <div className={"flex flex-row items-center"}>
-              <img src={paperPlaneTilt} alt={"logo"} />
+              <img src={mwalimu_finder_logo} alt={"logo"} className="w-10 h-10" />
             </div>
 
-            <h1 className={"text-primary text-3xl"}>Weteach</h1>
+            <h1 className={"text-primary text-xl"}>Mwalimu Finder</h1>
           </div>
 
           <div
