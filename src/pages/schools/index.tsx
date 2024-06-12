@@ -110,9 +110,7 @@ function SchoolsTable(props: SchoolsTableProps) {
                   <td>{school.formated_address ?? "-"}</td>
                   <td>{school.phone_number}</td>
                   <td>
-                    {DateTime.fromISO(school.creation_time).toLocaleString({
-                      locale: "en-gb",
-                    })}
+                    {DateTime.fromISO(school.creation_time).toLocaleString()}
                   </td>
                   <td>
                     <Popover.Root>
@@ -207,7 +205,7 @@ function SchoolsTableSection(props: {
   const { institution_levels } = props;
   const [page, setPage] = useState(1);
 
-  const { register, watch, reset } = useForm<ISchema>({
+  const { register, watch } = useForm<ISchema>({
     resolver: zodResolver(schema),
   });
 
@@ -241,14 +239,6 @@ function SchoolsTableSection(props: {
     queryFn: () => weteachApi.get(url),
     placeholderData: (previousData) => previousData,
   });
-
-  function clearFilter() {
-    reset({
-      gender: "",
-      accommodation: "",
-      institution_level: "",
-    });
-  }
 
   return (
     <section>
