@@ -109,7 +109,7 @@ export default function Root({
 
       <div className="flex flex-row h-[calc(100vh-70px)]">
         <aside className=" border-r border-gray-200">
-          <menu className="w-[240px] flex flex-col gap-1 text-gray-500 px-3 pt-3 *:w-full text-sm">
+          <menu className="w-[240px] flex flex-col text-gray-500 px-3 pt-3 *:w-full text-sm">
             <NavLink to="/">
               {({ isActive }) => (
                 <div
@@ -120,12 +120,12 @@ export default function Root({
                       <img
                         src={school_secondary}
                         alt={"school_secondary"}
-                        className={"w-8 h-8"}
+                        className={"w-6 h-6"}
                       />
                     </div>
                   ) : (
                     <div>
-                      <img src={school} alt={"school"} className={"w-8 h-8"} />
+                      <img src={school} alt={"school"} className={"w-6 h-6"} />
                     </div>
                   )}
                   <p className={`${isActive ? "text-secondary" : ""}`}>
@@ -144,7 +144,7 @@ export default function Root({
                       <img
                         src={person_secondary}
                         alt={"paperPlaneTilt"}
-                        className={"w-8 h-8"}
+                        className={"w-6 h-6"}
                       />
                     </div>
                   ) : (
@@ -152,7 +152,7 @@ export default function Root({
                       <img
                         src={person_plain}
                         alt={"paperPlaneTilt"}
-                        className={"w-8 h-8"}
+                        className={"w-6 h-6"}
                       />
                     </div>
                   )}
@@ -172,7 +172,7 @@ export default function Root({
                       <img
                         src={paperPlaneTiltSecondary}
                         alt={"paperPlaneTilt"}
-                        className={"w-8 h-8"}
+                        className={"w-6 h-6"}
                       />
                     </div>
                   ) : (
@@ -180,7 +180,7 @@ export default function Root({
                       <img
                         src={paperPlaneTiltPlain}
                         alt={"paperPlaneTilt"}
-                        className={"w-8 h-8"}
+                        className={"w-6 h-6"}
                       />
                     </div>
                   )}
@@ -200,7 +200,7 @@ export default function Root({
                       <img
                         src={payments_secondary}
                         alt={"payments_secondary"}
-                        className={"w-8 h-8"}
+                        className={"w-6 h-6"}
                       />
                     </div>
                   ) : (
@@ -208,7 +208,7 @@ export default function Root({
                       <img
                         src={payments}
                         alt={"payments"}
-                        className={"w-8 h-8"}
+                        className={"w-6 h-6"}
                       />
                     </div>
                   )}
