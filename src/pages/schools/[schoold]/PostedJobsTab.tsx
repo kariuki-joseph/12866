@@ -11,8 +11,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import queryString from "query-string";
 import PaginationSection from "../../../components/PaginationSection.tsx";
-import * as Popover from "@radix-ui/react-popover";
-import more_vert from "/icons/more_vert.svg";
 import NoData from "../../../components/no-data.tsx";
 
 function PostedJobsTable({ jobs }: { jobs: Job[] }) {
@@ -27,7 +25,6 @@ function PostedJobsTable({ jobs }: { jobs: Job[] }) {
             <th>Post Impression</th>
             <th>Post Publicity</th>
             <th>Posted On</th>
-            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -41,54 +38,7 @@ function PostedJobsTable({ jobs }: { jobs: Job[] }) {
                   ? `${job.payment_rate.days} days(s) for Ksh ${job.payment_rate.charges})`
                   : "-"}
               </td>
-              <td>
-                {DateTime.fromISO(job.creation_time).toLocaleString({
-                  locale: "en-gb",
-                })}
-              </td>
-              <td>
-                <Popover.Root>
-                  <Popover.Trigger asChild onClick={(e) => e.stopPropagation()}>
-                    <button
-                      className={"flex flex-row items-center justify-center"}
-                    >
-                      <img src={more_vert} alt={"more"} className={"w-4 h-4"} />
-                    </button>
-                  </Popover.Trigger>
-                  <Popover.Portal>
-                    <Popover.Content
-                      className={
-                        "bg-white *:px-3 *:py-2 z-20 border border-gray-200 text-xs flex flex-col w-[200px]"
-                      }
-                      side={"bottom"}
-                      sideOffset={5}
-                      align={"end"}
-                    >
-                      <Link
-                        to={`jobs/${job.id}/edit/basic-info`}
-                        className={"hover:bg-gray-100 hover:text-black"}
-                        onClick={(e) => e.stopPropagation()}
-                      >
-                        Basic Info
-                      </Link>
-                      <Link
-                        to={`jobs/${job.id}/edit/job-details`}
-                        className={"hover:bg-gray-100 hover:text-black"}
-                        onClick={(e) => e.stopPropagation()}
-                      >
-                        Job Details
-                      </Link>
-                      <Link
-                        to={`jobs/${job.id}/edit/payment-rate`}
-                        className={"hover:bg-gray-100 hover:text-black"}
-                        onClick={(e) => e.stopPropagation()}
-                      >
-                        Make payment
-                      </Link>
-                    </Popover.Content>
-                  </Popover.Portal>
-                </Popover.Root>
-              </td>
+              <td>{DateTime.fromISO(job.creation_time).toLocaleString()}</td>
             </tr>
           ))}
         </tbody>
@@ -110,7 +60,7 @@ export default function PostedJobsTab() {
   const { schoolId } = useParams();
   const [page, setPage] = useState(1);
 
-  const { register, watch, reset } = useForm<ISchema>({
+  const { register, watch } = useForm<ISchema>({
     resolver: zodResolver(schema),
   });
 
@@ -140,12 +90,6 @@ export default function PostedJobsTab() {
     queryFn: () => weteachApi.get(url),
     placeholderData: (previousData) => previousData,
   });
-
-  function clearFilter() {
-    reset({
-      status: "",
-    });
-  }
 
   return (
     <section>
