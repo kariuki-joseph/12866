@@ -4,6 +4,7 @@ import { useState } from "react";
 import SelectPackageTab from "./SelectPackageTab.tsx";
 import JobViewPricing from "./JobViewPricing.tsx";
 import JobPostPricing from "./JobPostPricing.tsx";
+import TeacherProfileViewPricing from "./TeacherProfileVieweingPrice.tsx";
 
 export default function ManagePayments() {
   const [tab, setTab] = useState("select-package-tab");
@@ -20,8 +21,14 @@ export default function ManagePayments() {
         </Tabs.Content>
 
         <Tabs.Content value={"job-posting-pricing"}>
-          <JobPostPricing setTab={setTab} />
+          <JobPostPricing />
         </Tabs.Content>
+
+        <Tabs.Content value={"teacher-profile-viewing-pricing"}>
+          <TeacherProfileViewPricing setTab={setTab} />
+        </Tabs.Content>
+
+
       </Tabs.Root>
     </FormSection>
   );

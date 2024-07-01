@@ -11,14 +11,14 @@ export default function SelectPackageTab({
   const navigate = useNavigate();
 
   return (
-    <>
-      <p className={"mb-3"}>Choose a package</p>
+    <section className="text-gray-500">
+      <p className={"mb-3 "}>Choose a package</p>
 
       <RadioGroup.Root
         name={"institution_level"}
         defaultValue={packageType}
         className={
-          "*:px-6 *:py-3 text-sm *:rounded-3xl *:border *:border-gray-200 *:w-1/3 flex flex-row gap-3 justify-evenly "
+          "*:px-6 *:py-3 text-sm *:rounded *:border *:border-gray-200 *:w-full flex flex-col gap-3 *:text-left "
         }
         onValueChange={(value) => setPackageType(value)}
       >
@@ -28,7 +28,8 @@ export default function SelectPackageTab({
             "data-[state=checked]:text-primary  data-[state=checked]:bg-[#FBEFFF] data-[state=checked]:border-primary"
           }
         >
-          Job view pricing
+          Job View Pricing
+          <p>Set up the cost of viewing a job post for the teachers</p>
         </RadioGroup.Item>
         <RadioGroup.Item
           value={"job-posting-pricing"}
@@ -36,7 +37,26 @@ export default function SelectPackageTab({
             "data-[state=checked]:text-primary  data-[state=checked]:bg-[#FBEFFF] data-[state=checked]:border-primary"
           }
         >
-          Job posting pricing
+          Job Posting pricing
+          <p>Set up the cost of posting a job post for the schools</p>
+        </RadioGroup.Item>
+        <RadioGroup.Item
+          value={"teacher-profile-viewing-pricing"}
+          className={
+            "data-[state=checked]:text-primary  data-[state=checked]:bg-[#FBEFFF] data-[state=checked]:border-primary"
+          }
+        >
+          Teacher Profile Viewing Pricing
+          <p>Set up the cost of viewing a teacher’s profile by a school</p>
+        </RadioGroup.Item>
+        <RadioGroup.Item
+          value={"teacher-profile-posting-pricing"}
+          className={
+            "data-[state=checked]:text-primary  data-[state=checked]:bg-[#FBEFFF] data-[state=checked]:border-primary"
+          }
+        >
+          Teacher Profile Post Pricing
+          <p>Set up the cost of posting a profile for teachers</p>
         </RadioGroup.Item>
       </RadioGroup.Root>
 
@@ -52,6 +72,6 @@ export default function SelectPackageTab({
           Proceed
         </button>
       </div>
-    </>
+    </section>
   );
 }

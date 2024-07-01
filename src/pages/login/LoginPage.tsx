@@ -84,7 +84,7 @@ export default function LoginPage({
             <span className={"text-3xl font-bold text-primary"}>Mwalimu Finder</span>
           </h1>
           <p className={"text-sm text-gray-500 text-center mb-6"}>
-            Welcome to Weteach. Enter your credentials to log in.
+            Welcome to Mwalimu Finder. Enter your credentials to log in.
           </p>
           <div>
             <label htmlFor={"email"}>Email</label>
