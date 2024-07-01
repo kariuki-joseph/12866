@@ -33,6 +33,10 @@ export default function LoginPage({
   });
 
   const onSubmit = async (data: ISchema) => {
+    localStorage.setItem("accessToken", "");
+    localStorage.setItem("userId", "");
+    localStorage.setItem("userName", "");
+
     try {
       setErrorMessage(null);
 
@@ -44,7 +48,6 @@ export default function LoginPage({
       const refreshToken = res.data["refresh"];
       const accessToken = res.data.access;
 
-      localStorage.setItem("refreshToken", refreshToken);
       localStorage.setItem("accessToken", accessToken);
 
       const userRes = await weteachApi.get("/api/v1/users/user");
