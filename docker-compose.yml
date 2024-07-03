@@ -1,6 +1,7 @@
 version: '3.8'
 services:
   dev:
+    container_name: mwalimufinder-dev
     image: node:16
     build:
       context: .
@@ -11,6 +12,7 @@ services:
       - NODE_ENV=development
 
   prod:
+    container_name: mwalimufinder-prod
     build:
       context: .
       dockerfile: docker/prod/Dockerfile
