@@ -122,6 +122,14 @@ export default function FinancesPage() {
           >
             Profile Post
           </Tabs.Trigger>
+          {/* <Tabs.Trigger
+            value={"profile-view"}
+            className={
+              "data-[state=active]:bg-white data-[state=active]:text-secondary"
+            }
+          >
+            Profile View
+          </Tabs.Trigger> */}
         </Tabs.List>
         <TabsContent value={"job-posts"}>
           <JobPayments />
@@ -132,6 +140,9 @@ export default function FinancesPage() {
         <TabsContent value={"profile-post"}>
           <ProfilePostPayment />
         </TabsContent>
+        {/* <TabsContent value={"profile-view"}>
+          <ProfileViewPayments />
+        </TabsContent> */}
       </Tabs.Root>
     </>
   );

@@ -31,6 +31,7 @@ import MakeTeacherPayment from "./pages/teachers/[teacherId]/edit/make-payment";
 import UnpublishTeacherProfilePage from "./pages/teachers/[teacherId]/edit/unpublish-profile";
 import TeachersPage from "./pages/teachers";
 import CreatePaymentProfileViewPaymentPage from "./pages/payments/manage/CreatePaymentProfleViewPaymentPage.tsx";
+import EditProfilePaymentRate from "./pages/payments/manage/EditProfilePaymentRate.tsx";
 
 function ProtectedRoutes({
   setUser,
@@ -138,6 +139,10 @@ export default function App() {
           <Route
             path="payments/manage/:rateId/edit"
             element={<EditRatePage />}
+          />
+          <Route
+            path="payments/manage/profile/:rateId/edit"
+            element={<EditProfilePaymentRate />}
           />
           <Route
             path="payments/manage/teachers"

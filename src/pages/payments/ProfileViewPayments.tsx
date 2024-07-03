@@ -16,8 +16,7 @@ function ProfilePostPaymentTable({ payments }: { payments: any }) {
       <table>
         <thead>
           <tr>
-            <th>Teacher</th>
-            <th>Profile Publicity</th>
+            <th>Teachssser</th>
             <th>Post Impressions</th>
             <th>Amount</th>
             <th>Date</th>
@@ -27,9 +26,6 @@ function ProfilePostPaymentTable({ payments }: { payments: any }) {
           {payments.map((payment) => (
             <tr key={payment.id} className={"hover:cursor-default"}>
               <th>{payment.teacher_profile_post.teacher.full_name}</th>
-              <td>
-                {payment.profile_rate.days} day(s) for Ksh {payment.profile_rate.charges}
-              </td>
               <td>
                 {payment.teacher_profile_post.views}
               </td>
@@ -80,7 +76,7 @@ export default function ProfilePostPayment() {
     },
   );
 
-  const url = `api/v1/dashboard/finances/profile/post/list/${query === "" ? "" : "?" + query}`;
+  const url = `api/v1/dashboard/finances/profile/view/list/${query === "" ? "" : "?" + query}`;
 
   const { data } = useQuery({
     queryKey: [url],

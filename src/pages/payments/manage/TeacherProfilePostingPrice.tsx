@@ -9,10 +9,10 @@ import { Link } from "react-router-dom";
 
 function TeacherProfilePostingPriceTable({ rates }: { rates: PaymentRate[] }) {
   const deletePackage = async (id: number) => {
-    await weteachApi.delete(`/api/v1/payments/rates/modify/${id}/`);
+    await weteachApi.delete(`/api/v1/payments/profile/rates/modify/${id}/`);
 
     await queryClient.invalidateQueries({
-      queryKey: ["api/v1/payments/rates/"],
+      queryKey: ["api/v1/payments/profile/rates/"],
     });
   };
 
@@ -50,7 +50,7 @@ function TeacherProfilePostingPriceTable({ rates }: { rates: PaymentRate[] }) {
                       align={"end"}
                     >
                       <Link
-                        to={`${rate.id}/edit`}
+                        to={`profile/${rate.id}/edit`}
                         className={
                           "hover:bg-gray-100 hover:text-black text-left"
                         }
