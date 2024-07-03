@@ -1,0 +1,22 @@
+version: '3.8'
+services:
+  dev:
+    image: node:16
+    build:
+      context: .
+      dockerfile: docker/dev/Dockerfile
+    ports:
+      - "5173:5173"
+    environment:
+      - NODE_ENV=development
+
+  prod:
+    build:
+      context: .
+      dockerfile: docker/prod/Dockerfile
+    ports:
+      - "8090:80"
+    environment:
+      - NODE_ENV=production
+    volumes:
+      - ./docker/prod/logs/:/var/log/nginx/
