@@ -10,6 +10,7 @@ import { TabsContent } from "@radix-ui/react-tabs";
 import JobPayments from "./JobPayments.tsx";
 import ViewPayments from "./ViewPayments.tsx";
 import { Link } from "react-router-dom";
+import ProfilePostPayment from "./ProfilePostPayments.tsx";
 
 function FinanceStats() {
   const url = "api/v1/dashboard/finances/statistics/";
@@ -113,12 +114,23 @@ export default function FinancesPage() {
           >
             Job Views
           </Tabs.Trigger>
+          <Tabs.Trigger
+            value={"profile-post"}
+            className={
+              "data-[state=active]:bg-white data-[state=active]:text-secondary"
+            }
+          >
+            Profile Post
+          </Tabs.Trigger>
         </Tabs.List>
         <TabsContent value={"job-posts"}>
           <JobPayments />
         </TabsContent>
         <TabsContent value={"job-views"}>
           <ViewPayments />
+        </TabsContent>
+        <TabsContent value={"profile-post"}>
+          <ProfilePostPayment />
         </TabsContent>
       </Tabs.Root>
     </>
