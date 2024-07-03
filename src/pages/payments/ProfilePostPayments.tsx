@@ -10,7 +10,6 @@ import queryString from "query-string";
 import NoData from "../../components/no-data.tsx";
 
 function ProfilePostPaymentTable({ payments }: { payments: any }) {
-  console.log({ payments });
 
   return (
     <div className={"table-container mt-3"}>

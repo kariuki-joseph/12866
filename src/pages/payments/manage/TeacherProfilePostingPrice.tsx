@@ -89,7 +89,7 @@ export default function TeacherProfilePostingPrice() {
   return (
     <>
       <div className={"flex flex-row justify-end mb-3"}>
-        <Link to={"/payments/create"} className={"btn-outlined"}>
+        <Link to={"/payments/manage/teachers"} className={"btn-outlined"}>
           <img src={add_secondary} alt={"add"} />
           <span>Add package</span>
         </Link>
