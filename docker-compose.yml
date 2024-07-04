@@ -10,6 +10,7 @@ services:
       - "5173:5173"
     environment:
       - NODE_ENV=development
+      - VITE_MODE=development
 
   prod:
     container_name: mwalimufinder-prod
@@ -20,5 +21,6 @@ services:
       - "8090:80"
     environment:
       - NODE_ENV=production
+      - VITE_MODE=production
     volumes:
       - ./docker/prod/logs/:/var/log/nginx/
