@@ -16,7 +16,8 @@ function ProfilePostPaymentTable({ payments }: { payments: any }) {
       <table>
         <thead>
           <tr>
-            <th>Teachssser</th>
+            <th>School</th>
+            <th>Teacher</th>
             <th>Post Impressions</th>
             <th>Amount</th>
             <th>Date</th>
@@ -25,7 +26,8 @@ function ProfilePostPaymentTable({ payments }: { payments: any }) {
         <tbody>
           {payments.map((payment) => (
             <tr key={payment.id} className={"hover:cursor-default"}>
-              <th>{payment.teacher_profile_post.teacher.full_name}</th>
+              <th>{payment.school_profile.name}</th>
+              <td>{payment.teacher_profile_post.teacher.full_name}</td>
               <td>
                 {payment.teacher_profile_post.views}
               </td>

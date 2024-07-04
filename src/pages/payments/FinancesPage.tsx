@@ -11,6 +11,7 @@ import JobPayments from "./JobPayments.tsx";
 import ViewPayments from "./ViewPayments.tsx";
 import { Link } from "react-router-dom";
 import ProfilePostPayment from "./ProfilePostPayments.tsx";
+import ProfileViewPayments from "./ProfileViewPayments.tsx";
 
 function FinanceStats() {
   const url = "api/v1/dashboard/finances/statistics/";
@@ -122,14 +123,14 @@ export default function FinancesPage() {
           >
             Profile Post
           </Tabs.Trigger>
-          {/* <Tabs.Trigger
+          <Tabs.Trigger
             value={"profile-view"}
             className={
               "data-[state=active]:bg-white data-[state=active]:text-secondary"
             }
           >
             Profile View
-          </Tabs.Trigger> */}
+          </Tabs.Trigger>
         </Tabs.List>
         <TabsContent value={"job-posts"}>
           <JobPayments />
@@ -140,9 +141,9 @@ export default function FinancesPage() {
         <TabsContent value={"profile-post"}>
           <ProfilePostPayment />
         </TabsContent>
-        {/* <TabsContent value={"profile-view"}>
+        <TabsContent value={"profile-view"}>
           <ProfileViewPayments />
-        </TabsContent> */}
+        </TabsContent>
       </Tabs.Root>
     </>
   );
