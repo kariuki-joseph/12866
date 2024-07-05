@@ -18,7 +18,7 @@ services:
       context: .
       dockerfile: docker/prod/Dockerfile
     ports:
-      - "8090:80"
+      - "8989:80"
     environment:
       - NODE_ENV=production
       - VITE_MODE=production
